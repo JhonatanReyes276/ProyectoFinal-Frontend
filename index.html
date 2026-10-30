@@ -22,21 +22,45 @@
       href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css"
       rel="stylesheet"
     />
-
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+    />
     <link rel="stylesheet" href="CSS/estilos.css" />
   </head>
 
-  <body>
+  <body class="d-flex flex-column min-vh-100">
     <!-- NAVBAR -->
     <nav class="navbar navbar-expand-md navbar-bs py-3">
-      <div class="container">
+      <div class="container d-flex justify-content-between align-items-center">
         <a class="navbar-brand d-flex align-items-center" href="index.html">
           <span class="logo">BS</span>
           <span class="marca">BLANK SPACE</span>
         </a>
 
+        <div class="d-flex align-items-center ms-auto gap-3 d-md-none">
+          <button
+            class="navbar-toggler border-0 p-0"
+            type="button"
+            data-bs-toggle="collapse"
+            data-bs-target="#menu"
+            aria-controls="menu"
+            aria-expanded="false"
+            aria-label="Abrir menú"
+          >
+            <i class="bi bi-list text-white fs-3"></i>
+          </button>
+
+          <a
+            href="#"
+            class="carrito text-decoration-none d-flex align-items-center"
+          >
+            <i class="bi bi-cart3 fs-4"></i><span class="badge">0</span>
+          </a>
+        </div>
+
         <button
-          class="navbar-toggler"
+          class="navbar-toggler border-0 p-0 d-none"
           type="button"
           data-bs-toggle="collapse"
           data-bs-target="#menu"
@@ -66,14 +90,18 @@
             </li>
             <li class="nav-item"><a class="nav-link" href="#">Taller 3D</a></li>
           </ul>
-          <a href="#" class="carrito"
-            ><i class="bi bi-cart3"></i><span class="badge">0</span></a
+
+          <a
+            href="#"
+            class="carrito text-decoration-none d-none d-md-flex align-items-center"
           >
+            <i class="bi bi-cart3 fs-4"></i><span class="badge">0</span>
+          </a>
         </div>
       </div>
     </nav>
 
-    <main class="py-5">
+    <main class="py-5 container py-5 flex-grow-1">
       <!--hero (banner)-->
       <section class="hero py-4">
         <div class="container">
@@ -91,6 +119,19 @@
                   style="height: 500px"
                   alt="Estudio creativo"
                 />
+                <!--texto-->
+                <div
+                  class="col-7 m-auto col-md-4 position-absolute top-0 end-0 p-4 p-md-5 z-3 text-center text-md-end"
+                >
+                  <h1 class="text-uppercase fw-bolder text-white">
+                    Blank space
+                  </h1>
+                  <p class="fs-5 text-white">
+                    Diseña tu prenda desde cero en nuestro editor interactivo.
+                    Elige color, agrega estampados, tipografías e imágenes sin
+                    dependencia de tallas ni estilos impuestos.
+                  </p>
+                </div>
               </div>
               <div class="carousel-item">
                 <img
@@ -99,6 +140,19 @@
                   style="height: 500px"
                   alt="..."
                 />
+                <!--texto-->
+                <div
+                  class="col-7 m-auto col-md-4 position-absolute bottom-0 end-0 p-4 p-md-5 z-3 text-center text-md-end"
+                >
+                  <h1 class="text-uppercase fw-bolder text-white">
+                    Blank space
+                  </h1>
+                  <p class="fs-5 text-white">
+                    Cada prenda es una oportunidad para expresar quién eres.
+                    Dale vida a tus ideas, marca la diferencia y convierte lo
+                    cotidiano en algo extraordinario.
+                  </p>
+                </div>
               </div>
               <div class="carousel-item">
                 <img
@@ -107,18 +161,20 @@
                   style="height: 500px"
                   alt="..."
                 />
+                <!--texto-->
+                <div
+                  class="col-7 m-auto col-md-4 position-absolute bottom-0 start-0 p-4 p-md-5 z-3 text-center text-md-end"
+                >
+                  <h1 class="text-uppercase fw-bolder text-white">
+                    Blank space
+                  </h1>
+                  <p class="fs-5 text-white">
+                    Creemos que tu ropa debe reflejar quién eres, por eso te
+                    damos la libertad de crear diseños únicos que representen tu
+                    estilo y personalidad.
+                  </p>
+                </div>
               </div>
-            </div>
-            <!--texto-->
-            <div
-              class="col-7 m-auto col-md-4 position-absolute bottom-0 end-0 p-4 p-md-5 z-3 text-center text-md-end"
-            >
-              <h1 class="text-uppercase fw-bolder text-white">Blank space</h1>
-              <p class="fs-5 text-white">
-                Diseña tu prenda desde cero en nuestro editor interactivo. Elige
-                color, agrega estampados, tipografías e imágenes sin dependencia
-                de tallas ni estilos impuestos.
-              </p>
             </div>
           </div>
 
