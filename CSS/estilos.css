@@ -290,3 +290,51 @@ p {
   resize: vertical;
 }
 
+#carouselExampleFade .carousel-control-prev-icon,
+#carouselExampleFade .carousel-control-next-icon {
+  background-image: none;
+}
+
+#carouselExampleFade .carousel-control-prev-icon::after {
+  content: '‹';
+  font-size: 3rem;
+  color: var(--tomato); 
+  font-weight: bold;
+}
+
+#carouselExampleFade .carousel-control-next-icon::after {
+  content: '›';
+  font-size: 3rem;
+  color: var(--tomato);
+  font-weight: bold;
+}
+
+#carrusel-comentarios .carousel-indicators [data-bs-target] {
+  background-color: var(--tomato);
+  opacity: 0.5;
+}
+
+#carrusel-comentarios .carousel-indicators .active {
+  opacity: 1;
+}
+
+#carrusel-comentarios .carousel-control-prev-icon,
+#carrusel-comentarios .carousel-control-next-icon {
+  background-image: none;
+  width: auto;
+  height: auto;
+}
+
+#carrusel-comentarios .carousel-control-prev-icon::after {
+  content: '‹';
+  font-size: 3.5rem;
+  color: var(--tomato);            
+  font-weight: bold;
+}
+
+#carrusel-comentarios .carousel-control-next-icon::after {
+  content: '›';
+  font-size: 3.5rem;
+  color: var(--tomato);        
+  font-weight: bold;
+}
