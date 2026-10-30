@@ -1,163 +1,249 @@
 <!doctype html>
 <html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Inicio | Blank Space</title>
 
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Inicio | Blank Space</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Space+Grotesk:wght@300..700&display=swap"
+      rel="stylesheet"
+    />
 
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB"
+      crossorigin="anonymous"
+    />
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css"
+      rel="stylesheet"
+    />
 
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link
-    href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Space+Grotesk:wght@300..700&display=swap"
-    rel="stylesheet" />
-  
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet"
-    integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous" />
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" rel="stylesheet" />
+    <link rel="stylesheet" href="CSS/estilos.css" />
+  </head>
 
+  <body>
+    <!-- NAVBAR -->
+    <nav class="navbar navbar-expand-md navbar-bs py-3">
+      <div class="container">
+        <a class="navbar-brand d-flex align-items-center" href="index.html">
+          <span class="logo">BS</span>
+          <span class="marca">BLANK SPACE</span>
+        </a>
 
-  <link rel="stylesheet" href="CSS/estilos.css" />
-</head>
-
-<body>
-  <!-------------------------- NAVBAR ----->
-
-  <nav class="navbar navbar-expand-md navbar-bs py-3">
-    <div class="container d-flex justify-content-between align-items-center">
-
-      <a class="navbar-brand d-flex align-items-center" href="index.html">
-        <span class="logo">BS</span>
-        <span class="marca">BLANK SPACE</span>
-      </a>
-
-      <div class="d-flex align-items-center ms-auto gap-3 d-md-none">
-        <button class="navbar-toggler border-0 p-0" type="button" data-bs-toggle="collapse" data-bs-target="#menu"
-          aria-controls="menu" aria-expanded="false" aria-label="Abrir menú">
+        <button
+          class="navbar-toggler"
+          type="button"
+          data-bs-toggle="collapse"
+          data-bs-target="#menu"
+          aria-controls="menu"
+          aria-expanded="false"
+          aria-label="Abrir menú"
+        >
           <i class="bi bi-list text-white fs-3"></i>
         </button>
 
-        <a href="#" class="carrito text-decoration-none d-flex align-items-center">
-          <i class="bi bi-cart3 fs-4"></i><span class="badge">0</span>
-        </a>
+        <div class="collapse navbar-collapse" id="menu">
+          <ul class="navbar-nav mx-auto">
+            <li class="nav-item">
+              <a class="nav-link active" href="index.html">Inicio</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="HTML/sobre-nosotros.html"
+                >Sobre nosotros</a
+              >
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="HTML/contacto.html">Contacto</a>
+            </li>
+            <li class="nav-item"><a class="nav-link" href="#">Catálogo</a></li>
+            <li class="nav-item">
+              <a class="nav-link" href="#">¿Cómo funciona?</a>
+            </li>
+            <li class="nav-item"><a class="nav-link" href="#">Taller 3D</a></li>
+          </ul>
+          <a href="#" class="carrito"
+            ><i class="bi bi-cart3"></i><span class="badge">0</span></a
+          >
+        </div>
       </div>
+    </nav>
 
-      <button class="navbar-toggler border-0 p-0 d-none" type="button" data-bs-toggle="collapse" data-bs-target="#menu"
-        aria-controls="menu" aria-expanded="false" aria-label="Abrir menú">
-        <i class="bi bi-list text-white fs-3"></i>
-      </button>
+    <main class="py-5">
+      <!--hero (banner)-->
+      <section class="hero py-4">
+        <div class="container">
+          <!-- carrusel -->
+          <div
+            id="carouselExampleSlidesOnly"
+            class="carousel slide mb-5 rounded-2 overflow-hidden shadow position-relative"
+            data-bs-ride="carousel"
+          >
+            <div class="carousel-inner">
+              <div class="carousel-item active">
+                <img
+                  src="IMG/proceso.jpg"
+                  class="d-block w-100 object-fit-cover hero-img"
+                  style="height: 500px"
+                  alt="Estudio creativo"
+                />
+              </div>
+              <div class="carousel-item">
+                <img
+                  src="IMG/creacion.jpg"
+                  class="d-block w-100 object-fit-cover hero-img"
+                  style="height: 500px"
+                  alt="..."
+                />
+              </div>
+              <div class="carousel-item">
+                <img
+                  src="IMG/cliente.jpg"
+                  class="d-block w-100 object-fit-cover hero-img"
+                  style="height: 500px"
+                  alt="..."
+                />
+              </div>
+            </div>
+            <!--texto-->
+            <div
+              class="col-7 m-auto col-md-4 position-absolute bottom-0 end-0 p-4 p-md-5 z-3 text-center text-md-end"
+            >
+              <h1 class="text-uppercase fw-bolder text-white">Blank space</h1>
+              <p class="fs-5 text-white">
+                Diseña tu prenda desde cero en nuestro editor interactivo. Elige
+                color, agrega estampados, tipografías e imágenes sin dependencia
+                de tallas ni estilos impuestos.
+              </p>
+            </div>
+          </div>
 
-      <div class="collapse navbar-collapse" id="menu">
-        <ul class="navbar-nav mx-auto">
-          <li class="nav-item"><a class="nav-link active" href="index.html">Inicio</a></li>
-          <li class="nav-item"><a class="nav-link" href="HTML/sobre-nosotros.html">Sobre nosotros</a></li>
-          <li class="nav-item"><a class="nav-link" href="HTML/contacto.html">Contacto</a></li>
-          <li class="nav-item"><a class="nav-link" href="#">Catálogo</a></li>
-          <li class="nav-item"><a class="nav-link" href="#">¿Cómo funciona?</a></li>
-          <li class="nav-item"><a class="nav-link" href="#">Taller 3D</a></li>
-        </ul>
+          <!-- Etiquetas -->
+          <div class="row gap-3">
+            <div
+              class="col-10 m-auto col-md rounded-4 p-3 bg-tomato d-flex justify-content-center align-items-center text-center gap-2"
+            >
+              <i class="fa-regular fa-hand fs-4"></i>
+              <span class="fw-semibold">100% Personalizado</span>
+            </div>
+            <div
+              class="col-10 m-auto col-md rounded-4 p-3 bg-glacous d-flex justify-content-center align-items-center text-center gap-2"
+            >
+              <i class="fa-regular fa-compass fs-4"></i>
+              <span class="fw-semibold">Envios Nacionales</span>
+            </div>
+            <div
+              class="col-10 m-auto col-md rounded-4 p-3 bg-black text-white d-flex justify-content-center align-items-center text-center gap-2"
+            >
+              <i class="fa-regular fa-star fs-4"></i>
+              <span class="fw-semibold">Exclusivo</span>
+            </div>
+            <div
+              class="col-10 m-auto col-md rounded-4 p-3 bg-white border d-flex justify-content-center align-items-center text-center gap-2"
+            >
+              <i class="fa-solid fa-box fs-4"></i>
+              <span class="fw-semibold text-dark">Bajo Demanda</span>
+            </div>
+          </div>
+        </div>
+      </section>
+    </main>
 
-        <a href="#" class="carrito text-decoration-none d-none d-md-flex align-items-center">
-          <i class="bi bi-cart3 fs-4"></i><span class="badge">0</span>
-        </a>
-      </div>
+    <footer class="footer">
+      <div class="container py-5">
+        <div class="row gy-4">
+          <!-- LADO IZQUIERDO -->
+          <div class="col-12 col-md-5">
+            <!-- Marca -->
+            <a href="/index.html" class="text-decoration-none d-inline-block">
+              <span class="logo">BS</span>
+              <span class="marca">BLANK SPACE</span>
+            </a>
 
-    </div>
-  </nav>
+            <p class="fw-semibold mt-2">
+              Tu diseño y personalidad en una prenda
+            </p>
 
+            <!-- Redes sociales -->
+            <div class="mt-4">
+              <h6 class="fw-bold mb-3">SÍGUENOS</h6>
 
-  <main class="container py-5">
+              <ul class="list-unstyled d-flex gap-4 mb-0">
+                <li>
+                  <a href="https://www.facebook.com/" class="social-link">
+                    <i class="bi bi-facebook" id="facebook"></i>
+                  </a>
+                </li>
+                <li>
+                  <a href="https://www.instagram.com/" class="social-link">
+                    <i class="bi bi-instagram" id="instagram"></i>
+                  </a>
+                </li>
+                <li>
+                  <a href="https://www.tiktok.com/" class="social-link">
+                    <i class="bi bi-tiktok" id="tiktok"></i>
+                  </a>
+                </li>
+              </ul>
+            </div>
+          </div>
 
-  </main>
+          <!-- LADO DERECHO -->
+          <div class="col-12 col-md-7">
+            <!-- Botón de pedido -->
+            <div class="text-md-end mb-4">
+              <a href="/HTML/catalogo.html" class="btn-pedido">
+                Hacer un pedido
+                <i class="bi bi-arrow-up-right"></i>
+              </a>
+            </div>
 
-  <footer class="footer">
-    <div class="container py-5">
+            <!-- Menú -->
+            <nav class="footer-menu">
+              <ul
+                class="list-unstyled d-flex flex-wrap justify-content-md-end gap-3 gap-lg-4 mb-0"
+              >
+                <li><a href="/index.html" class="footer-link">Inicio</a></li>
+                <li>
+                  <a href="/HTML/sobre-nosotros.html" class="footer-link"
+                    >Sobre nosotros</a
+                  >
+                </li>
+                <li>
+                  <a href="/HTML/contacto.html" class="footer-link">Contacto</a>
+                </li>
+                <li>
+                  <a href="/HTML/catalogo.html" class="footer-link">Catálogo</a>
+                </li>
+                <li><a href="#" class="footer-link">¿Cómo funciona?</a></li>
+                <li><a href="#" class="footer-link">Taller 3D</a></li>
+              </ul>
+            </nav>
 
-      <div class="row gy-4">
-
-        <!-- LADO IZQUIERDO -->
-        <div class="col-12 col-md-5">
-
-          <!-- Marca -->
-          <a href="/index.html" class="text-decoration-none d-inline-block">
-            <span class="logo">BS</span>
-            <span class="marca">BLANK SPACE</span>
-          </a>
-
-          <p class="fw-semibold mt-2">
-            Tu diseño y personalidad en una prenda
+            <!-- Volver arriba -->
+            <div class="text-md-end mt-4">
+              <a href="#inicio" class="back-top">
+                Volver arriba
+                <i class="bi bi-arrow-up"></i>
+              </a>
+            </div>
+          </div>
+        </div>
+        <div class="copyright mt-5 pt-3">
+          <p class="mb-0">
+            &copy; 2026 BLANKSPACE. Todos los derechos reservados.
           </p>
-
-          <!-- Redes sociales -->
-          <div class="mt-4">
-            <h6 class="fw-bold mb-3">SÍGUENOS</h6>
-
-            <ul class="list-unstyled d-flex gap-4 mb-0">
-              <li>
-                <a href="https://www.facebook.com/" class="social-link">
-                  <i class="bi bi-facebook" id="facebook"></i>
-                </a>
-              </li>
-              <li>
-                <a href="https://www.instagram.com/" class="social-link">
-                  <i class="bi bi-instagram" id="instagram"></i>
-                </a>
-              </li>
-              <li>
-                <a href="https://www.tiktok.com/" class="social-link">
-                  <i class="bi bi-tiktok" id="tiktok"></i>
-                </a>
-              </li>
-            </ul>
-          </div>
-
-        </div>
-
-        <!-- LADO DERECHO -->
-        <div class="col-12 col-md-7">
-
-          <!-- Botón de pedido -->
-          <div class="text-md-end mb-4">
-            <a href="/HTML/catalogo.html" class="btn-pedido">
-              Hacer un pedido
-              <i class="bi bi-arrow-up-right"></i>
-            </a>
-          </div>
-
-          <!-- Menú -->
-          <nav class="footer-menu">
-            <ul class="list-unstyled d-flex flex-wrap justify-content-md-end gap-3 gap-lg-4 mb-0">
-              <li><a href="/index.html" class="footer-link">Inicio</a></li>
-              <li><a href="/HTML/sobre-nosotros.html" class="footer-link">Sobre nosotros</a></li>
-              <li><a href="/HTML/contacto.html" class="footer-link">Contacto</a></li>
-              <li><a href="/HTML/catalogo.html" class="footer-link">Catálogo</a></li>
-              <li><a href="#" class="footer-link">¿Cómo funciona?</a></li>
-              <li><a href="#" class="footer-link">Taller 3D</a></li>
-            </ul>
-          </nav>
-
-          <!-- Volver arriba -->
-          <div class="text-md-end mt-4">
-            <a href="#inicio" class="back-top">
-              Volver arriba
-              <i class="bi bi-arrow-up"></i>
-            </a>
-          </div>
-
         </div>
       </div>
-      <div class="copyright mt-5 pt-3">
-        <p class="mb-0">
-          &copy; 2026 BLANKSPACE. Todos los derechos reservados.
-        </p>
-      </div>
-
-    </div>
-  </footer>
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"
-    integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI"
-    crossorigin="anonymous"></script>
-</body>
-
+    </footer>
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI"
+      crossorigin="anonymous"
+    ></script>
+  </body>
 </html>

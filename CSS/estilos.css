@@ -436,3 +436,30 @@ p {
 .back-top:hover{
   color: var(--tomato)
 }
+
+.bg-tomato{
+  background-color: var(--tomato);
+}
+
+.bg-black{
+ background-color: var(--shadow-gray)!important;
+ color:#FFFFFF;
+}
+
+.bg-glacous{
+ background-color: var(--glaucous);
+}
+
+.bg-white{
+  background-color: #FFFFFF;
+}
+
+.carousel-item::after {
+    content: ""; /* Obligatorio */
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.45);
+    z-index: 1;
+}
