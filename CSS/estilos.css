@@ -451,7 +451,7 @@ p {
 }
 
 .texto-tomato {
-  color: var(--tomato);
+  color: var(--tomato) !important;
 }
 
 .fa-brands,
