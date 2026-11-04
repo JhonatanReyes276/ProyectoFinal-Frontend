@@ -512,3 +512,90 @@ p {
     background: rgba(0, 0, 0, 0.45);
     z-index: 1;
 }
+
+/* Estilo formulario */
+
+.gestion-productos {
+    display: flex;
+    gap: 20px;
+    margin-top: 25px;
+    padding-left: 20 px;
+}
+
+.formulario-producto {
+    width: 280px;
+    padding: 15px;
+    border: 1px solid var(--tomato);
+    border-radius: 8px;
+}
+
+/* Estilo del titulo y margen del contenedor */
+.contenido {
+    flex: 1;
+    padding: 40px !important;
+    border-radius: 12px;
+}
+
+#titulo-admin {
+    font-size: 26px;
+    font-weight: 600;
+    margin-bottom: 8px;
+    color: #333;
+}
+
+/* Estilo boton seleccionar */
+
+.form-select {
+    border: 1px solid #d5d9d2;
+    border-radius: 8px;
+    padding: 10px;
+    font-size: 14px;
+    background-color: #fff;
+}
+
+/* Estilo subir imagen en el formulario */
+
+.subir-imagen {
+    width: 120px;
+    height: 120px;
+    border: 2px dashed var(--shadow-gray);
+    border-radius: 8px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+}
+
+.subir-imagen span {
+    font-size: 35px;
+}
+
+.subir-imagen p {
+    font-size: 12px;
+    margin: 0;
+}
+
+.subir-imagen:hover {
+  border: var(--shadow-gray) !important;
+  background-color: var(--tomato);
+}
+
+/* Estilo boton guardar*/
+
+.btn-guardar {
+    width: 100%;
+    padding: 10px;
+    background-color: #FFFFFF;
+    color: black;
+    border: 1px solid var(--shadow-gray);
+    border-radius: 8px;
+    font-size: 14px;
+    font-weight: 600;
+}
+.btn-guardar:hover {
+    background-color: var(--tomato);
+    border-color: var(--shadow-gray);
+}
+
+
