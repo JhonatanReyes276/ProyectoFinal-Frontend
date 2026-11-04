@@ -60,7 +60,7 @@
             <a class="nav-link" href="#">¿Cómo funciona?</a>
           </li>
           <li class="nav-item"><a class="nav-link" href="#">Taller 3D</a></li>
-          <li class="nav-item"><a class="nav-link" href="#Administrador">Admin</a></li>
+          <li class="nav-item"><a class="nav-link" href="HTML/Admin/admin.html">Admin</a></li>
         </ul>
 
         <a href="#" class="carrito text-decoration-none d-none d-md-flex align-items-center">
@@ -154,43 +154,306 @@
       </div>
     </section>
 
-    <section id="estrella" class="container py-5">
-      <h2 class="text-center mb-4">PRODUCTOS ESTRELLA</h2>
-      <div class="row g-4 align-items-center">
-        <div class="col-md-6 mx-auto">
-          <div id="carouselExampleFade" class="carousel slide carousel-fade" data-bs-ride="carousel">
-            <div class="carousel-inner">
-              <div class="carousel-item active d-flex justify-content-center align-items-center" style="height: 400px;">
-                <img src="IMG/camisetas.jpg" class="d-block w-100" style="object-fit: contain;"
-                  alt="Camisetas estampadas">
+    <!------------- Productos estrella------------- -->
+
+    <section id="estrella" class="seccion-estrella-full py-5">
+      <div class="container">
+
+        <div class="text-center mb-5">
+          <span class="badge-destacado">LO MÁS VENDIDO</span>
+          <h2 class="titulo-estrella">PRODUCTOS <span class="texto-naranja">ESTRELLA</span></h2>
+          <div class="linea-naranja"></div>
+        </div>
+
+        <div class="row justify-content-center">
+          <div class="col-lg-7 col-md-9">
+            <div id="carouselExampleFade" class="carousel slide carousel-fade" data-bs-ride="carousel">
+
+              <div class="carousel-inner marco-carrusel shadow-lg">
+
+                <div class="carousel-item active" style="height: 480px;">
+                  <img src="IMG/camisetas.jpg" class="d-block w-100 h-100 img-carrusel" alt="Camisetas estampadas">
+                </div>
+
+                <div class="carousel-item" style="height: 480px;">
+                  <img src="IMG/gorras.jpg" class="d-block w-100 h-100 img-carrusel" alt="Gorras estampadas">
+                </div>
+
+                <div class="carousel-item" style="height: 480px;">
+                  <img src="IMG/medias.jpg" class="d-block w-100 h-100 img-carrusel" alt="Medias estampadas">
+                </div>
+
               </div>
-              <div class="carousel-item d-flex justify-content-center align-items-center" style="height: 400px;">
-                <img src="IMG/gorras.jpg" class="d-block w-100" style="object-fit: contain;" alt="Gorras estampadas">
-              </div>
-              <div class="carousel-item d-flex justify-content-center align-items-center" style="height: 400px;">
-                <img src="IMG/medias.jpg" class="d-block w-100" style="object-fit: contain;" alt="Medias estampadas">
-              </div>
+
+              <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleFade"
+                data-bs-slide="prev">
+                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                <span class="visually-hidden">Previous</span>
+              </button>
+              <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleFade"
+                data-bs-slide="next">
+                <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                <span class="visually-hidden">Next</span>
+              </button>
+
             </div>
-            <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleFade"
-              data-bs-slide="prev">
-              <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-              <span class="visually-hidden">Previous</span>
-            </button>
-            <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleFade"
-              data-bs-slide="next">
-              <span class="carousel-control-next-icon" aria-hidden="true"></span>
-              <span class="visually-hidden">Next</span>
-            </button>
+          </div>
+        </div>
+
+      </div>
+    </section>
+    <!----------------- Catalogo ---------------- -->
+
+    <section id="catalogo" class="container py-5">
+      <!-- Cabecera con diseño mejorado -->
+      <div class="text-center mb-5 titulo-catalogo-wrapper">
+        <span class="badge-subtitulo">NUESTRA COLECCIÓN</span>
+        <h2 class="titulo-catalogo">CATÁLOGO</h2>
+        <div class="linea-decorativa"></div>
+        <p class="subtitulo-catalogo">Elige una prenda base y filtra por la talla y el color que necesitas.</p>
+      </div>
+
+
+      <div class="panel-filtros mb-4">
+        <div class="row g-4">
+
+          <div class="col-md-6">
+            <h3 class="titulo-filtro">Talla</h3>
+            <div class="opciones">
+              <button type="button" class="chip-talla activo" data-talla="todas">Todas</button>
+              <button type="button" class="chip-talla" data-talla="S">S</button>
+              <button type="button" class="chip-talla" data-talla="M">M</button>
+              <button type="button" class="chip-talla" data-talla="L">L</button>
+              <button type="button" class="chip-talla" data-talla="XL">XL</button>
+            </div>
+          </div>
+
+          <div class="col-md-6">
+            <h3 class="titulo-filtro">Color</h3>
+            <div class="opciones">
+              <button type="button" class="chip-color chip-texto activo" data-color="todos">Todos</button>
+              <button type="button" class="chip-color circulo color-negro" data-color="negro" aria-label="Negro"
+                title="Negro"></button>
+              <button type="button" class="chip-color circulo color-blanco" data-color="blanco" aria-label="Blanco"
+                title="Blanco"></button>
+              <button type="button" class="chip-color circulo color-naranja" data-color="naranja" aria-label="Naranja"
+                title="Naranja"></button>
+              <button type="button" class="chip-color circulo color-azul" data-color="azul" aria-label="Azul"
+                title="Azul"></button>
+              <button type="button" class="chip-color circulo color-gris" data-color="gris" aria-label="Gris"
+                title="Gris"></button>
+            </div>
           </div>
         </div>
       </div>
-    </section>
 
-    <section id="comentarios" class="py-5">
-      <h2 class="text-center mb-4">COMENTARIOS DE NUESTROS USUARIOS</h2>
-      <div class="row g-4 align-items-center">
-        <div class="col-md-6 mx-auto">
-          <div id="carrusel-comentarios" class="carousel slide">
+      <div class="d-flex justify-content-between align-items-center mb-3">
+        <p id="contador" class="contador-productos mb-0"></p>
+        <button type="button" id="limpiarFiltros" class="boton-limpiar">Limpiar filtros</button>
+      </div>
+
+      <div id="listaProductos" class="row g-4">
+
+        <div class="col-6 col-md-4 col-lg-3">
+          <article class="producto" data-id="1">
+            <div class="producto-img">
+              <img src="IMG/camisac.png" alt="Camiseta Clásica" />
+            </div>
+            <div class="producto-info">
+              <h3 class="producto-nombre">Camiseta Clásica</h3>
+              <p class="producto-precio">$45.000</p>
+              <div class="producto-colores">
+                <span class="punto color-negro" title="negro"></span>
+                <span class="punto color-blanco" title="blanco"></span>
+                <span class="punto color-naranja" title="naranja"></span>
+              </div>
+              <div class="producto-tallas">
+                <span class="etiqueta-talla">S</span>
+                <span class="etiqueta-talla">M</span>
+                <span class="etiqueta-talla">L</span>
+                <span class="etiqueta-talla">XL</span>
+              </div>
+            </div>
+          </article>
+        </div>
+
+        <div class="col-6 col-md-4 col-lg-3">
+          <article class="producto" data-id="2">
+            <div class="producto-img">
+              <img src="IMG/camisaO.png" alt="Camiseta Oversize" />
+            </div>
+            <div class="producto-info">
+              <h3 class="producto-nombre">Camiseta Oversize</h3>
+              <p class="producto-precio">$55.000</p>
+              <div class="producto-colores">
+                <span class="punto color-negro" title="negro"></span>
+                <span class="punto color-gris" title="gris"></span>
+                <span class="punto color-azul" title="azul"></span>
+              </div>
+              <div class="producto-tallas">
+                <span class="etiqueta-talla">M</span>
+                <span class="etiqueta-talla">L</span>
+                <span class="etiqueta-talla">XL</span>
+              </div>
+            </div>
+          </article>
+        </div>
+
+        <div class="col-6 col-md-4 col-lg-3">
+          <article class="producto" data-id="3">
+            <div class="producto-img">
+              <img src="IMG/gorras.png" alt="Gorra Snapback" />
+            </div>
+            <div class="producto-info">
+              <h3 class="producto-nombre">Gorra Snapback</h3>
+              <p class="producto-precio">$35.000</p>
+              <div class="producto-colores">
+                <span class="punto color-negro" title="negro"></span>
+                <span class="punto color-blanco" title="blanco"></span>
+                <span class="punto color-naranja" title="naranja"></span>
+              </div>
+              <div class="producto-tallas">
+                <span class="etiqueta-talla">M</span>
+                <span class="etiqueta-talla">L</span>
+              </div>
+            </div>
+          </article>
+        </div>
+
+        <div class="col-6 col-md-4 col-lg-3">
+          <article class="producto" data-id="4">
+            <div class="producto-img">
+              <img src="IMG/gorrat.png" alt="Gorra Trucker" />
+            </div>
+            <div class="producto-info">
+              <h3 class="producto-nombre">Gorra Trucker</h3>
+              <p class="producto-precio">$32.000</p>
+              <div class="producto-colores">
+                <span class="punto color-azul" title="azul"></span>
+                <span class="punto color-gris" title="gris"></span>
+              </div>
+              <div class="producto-tallas">
+                <span class="etiqueta-talla">S</span>
+                <span class="etiqueta-talla">M</span>
+              </div>
+            </div>
+          </article>
+        </div>
+
+        <div class="col-6 col-md-4 col-lg-3">
+          <article class="producto" data-id="5">
+            <div class="producto-img">
+              <img src="IMG/medias.jpg" alt="Medias Estampadas" />
+            </div>
+            <div class="producto-info">
+              <h3 class="producto-nombre">Medias Estampadas</h3>
+              <p class="producto-precio">$18.000</p>
+              <div class="producto-colores">
+                <span class="punto color-blanco" title="blanco"></span>
+                <span class="punto color-negro" title="negro"></span>
+                <span class="punto color-azul" title="azul"></span>
+              </div>
+              <div class="producto-tallas">
+                <span class="etiqueta-talla">35-37</span>
+                <span class="etiqueta-talla">27-30</span>
+                <span class="etiqueta-talla">38-40</span>
+              </div>
+            </div>
+          </article>
+        </div>
+
+        <div class="col-6 col-md-4 col-lg-3">
+          <article class="producto" data-id="6">
+            <div class="producto-img">
+              <img src="IMG/medial.png" alt="Medias Largas" />
+            </div>
+            <div class="producto-info">
+              <h3 class="producto-nombre">Medias Largas</h3>
+              <p class="producto-precio">$20.000</p>
+              <div class="producto-colores">
+                <span class="punto color-gris" title="gris"></span>
+                <span class="punto color-naranja" title="naranja"></span>
+              </div>
+              <div class="producto-tallas">
+                <span class="etiqueta-talla">31-34</span>
+                <span class="etiqueta-talla">35-37</span>
+                <span class="etiqueta-talla">38-40</span>
+              </div>
+            </div>
+          </article>
+        </div>
+
+        <div class="col-6 col-md-4 col-lg-3">
+          <article class="producto" data-id="7">
+            <div class="producto-img">
+              <img src="IMG/median.png" alt="Medias infantiles" />
+            </div>
+            <div class="producto-info">
+              <h3 class="producto-nombre">Medias infantiles</h3>
+              <p class="producto-precio">$12.000</p>
+              <div class="producto-colores">
+                <span class="punto color-blanco" title="blanco"></span>
+                <span class="punto color-negro" title="negro"></span>
+                <span class="punto color-azul" title="azul"></span>
+              </div>
+              <div class="producto-tallas">
+                <span class="etiqueta-talla">23-26</span>
+                <span class="etiqueta-talla">27-30</span>
+                <span class="etiqueta-talla">31-34</span>
+              </div>
+            </div>
+          </article>
+        </div>
+
+        <div class="col-6 col-md-4 col-lg-3">
+          <article class="producto" data-id="8">
+            <div class="producto-img">
+              <img src="IMG/mediat.png" alt="Medias tobilleras" />
+            </div>
+            <div class="producto-info">
+              <h3 class="producto-nombre">Medias tobilleras</h3>
+              <p class="producto-precio">$12.000</p>
+              <div class="producto-colores">
+                <span class="punto color-blanco" title="blanco"></span>
+                <span class="punto color-negro" title="negro"></span>
+                <span class="punto color-azul" title="azul"></span>
+              </div>
+              <div class="producto-tallas">
+                <span class="etiqueta-talla">35-37</span>
+                <span class="etiqueta-talla">27-30</span>
+                <span class="etiqueta-talla">38-40</span>
+              </div>
+            </div>
+          </article>
+        </div>
+
+      </div>
+
+      <div id="sinResultados" class="sin-resultados d-none">
+        <h3 class="h4">No hay productos con esa combinación</h3>
+        <p class="mb-0">Prueba con otra talla u otro color, o limpia los filtros.</p>
+      </div>
+    </section>
+    <!----------------- Comentarios ---------------- -->
+
+    <section id="comentarios" class="container py-5">
+
+      <div class="row justify-content-center mb-4">
+        <div class="col-lg-10">
+          <div class="panel-titulo-comentarios p-4 p-md-5 text-center">
+            <span class="badge-destacado">TESTIMONIOS</span>
+            <h2 class="titulo-estrella text-white mb-2">COMENTARIOS DE NUESTROS <span
+                class="texto-naranja">USUARIOS</span></h2>
+            <div class="linea-naranja mx-auto mb-3"></div>
+            <p class="subtitulo-comentarios mb-0">Lo que dicen quienes ya confían en nosotros y en nuestras prendas.</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="row justify-content-center">
+        <div class="col-lg-7 col-md-9">
+          <div id="carrusel-comentarios" class="carousel slide" data-bs-ride="carousel">
+
             <div class="carousel-indicators">
               <button type="button" data-bs-target="#carrusel-comentarios" data-bs-slide-to="0" class="active"
                 aria-current="true" aria-label="Slide 1"></button>
@@ -199,17 +462,22 @@
               <button type="button" data-bs-target="#carrusel-comentarios" data-bs-slide-to="2"
                 aria-label="Slide 3"></button>
             </div>
-            <div class="carousel-inner rounded-4">
-              <div class="carousel-item active">
-                <img src="IMG/comentarios1.jpg" class="d-block w-100" alt="Comentarios de nuestros clientes">
+
+            <div class="carousel-inner marco-carrusel shadow-lg bg-white">
+              <div class="carousel-item active" style="height: 480px;">
+                <img src="IMG/comentarios1.jpg" class="d-block w-100 h-100 img-carrusel"
+                  alt="Comentarios de nuestros clientes">
               </div>
-              <div class="carousel-item">
-                <img src="IMG/comentarios2.jpg" class="d-block w-100" alt="Comentarios de nuestros clientes">
+              <div class="carousel-item" style="height: 480px;">
+                <img src="IMG/comentarios2.jpg" class="d-block w-100 h-100 img-carrusel"
+                  alt="Comentarios de nuestros clientes">
               </div>
-              <div class="carousel-item">
-                <img src="IMG/comentarios3.jpg" class="d-block w-100" alt="Comentarios de nuestros clientes">
+              <div class="carousel-item" style="height: 480px;">
+                <img src="IMG/comentarios3.jpg" class="d-block w-100 h-100 img-carrusel"
+                  alt="Comentarios de nuestros clientes">
               </div>
             </div>
+
             <button class="carousel-control-prev" type="button" data-bs-target="#carrusel-comentarios"
               data-bs-slide="prev">
               <span class="carousel-control-prev-icon" aria-hidden="true"></span>
@@ -220,9 +488,11 @@
               <span class="carousel-control-next-icon" aria-hidden="true"></span>
               <span class="visually-hidden">Next</span>
             </button>
+
           </div>
         </div>
       </div>
+
     </section>
   </main>
 
@@ -312,6 +582,7 @@
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"
     integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI"
     crossorigin="anonymous"></script>
+  <script src="JS/script.js"></script>
 </body>
 
 </html>

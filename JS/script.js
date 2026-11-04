@@ -79,3 +79,163 @@ function validarNombre() {
 }
 
 formulario.addEventListener("submit", enviar);
+
+//Catalogo de productos
+
+const productos = [
+  {
+    id: 1,
+    nombre: "Camiseta Clásica",
+    precio: 45000,
+    imagen: "IMG/camisetas.jpg",
+    tallas: ["S", "M", "L", "XL"],
+    colores: ["negro", "blanco", "naranja"]
+  },
+  {
+    id: 2,
+    nombre: "Camiseta Oversize",
+    precio: 55000,
+    imagen: "IMG/camisetas.jpg",
+    tallas: ["M", "L", "XL"],
+    colores: ["negro", "gris", "azul", "verde", "rojo"]
+  },
+  {
+    id: 3,
+    nombre: "Gorra Snapback",
+    precio: 35000,
+    imagen: "IMG/gorras.jpg",
+    tallas: ["M", "L"],
+    colores: ["negro", "blanco", "naranja", "verde"]
+  },
+  {
+    id: 4,
+    nombre: "Gorra Trucker",
+    precio: 32000,
+    imagen: "IMG/gorras.jpg",
+    tallas: ["S", "M"],
+    colores: ["azul", "gris", "rojo"]
+  },
+  {
+    id: 5,
+    nombre: "Medias Estampadas",
+    precio: 18000,
+    imagen: "IMG/medias.jpg",
+    tallas: ["35-37", "27-30", "38-40", "41-43", "44-46"],
+    colores: ["blanco", "negro", "azul"]
+  },
+  {
+    id: 6,
+    nombre: "Medias Largas",
+    precio: 20000,
+    imagen: "IMG/medias.jpg",
+    tallas: ["31-34", "35-37", "27-30", "38-40", "41-43", "44-46"],
+    colores: ["gris", "naranja"]
+  },
+  {
+    id: 7,
+    nombre: "Medias infantiles",
+    precio: 12000,
+    imagen: "IMG/medias.jpg",
+    tallas: ["23-26", "27-30", "31-34"],
+    colores: ["blanco", "negro", "azul", "verde", "rojo"]
+  },
+  {
+    id: 8,
+    nombre: "Medias tobilleras",
+    precio: 12000,
+    imagen: "IMG/medias.jpg",
+    tallas: ["35-37", "27-30", "38-40", "41-43", "44-46"],
+    colores: ["blanco", "negro", "azul", "verde", "rojo", "café", "naranja"]
+  },
+];
+
+
+let tallaActiva = "todas";
+let colorActivo = "todos";
+
+const tarjetasProductos = document.querySelectorAll(".producto");
+const contador = document.getElementById("contador");
+const sinResultados = document.getElementById("sinResultados");
+const botonLimpiar = document.getElementById("limpiarFiltros");
+const botonesTalla = document.querySelectorAll(".chip-talla");
+const botonesColor = document.querySelectorAll(".chip-color");
+
+function actualizarContador(visibles) {
+  if (visibles === 1) {
+    contador.textContent = "1 producto";
+  } else {
+    contador.textContent = visibles + " productos";
+  }
+
+  if (visibles === 0) {
+    sinResultados.classList.remove("d-none");
+  } else {
+    sinResultados.classList.add("d-none");
+  }
+}
+
+//Filtrar
+function filtrarProductos() {
+  let visibles = 0;
+
+  tarjetasProductos.forEach(function (tarjeta) {
+    
+    const idTarjeta = Number(tarjeta.dataset.id);
+    const productoData = productos.find(p => p.id === idTarjeta);
+
+    if (productoData) {
+      const cumpleTalla =
+        tallaActiva === "todas" || productoData.tallas.includes(tallaActiva);
+
+      const cumpleColor =
+        colorActivo === "todos" || productoData.colores.includes(colorActivo);
+
+      const columnaPadre = tarjeta.closest(".col-6, .col-md-4, .col-lg-3");
+
+      if (cumpleTalla && cumpleColor) {
+        if (columnaPadre) columnaPadre.classList.remove("d-none");
+        visibles++;
+      } else {
+        if (columnaPadre) columnaPadre.classList.add("d-none");
+      }
+    }
+  });
+
+  actualizarContador(visibles);
+}
+
+function marcarActivo(botones, botonPulsado) {
+  botones.forEach(function (boton) {
+    boton.classList.remove("activo");
+  });
+  botonPulsado.classList.add("activo");
+}
+
+//Evetos
+
+botonesTalla.forEach(function (boton) {
+  boton.addEventListener("click", function () {
+    tallaActiva = boton.dataset.talla;
+    marcarActivo(botonesTalla, boton);
+    filtrarProductos();
+  });
+});
+
+botonesColor.forEach(function (boton) {
+  boton.addEventListener("click", function () {
+    colorActivo = boton.dataset.color;
+    marcarActivo(botonesColor, boton);
+    filtrarProductos();
+  });
+});
+
+botonLimpiar.addEventListener("click", function () {
+  tallaActiva = "todas";
+  colorActivo = "todos";
+  marcarActivo(botonesTalla, botonesTalla[0]);
+  marcarActivo(botonesColor, botonesColor[0]);
+  filtrarProductos();
+});
+
+filtrarProductos();
+
