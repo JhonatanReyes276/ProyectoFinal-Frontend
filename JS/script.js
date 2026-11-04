@@ -88,7 +88,7 @@ const productos = [
     id: 1,
     nombre: "Camiseta Clásica",
     precio: 45000,
-    imagen: "IMG/camisetas.jpg",
+    imagen: "/IMG/camisetas.jpg",
     tallas: ["S", "M", "L", "XL"],
     colores: ["negro", "blanco", "naranja"]
   },
@@ -96,7 +96,7 @@ const productos = [
     id: 2,
     nombre: "Camiseta Oversize",
     precio: 55000,
-    imagen: "IMG/camisetas.jpg",
+    imagen: "/IMG/camisetas.jpg",
     tallas: ["M", "L", "XL"],
     colores: ["negro", "gris", "azul", "verde", "rojo"]
   },
@@ -104,7 +104,7 @@ const productos = [
     id: 3,
     nombre: "Gorra Snapback",
     precio: 35000,
-    imagen: "IMG/gorras.jpg",
+    imagen: "/IMG/gorras.jpg",
     tallas: ["M", "L"],
     colores: ["negro", "blanco", "naranja", "verde"]
   },
@@ -112,7 +112,7 @@ const productos = [
     id: 4,
     nombre: "Gorra Trucker",
     precio: 32000,
-    imagen: "IMG/gorras.jpg",
+    imagen: "/IMG/gorras.jpg",
     tallas: ["S", "M"],
     colores: ["azul", "gris", "rojo"]
   },
@@ -120,7 +120,7 @@ const productos = [
     id: 5,
     nombre: "Medias Estampadas",
     precio: 18000,
-    imagen: "IMG/medias.jpg",
+    imagen: "/IMG/medias.jpg",
     tallas: ["35-37", "27-30", "38-40", "41-43", "44-46"],
     colores: ["blanco", "negro", "azul"]
   },
@@ -128,7 +128,7 @@ const productos = [
     id: 6,
     nombre: "Medias Largas",
     precio: 20000,
-    imagen: "IMG/medias.jpg",
+    imagen: "/IMG/medias.jpg",
     tallas: ["31-34", "35-37", "27-30", "38-40", "41-43", "44-46"],
     colores: ["gris", "naranja"]
   },
@@ -136,7 +136,7 @@ const productos = [
     id: 7,
     nombre: "Medias infantiles",
     precio: 12000,
-    imagen: "IMG/medias.jpg",
+    imagen: "/IMG/medias.jpg",
     tallas: ["23-26", "27-30", "31-34"],
     colores: ["blanco", "negro", "azul", "verde", "rojo"]
   },
@@ -144,7 +144,7 @@ const productos = [
     id: 8,
     nombre: "Medias tobilleras",
     precio: 12000,
-    imagen: "IMG/medias.jpg",
+    imagen: "/IMG/medias.jpg",
     tallas: ["35-37", "27-30", "38-40", "41-43", "44-46"],
     colores: ["blanco", "negro", "azul", "verde", "rojo", "café", "naranja"]
   },
@@ -242,3 +242,61 @@ document.addEventListener("DOMContentLoaded", function () {
 
   filtrarProductos();
 });
+
+const mapaColores = {
+  "negro": { bg: "#212529", text: "#ffffff" },
+  "blanco": { bg: "#f8f9fa", text: "#212529" },
+  "naranja": { bg: "#fd7e14", text: "#ffffff" },
+  "gris": { bg: "#6c757d", text: "#ffffff" },
+  "azul": { bg: "#0d6efd", text: "#ffffff" },
+  "verde": { bg: "#198754", text: "#ffffff" },
+  "rojo": { bg: "#dc3545", text: "#ffffff" },
+  "café": { bg: "#795548", text: "#ffffff" }
+};
+
+const tablaBody = document.getElementById('cuerpo-tabla');
+
+function renderizarProductos(lista) {
+  tablaBody.innerHTML = '';
+
+  lista.forEach((producto, index) => {
+    const fila = document.createElement('tr');
+
+    const htmlTallas = producto.tallas
+      .map(talla => `<span class="badge bg-secondary me-1">${talla}</span>`)
+      .join('');
+
+    const htmlColores = producto.colores
+    .map(color => {
+      const colorKey = color.toLowerCase();
+      const estilo = mapaColores[colorKey] || { bg: "#adb5bd", text: "#000000" };
+
+      return `<span class="badge me-1 border" style="background-color: ${estilo.bg}; color: ${estilo.text};">${color}</span>`;
+    })
+    .join('');
+
+    fila.innerHTML = `
+      <th class="text-center align-middle">${index + 1}</th>
+      <td class="text-center align-middle">
+        <img src="${producto.imagen}" alt="${producto.nombre}" class="img-thumbnail" style="width: 50px; height: 50px; object-fit: cover;">
+      </td>
+      <td class="align-middle fw-semibold">${producto.nombre}</td>
+      <td class="align-middle fw-bold" style="color: var(--tomato);">$${producto.precio.toLocaleString('es-CO')}</td>
+      <td class="align-middle">
+        <div class="d-flex flex-wrap gap-1">${htmlTallas}</div>
+      </td>
+      <td class="align-middle">
+        <div class="d-flex flex-wrap gap-1">${htmlColores}</div>
+      </td>
+      <td class="align-middle text-center">
+      <button class="btn btn-sm btn-outline-tomato" onclick="editarProducto(${producto.id})">
+        Editar / Actualizar
+      </button>
+      </td>
+    `;
+
+    tablaBody.appendChild(fila);
+  });
+}
+
+renderizarProductos(productos);
