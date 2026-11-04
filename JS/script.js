@@ -94,7 +94,7 @@ const productos = [
     id: 1,
     nombre: "Camiseta Clásica",
     precio: 45000,
-    imagen: "/IMG/camisetas.jpg",
+    imagen: "../../IMG/camisetas.jpg",
     tallas: ["S", "M", "L", "XL"],
     colores: ["negro", "blanco", "naranja"],
   },
@@ -102,7 +102,7 @@ const productos = [
     id: 2,
     nombre: "Camiseta Oversize",
     precio: 55000,
-    imagen: "/IMG/camisetas.jpg",
+    imagen: "../../IMG/camisetas.jpg",
     tallas: ["M", "L", "XL"],
     colores: ["negro", "gris", "azul", "verde", "rojo"],
   },
@@ -110,7 +110,7 @@ const productos = [
     id: 3,
     nombre: "Gorra Snapback",
     precio: 35000,
-    imagen: "/IMG/gorras.jpg",
+    imagen: "../../IMG/gorras.jpg",
     tallas: ["M", "L"],
     colores: ["negro", "blanco", "naranja", "verde"],
   },
@@ -118,7 +118,7 @@ const productos = [
     id: 4,
     nombre: "Gorra Trucker",
     precio: 32000,
-    imagen: "/IMG/gorras.jpg",
+    imagen: "../../IMG/gorras.jpg",
     tallas: ["S", "M"],
     colores: ["azul", "gris", "rojo"],
   },
@@ -126,7 +126,7 @@ const productos = [
     id: 5,
     nombre: "Medias Estampadas",
     precio: 18000,
-    imagen: "/IMG/medias.jpg",
+    imagen: "../../IMG/medias.jpg",
     tallas: ["35-37", "27-30", "38-40", "41-43", "44-46"],
     colores: ["blanco", "negro", "azul"],
   },
@@ -134,7 +134,7 @@ const productos = [
     id: 6,
     nombre: "Medias Largas",
     precio: 20000,
-    imagen: "/IMG/medias.jpg",
+    imagen: "../../IMG/medias.jpg",
     tallas: ["31-34", "35-37", "27-30", "38-40", "41-43", "44-46"],
     colores: ["gris", "naranja"],
   },
@@ -142,7 +142,7 @@ const productos = [
     id: 7,
     nombre: "Medias infantiles",
     precio: 12000,
-    imagen: "/IMG/medias.jpg",
+    imagen: "../../IMG/medias.jpg",
     tallas: ["23-26", "27-30", "31-34"],
     colores: ["blanco", "negro", "azul", "verde", "rojo"],
   },
@@ -150,7 +150,7 @@ const productos = [
     id: 8,
     nombre: "Medias tobilleras",
     precio: 12000,
-    imagen: "/IMG/medias.jpg",
+    imagen: "../../IMG/medias.jpg",
     tallas: ["35-37", "27-30", "38-40", "41-43", "44-46"],
     colores: ["blanco", "negro", "azul", "verde", "rojo", "café", "naranja"],
   },
@@ -323,7 +323,7 @@ const quitarTildes = (str) => {
 
 // guardamos en una array un objeto que contiene todos los datos de las filas (columnas) que necesitamos para filtrar
 const datosTabla = Array.from(filas).map((fila, index) => {
-  
+
   const celdas = fila.querySelectorAll("td");
 
   //traemos las tallas
