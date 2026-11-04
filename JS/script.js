@@ -77,8 +77,9 @@ function validarNombre() {
   }
   return marcarValido(input);
 }
-
-formulario.addEventListener("submit", enviar);
+if (formulario) {
+  formulario.addEventListener("submit", enviar);
+}
 
 //Catalogo de productos
 
@@ -149,41 +150,43 @@ const productos = [
   },
 ];
 
+document.addEventListener("DOMContentLoaded", function () {
+  const listaProductos = document.getElementById("listaProductos");
 
-let tallaActiva = "todas";
-let colorActivo = "todos";
+  if (!listaProductos) return;
 
-const tarjetasProductos = document.querySelectorAll(".producto");
-const contador = document.getElementById("contador");
-const sinResultados = document.getElementById("sinResultados");
-const botonLimpiar = document.getElementById("limpiarFiltros");
-const botonesTalla = document.querySelectorAll(".chip-talla");
-const botonesColor = document.querySelectorAll(".chip-color");
+  let tallaActiva = "todas";
+  let colorActivo = "todos";
 
-function actualizarContador(visibles) {
-  if (visibles === 1) {
-    contador.textContent = "1 producto";
-  } else {
-    contador.textContent = visibles + " productos";
+  const tarjetasProductos = document.querySelectorAll(".producto");
+  const contador = document.getElementById("contador");
+  const sinResultados = document.getElementById("sinResultados");
+  const botonLimpiar = document.getElementById("limpiarFiltros");
+  const botonesTalla = document.querySelectorAll(".chip-talla");
+  const botonesColor = document.querySelectorAll(".chip-color");
+
+  function actualizarContador(visibles) {
+    if (contador) {
+      contador.textContent = visibles === 1 ? "1 producto" : visibles + " productos";
+    }
+
+    if (sinResultados) {
+      sinResultados.classList.toggle("d-none", visibles !== 0);
+    }
   }
 
-  if (visibles === 0) {
-    sinResultados.classList.remove("d-none");
-  } else {
-    sinResultados.classList.add("d-none");
-  }
-}
+  // Filtrar
+  function filtrarProductos() {
+    let visibles = 0;
 
-//Filtrar
-function filtrarProductos() {
-  let visibles = 0;
+    tarjetasProductos.forEach(function (tarjeta) {
+      const idTarjeta = Number(tarjeta.dataset.id);
+      const productoData = productos.find(function (p) {
+        return p.id === idTarjeta;
+      });
 
-  tarjetasProductos.forEach(function (tarjeta) {
-    
-    const idTarjeta = Number(tarjeta.dataset.id);
-    const productoData = productos.find(p => p.id === idTarjeta);
+      if (!productoData) return;
 
-    if (productoData) {
       const cumpleTalla =
         tallaActiva === "todas" || productoData.tallas.includes(tallaActiva);
 
@@ -198,44 +201,44 @@ function filtrarProductos() {
       } else {
         if (columnaPadre) columnaPadre.classList.add("d-none");
       }
-    }
+    });
+
+    actualizarContador(visibles);
+  }
+
+  function marcarActivo(botones, botonPulsado) {
+    botones.forEach(function (boton) {
+      boton.classList.remove("activo");
+    });
+    botonPulsado.classList.add("activo");
+  }
+
+  // Eventos
+  botonesTalla.forEach(function (boton) {
+    boton.addEventListener("click", function () {
+      tallaActiva = boton.dataset.talla;
+      marcarActivo(botonesTalla, boton);
+      filtrarProductos();
+    });
   });
 
-  actualizarContador(visibles);
-}
-
-function marcarActivo(botones, botonPulsado) {
-  botones.forEach(function (boton) {
-    boton.classList.remove("activo");
+  botonesColor.forEach(function (boton) {
+    boton.addEventListener("click", function () {
+      colorActivo = boton.dataset.color;
+      marcarActivo(botonesColor, boton);
+      filtrarProductos();
+    });
   });
-  botonPulsado.classList.add("activo");
-}
 
-//Evetos
+  if (botonLimpiar) {
+    botonLimpiar.addEventListener("click", function () {
+      tallaActiva = "todas";
+      colorActivo = "todos";
+      marcarActivo(botonesTalla, botonesTalla[0]);
+      marcarActivo(botonesColor, botonesColor[0]);
+      filtrarProductos();
+    });
+  }
 
-botonesTalla.forEach(function (boton) {
-  boton.addEventListener("click", function () {
-    tallaActiva = boton.dataset.talla;
-    marcarActivo(botonesTalla, boton);
-    filtrarProductos();
-  });
-});
-
-botonesColor.forEach(function (boton) {
-  boton.addEventListener("click", function () {
-    colorActivo = boton.dataset.color;
-    marcarActivo(botonesColor, boton);
-    filtrarProductos();
-  });
-});
-
-botonLimpiar.addEventListener("click", function () {
-  tallaActiva = "todas";
-  colorActivo = "todos";
-  marcarActivo(botonesTalla, botonesTalla[0]);
-  marcarActivo(botonesColor, botonesColor[0]);
   filtrarProductos();
 });
-
-filtrarProductos();
-

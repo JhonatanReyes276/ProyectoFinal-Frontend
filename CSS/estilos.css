@@ -1,5 +1,4 @@
 :root {
-  /* Paleta base */
   --soft-linen: #e8e2d5;
   --shadow-gray: #22252a;
   --tomato: #ff6b4a;
@@ -163,7 +162,6 @@ p {
 
 /*CARRUSEL */
 
-/* Oscurece todas las imágenes de los carruseles */
 .carousel-item::after {
   content: "";
   position: absolute;
@@ -463,13 +461,11 @@ p {
   color: var(--soft-linen);
 }
 
-/* transition: propiedad, duración y ritmo de la animación */
 .tarjeta a {
   color: var(--soft-linen);
   transition: all 0.3s ease;
 }
 
-/* scale: agranda el elemento sin mover a los demás */
 .tarjeta a:hover {
   color: var(--tomato);
   transform: scale(1.15);
@@ -840,16 +836,13 @@ p {
   margin-right: auto;
 }
 
-/* ============================================================
-   ADMIN / FORMULARIO DE PRODUCTOS (viene del repositorio)
-   ============================================================ */
+/* ADMIN  */
 
-/* Estilo formulario */
 .gestion-productos {
   display: flex;
   gap: 20px;
   margin-top: 25px;
-  padding-left: 20px; /* corregido: estaba "20 px" */
+  padding-left: 20px;
 }
 
 .formulario-producto {
@@ -859,7 +852,6 @@ p {
   border-radius: 8px;
 }
 
-/* Estilo del titulo y margen del contenedor */
 .contenido {
   flex: 1;
   padding: 40px !important;
@@ -873,7 +865,6 @@ p {
   color: #333;
 }
 
-/* Estilo boton seleccionar */
 .form-select {
   border: 1px solid #d5d9d2;
   border-radius: 8px;
@@ -882,7 +873,6 @@ p {
   background-color: #fff;
 }
 
-/* Estilo subir imagen en el formulario */
 .subir-imagen {
   width: 120px;
   height: 120px;
@@ -909,7 +899,6 @@ p {
   background-color: var(--tomato);
 }
 
-/* Estilo boton guardar */
 .btn-guardar {
   width: 100%;
   padding: 10px;
@@ -925,6 +914,3 @@ p {
   background-color: var(--tomato);
   border-color: var(--shadow-gray);
 }
-
-
-
