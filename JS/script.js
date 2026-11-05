@@ -127,7 +127,7 @@ const productos = [
     nombre: "Medias Estampadas",
     precio: 18000,
     imagen: "../../IMG/medias.jpg",
-    tallas: ["35-37", "27-30", "38-40", "41-43", "44-46"],
+    tallas: ["35-37", "38-40", "41-43", "44-46"],
     colores: ["blanco", "negro", "azul"],
   },
   {
@@ -135,7 +135,7 @@ const productos = [
     nombre: "Medias Largas",
     precio: 20000,
     imagen: "../../IMG/medias.jpg",
-    tallas: ["31-34", "35-37", "27-30", "38-40", "41-43", "44-46"],
+    tallas: ["31-34", "35-37", "38-40", "41-43", "44-46"],
     colores: ["gris", "naranja"],
   },
   {
@@ -151,7 +151,7 @@ const productos = [
     nombre: "Medias tobilleras",
     precio: 12000,
     imagen: "../../IMG/medias.jpg",
-    tallas: ["35-37", "27-30", "38-40", "41-43", "44-46"],
+    tallas: ["35-37", "38-40", "41-43", "44-46"],
     colores: ["blanco", "negro", "azul", "verde", "rojo", "café", "naranja"],
   },
 ];
