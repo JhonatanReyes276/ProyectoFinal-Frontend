@@ -95,6 +95,7 @@ const productos = [
     nombre: "Camiseta Clásica",
     precio: 45000,
     imagen: "../../IMG/camisetas.jpg",
+    stock: 35,
     tallas: ["S", "M", "L", "XL"],
     colores: ["negro", "blanco", "naranja"],
   },
@@ -103,6 +104,7 @@ const productos = [
     nombre: "Camiseta Oversize",
     precio: 55000,
     imagen: "../../IMG/camisetas.jpg",
+    stock: 50,
     tallas: ["M", "L", "XL"],
     colores: ["negro", "gris", "azul", "verde", "rojo"],
   },
@@ -111,6 +113,7 @@ const productos = [
     nombre: "Gorra Snapback",
     precio: 35000,
     imagen: "../../IMG/gorras.jpg",
+    stock: 25,
     tallas: ["M", "L"],
     colores: ["negro", "blanco", "naranja", "verde"],
   },
@@ -119,6 +122,7 @@ const productos = [
     nombre: "Gorra Trucker",
     precio: 32000,
     imagen: "../../IMG/gorras.jpg",
+    stock: 25,
     tallas: ["S", "M"],
     colores: ["azul", "gris", "rojo"],
   },
@@ -127,6 +131,7 @@ const productos = [
     nombre: "Medias Estampadas",
     precio: 18000,
     imagen: "../../IMG/medias.jpg",
+    stock: 30,
     tallas: ["35-37", "38-40", "41-43", "44-46"],
     colores: ["blanco", "negro", "azul"],
   },
@@ -135,6 +140,7 @@ const productos = [
     nombre: "Medias Largas",
     precio: 20000,
     imagen: "../../IMG/medias.jpg",
+    stock: 20,
     tallas: ["31-34", "35-37", "38-40", "41-43", "44-46"],
     colores: ["gris", "naranja"],
   },
@@ -143,6 +149,7 @@ const productos = [
     nombre: "Medias infantiles",
     precio: 12000,
     imagen: "../../IMG/medias.jpg",
+    stock: 25,
     tallas: ["23-26", "27-30", "31-34"],
     colores: ["blanco", "negro", "azul", "verde", "rojo"],
   },
@@ -151,6 +158,7 @@ const productos = [
     nombre: "Medias tobilleras",
     precio: 12000,
     imagen: "../../IMG/medias.jpg",
+    stock: 30,
     tallas: ["35-37", "38-40", "41-43", "44-46"],
     colores: ["blanco", "negro", "azul", "verde", "rojo", "café", "naranja"],
   },
@@ -292,6 +300,7 @@ function renderizarProductos(lista) {
       </td>
       <td class="align-middle fw-semibold">${producto.nombre}</td>
       <td class="align-middle fw-bold" style="color: var(--tomato);">$${producto.precio.toLocaleString("es-CO")}</td>
+      <td class="align-middle fw-semibold">${producto.stock}</td>
       <td class="align-middle">
         <div class="d-flex flex-wrap gap-1">${htmlTallas}</div>
       </td>
