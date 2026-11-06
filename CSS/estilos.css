@@ -92,6 +92,7 @@ p {
   display: inline-flex;
   align-items: center;
   transform: translateY(-6px);
+    color: white; 
 }
 
 .carrito:hover {
