@@ -452,7 +452,7 @@ p {
 }
 
 .texto-tomato {
-  color: var(--tomato);
+  color: var(--tomato) !important;
 }
 
 .fa-brands,
@@ -840,17 +840,24 @@ p {
 /* ADMIN  */
 
 .gestion-productos {
-  display: flex;
-  gap: 20px;
-  margin-top: 25px;
-  padding-left: 20px;
+    display: flex;
+    gap: 20px;
+    margin-top: 25px;
+    padding-left: 20px;
+    align-items: flex-start;
 }
 
 .formulario-producto {
-  width: 280px;
-  padding: 15px;
-  border: 1px solid var(--tomato);
-  border-radius: 8px;
+    width: 280px;
+    flex-shrink: 0;
+    padding: 15px;
+    border: 1px solid var(--tomato);
+    border-radius: 8px;
+}
+
+.tabla-productos {
+    flex: 1;
+    overflow-x: auto;
 }
 
 .contenido {
@@ -914,4 +921,34 @@ p {
 .btn-guardar:hover {
   background-color: var(--tomato);
   border-color: var(--shadow-gray);
+}
+
+.btn-outline-tomato {
+    color: var(--tomato);
+    border-color: var(--tomato);
+    background-color: transparent;
+    transition: all 0.2s ease-in-out;
+}
+
+.btn-outline-tomato:hover {
+    background-color: var(--tomato);
+    color: #ffffff;
+    border-color: var(--tomato);
+}
+
+@media (max-width: 992px) {
+    .gestion-productos {
+        flex-direction: column;
+        padding-left: 10px;
+        padding-right: 10px;
+    }
+
+    .formulario-producto {
+        width: 100%;
+        margin-bottom: 20px;
+    }
+
+    .tabla-productos {
+        width: 100%;
+    }
 }
