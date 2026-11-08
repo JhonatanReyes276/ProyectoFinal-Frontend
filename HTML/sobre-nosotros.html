@@ -14,10 +14,10 @@
     integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous" />
   <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" rel="stylesheet" />
   <link rel="stylesheet" href="../CSS/estilos.css" />
-  <script src="https://kit.fontawesome.com/e4df4f1c22.js" crossorigin="anonymous" defer></script>
+  <script src="https://kit.fontawesome.com/a5a9432eda.js" crossorigin="anonymous"></script>
 </head>
 
-<body>
+<body id="inicio">
 
   <!---------------------------------- NAVBAR----------------- -->
 
@@ -53,7 +53,7 @@
           <li class="nav-item"><a class="nav-link" href="../HTML/catalogo.html">Catálogo</a></li>
           <li class="nav-item"><a class="nav-link" href="#">¿Cómo funciona?</a></li>
           <li class="nav-item"><a class="nav-link" href="#">Taller 3D</a></li>
-          <li class="nav-item"><a class="nav-link" href="Admin/admin.html">Admin</a></li>
+
         </ul>
 
         <a href="#" class="carrito text-decoration-none d-none d-md-flex align-items-center">
@@ -162,128 +162,168 @@
       </div>
 
       <!---------------------------TARJETAS--------------------------- -->
-      <section class="row g-4">
-        <!-- Misión y Visión -->
-        <div class="col-md-6">
-          <article class="tarjeta">
-            <header class="tarjeta-header">
-              <div class="icono icono-glaucous"><i class="bi bi-bullseye"></i></div>
+      <div class="container my-5">
+        <section class="row g-4 justify-content-center align-items-stretch">
+          <!-- Misión -->
+          <div class="col-md-4" id="mision">
+            <article class="tarjeta h-100 d-flex flex-column justify-content-between p-3">
               <div>
-                <small class="sobretitulo texto-glaucous">Propósito estratégico</small>
-                <h2 class="tarjeta-titulo">Misión y Visión</h2>
+                <header class="tarjeta-header mb-3">
+                  <div class="icono icono-glaucous"><i class="bi bi-compass"></i></div>
+                  <div>
+                    <small class="sobretitulo texto-glaucous">Nuestra razón</small>
+                    <h2 class="tarjeta-titulo fs-5">Misión</h2>
+                  </div>
+                </header>
+
+                <p class="texto-tarjeta mb-0">
+                  Ayudar a expresar la identidad de las personas a través de la creación de sus propios diseños en
+                  nuestra plataforma digital.
+                </p>
               </div>
-            </header>
+              <footer class="tarjeta-footer texto-glaucous">
+                No usas Blank Space, Blank Space te viste a ti.
+              </footer>
+            </article>
+          </div>
 
-            <h3 class="subtitulo texto-glaucous"><i class="bi bi-compass"></i> Misión</h3>
-            <div class="caja">
-              Ayudar a expresar la identidad de las personas a través de la creación de sus propios
-              diseños en nuestra plataforma digital.
-            </div>
+          <!-- Valores -->
+          <div class="col-md-4" id="valores">
+            <article class="tarjeta h-100 d-flex flex-column p-3">
 
-            <h3 class="subtitulo texto-glaucous"><i class="bi bi-eye"></i> Visión</h3>
-            <div class="caja">
-              Posicionarnos como empresa líder en e-commerce de ropa personalizada, destacándonos por
-              calidad, innovación tecnológica y satisfacción.
-            </div>
+              <header class="tarjeta-header">
+                <div class="icono icono-tomato"><i class="bi bi-award"></i></div>
+                <div>
+                  <small class="sobretitulo texto-tomato">Nuestra escencia</small>
+                  <h2 class="tarjeta-titulo">Valores</h2>
+                </div>
+              </header>
+              <div class="Lista-valores">
+                <div class="caja valor">
+                  <i class="bi bi-stars"></i>
+                  <strong>Autenticidad e Individualidad</strong><br />
+                </div>
 
-            <footer class="tarjeta-footer texto-glaucous">
-              "No usas Blank Space, Blank Space te viste a ti."
-            </footer>
-          </article>
-        </div>
+                <div class="caja valor">
+                  <i class="bi bi-heart"></i>
+                  <strong>El Cliente como Centro</strong><br />
+                </div>
 
-        <!-- Valores -->
-        <div class="col-md-6">
-          <article class="tarjeta">
-            <header class="tarjeta-header">
-              <div class="icono icono-tomato"><i class="bi bi-award"></i></div>
+                <div class="caja valor">
+                  <i class="bi bi-shield-check"></i>
+                  <strong>Calidad &amp; Accesibilidad</strong><br />
+                </div>
+              </div>
+
+              <footer class="tarjeta-footer texto-tomato">Creatividad • Arte • Transparencia</footer>
+            </article>
+          </div>
+          <!-- Visión -->
+          <div class="col-md-4" id="vision">
+            <article class="tarjeta h-100 d-flex flex-column justify-content-between p-3">
               <div>
-                <small class="sobretitulo texto-tomato">Nuestra esencia</small>
-                <h2 class="tarjeta-titulo">Valores</h2>
+                <header class="tarjeta-header">
+                  <div class="icono icono-glaucous"><i class="bi bi-compass"></i></div>
+                  <div>
+                    <small class="sobretitulo texto-glaucous">Nuestro futuro</small>
+                    <h2 class="tarjeta-titulo">Visión</h2>
+                  </div>
+                </header>
+                <p class="texto-tarjeta mb-0">
+                  Posicionarnos como empresa líder en e-commerce de ropa personalizada, destacándonos por
+                  calidad, innovación tecnológica y satisfacción.
+                </p>
               </div>
-            </header>
-
-            <div class="caja valor">
-              <i class="bi bi-stars"></i>
-              <p>
-                <strong>Autenticidad e Individualidad:</strong><br />
-                Un lienzo en blanco donde cada persona diseña su propia expresión.
-              </p>
-            </div>
-
-            <div class="caja valor">
-              <i class="bi bi-heart"></i>
-              <p>
-                <strong>El Cliente como Centro:</strong><br />
-                El valor principal está en el consumidor, no en la marca.
-              </p>
-            </div>
-
-            <div class="caja valor">
-              <i class="bi bi-shield-check"></i>
-              <p>
-                <strong>Calidad &amp; Accesibilidad:</strong><br />
-                Materias primas cuidadas y precios justos sin intermediarios.
-              </p>
-            </div>
-
-            <footer class="tarjeta-footer texto-tomato">Creatividad • Arte • Transparencia</footer>
-          </article>
-        </div>
-      </section>
+              <footer class="tarjeta-footer texto-glaucous">
+                Innovando el futuro de la moda personalizada
+              </footer>
+            </article>
+          </div>
+        </section>
+      </div>
 
       <section class="container">
         <div class="row mt-4 text-center">
           <h1 id="equipo" class="fw-bolder display-5">BLANK SPACE EQUIPO</h1>
         </div>
-        <div class="row mt-4 gap-5 d-flex justify-content-center">
-          <div class="col-8 col-md-2 tarjeta mt-3 d-flex flex-column pb-0 rounded-4">
-            <p class="fw-bold">Nycol Vera</p>
-            <div class="caja">
-              <p>Un desarrollador que le encantan las papitas :)</p>
+
+        <div class="row mt-4 gap-4 justify-content-center">
+
+          <div class="col-8 col-md-2 tarjeta tarjeta-equipo mt-3 p-3 rounded-4">
+            <div>
+              <p class="fw-bold text-white mb-2">Nycol Vera</p>
+              <div class="caja">
+                <p class="mb-0 small">Conectando ideas, creando soluciones tecnologicas</p>
+              </div>
             </div>
-            <a href="https://github.com/nyckveramon-dotcom"
-              class="text-dark d-block text-center text-decoration-none mt-auto">
-              <i class="fa-brands fa-github"></i>
-            </a>
-          </div>
-          <div class="col-8 col-md-2 tarjeta mt-3 d-flex flex-column pb-0 rounded-4">
-            <p class="fw-bold">Isaac Alarcón</p>
-            <div class="caja">
-              <p>Un desarrollador que le encantan las papitas :)</p>
+            <div class="d-flex justify-content-center gap-3 mt-3 pb-2">
+              <a href="https://github.com/nyckveramon-dotcom" target="_blank"
+                class="text-white text-decoration-none fs-4"><i class="fa-brands fa-github"></i></a>
+              <a href="https://www.linkedin.com/in/nycol-vanesa-vera-monta%C3%B1o-desarrollador-web/" target="_blank"
+                class="text-white text-decoration-none fs-2"><i class="fa-brands fa-linkedin"></i></a>
             </div>
-            <a href="https://github.com/IzaacAO" class=" d-block text-center text-decoration-none mt-auto">
-              <i class="fa-brands fa-github"></i>
-            </a>
           </div>
-          <div class="col-8 col-md-2 tarjeta mt-3 d-flex flex-column pb-0 rounded-4">
-            <p class="fw-bold">David Marca</p>
-            <div class="caja">
-              <p>Un desarrollador que le encantan las papitas :)</p>
+
+          <div class="col-8 col-md-2 tarjeta tarjeta-equipo mt-3 p-3 rounded-4">
+            <div>
+              <p class="fw-bold text-white mb-2">Isaac Alarcón</p>
+              <div class="caja">
+                <p class="mb-0 small">Uniendo tecnología y creatividad para innovar</p>
+              </div>
             </div>
-            <a href="https://github.com/tu-usuario" class="d-block text-center text-decoration-none">
-              <i class="fa-brands fa-github"></i>
-            </a>
-          </div>
-          <div class="col-8 col-md-2 tarjeta mt-3 d-flex flex-column pb-0 rounded-4">
-            <p class="fw-bold">Jhonatan Reyes</p>
-            <div class="caja">
-              <p>Un desarrollador que le encantan las papitas :)</p>
+            <div class="d-flex justify-content-center gap-3 mt-3 pb-2">
+              <a href="https://github.com/IzaacAO" target="_blank" class="text-white text-decoration-none fs-4"><i
+                  class="fa-brands fa-github"></i></a>
+              <a href="https://www.linkedin.com/in/isaac-alarc%C3%B3n-ospina-fullstack/" target="_blank"
+                class="text-white text-decoration-none fs-2"><i class="fa-brands fa-linkedin"></i></a>
             </div>
-            <a href="https://github.com/JhonatanReyes276" class="d-block text-center text-decoration-none">
-              <i class="fa-brands fa-github"></i>
-            </a>
           </div>
-          <div class="col-8 col-md-2 tarjeta mt-3 d-flex flex-column pb-0 rounded-4">
-            <p class="fw-bold">Camilo Forero</p>
-            <div class="caja">
-              <p>Un desarrollador que le encantan las papitas :)</p>
+
+          <div class="col-8 col-md-2 tarjeta tarjeta-equipo mt-3 p-3 rounded-4">
+            <div>
+              <p class="fw-bold text-white mb-2">David Marca</p>
+              <div class="caja">
+                <p class="mb-0 small">Creando armonia visual en código limpio</p>
+              </div>
             </div>
-            <a href="https://github.com/Camilo-Forero04" target="_blank"
-              class="d-block text-center text-decoration-none">
-              <i class="fa-brands fa-github"></i>
-            </a>
+            <div class="d-flex justify-content-center gap-3 mt-3 pb-2">
+              <a href="https://github.com/DeVdMarca" target="_blank" class="text-white text-decoration-none fs-4"><i
+                  class="fa-brands fa-github"></i></a>
+              <a href="https://www.linkedin.com" target="_blank" class="text-white text-decoration-none fs-2"><i
+                  class="fa-brands fa-linkedin"></i></a>
+            </div>
           </div>
+
+          <div class="col-8 col-md-2 tarjeta tarjeta-equipo mt-3 p-3 rounded-4">
+            <div>
+              <p class="fw-bold text-white mb-2">Jhonatan Reyes</p>
+              <div class="caja">
+                <p class="mb-0 small">Dominando ambos lados de la pantalla, línea a línea.</p>
+              </div>
+            </div>
+            <div class="d-flex justify-content-center gap-3 mt-3 pb-2">
+              <a href="https://github.com/JhonatanReyes276" target="_blank"
+                class="text-white text-decoration-none fs-4"><i class="fa-brands fa-github"></i></a>
+              <a href="https://www.linkedin.com/in/jhonatan-david-reyes-rubio/" target="_blank"
+                class="text-white text-decoration-none fs-2"><i class="fa-brands fa-linkedin"></i></a>
+            </div>
+          </div>
+
+          <div class="col-8 col-md-2 tarjeta tarjeta-equipo mt-3 p-3 rounded-4">
+            <div>
+              <p class="fw-bold text-white mb-2">Camilo Forero</p>
+              <div class="caja">
+                <p class="mb-0 small">Vivo por Java, muero por Java</p>
+              </div>
+            </div>
+            <div class="d-flex justify-content-center gap-3 mt-3 pb-2">
+              <a href="https://github.com/Camilo-Forero04" target="_blank"
+                class="text-white text-decoration-none fs-4"><i class="fa-brands fa-github"></i></a>
+              <a href="https://www.linkedin.com/in/camilo-forero-mancilla-dev/" target="_blank"
+                class="text-white text-decoration-none fs-2"><i class="fa-brands fa-linkedin"></i></a>
+            </div>
+          </div>
+
         </div>
       </section>
 
