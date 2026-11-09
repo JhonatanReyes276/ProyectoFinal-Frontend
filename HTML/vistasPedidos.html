@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+     <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Space+Grotesk:wght@300..700&display=swap"
+    rel="stylesheet" />
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous" />
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" rel="stylesheet" />
+  <link rel="stylesheet" href="../CSS/estilos.css" />
+  <script src="https://kit.fontawesome.com/e4df4f1c22.js" crossorigin="anonymous" defer></script>
+   
+</head>
+<body>
+    <div class="card shadow-sm border-0">
+        <div class="card-header bg-dark text-white d-flex justify-content-between align-items-center">
+            <h5 class="mb-0">Gestión de Pedidos Solicitados </h5>
+            <div class=" row g-3 mb-4">
+                <div class = col-md-5>
+                    <div class = "input-group">
+                        <span class = "input-group-text bg-white border-end-0">
+                            <i class = "bi bi-search text-muted"></i>
+                        </span>
+                        <input type="text" class="form-control border-start-0" placeholder="Buscar por ID o Cliente">
+                    </div>
+                </div>
+                <div class="col-md-3">
+                <select class="form-select form-select-sm">
+                        <option value="" selected>Todos los estados</option>
+                        <option value="pendiente">Pendiente</option>
+                        <option value="enviado">Enviado</option>
+                        <option value="completado">Completado</option>
+                        <option value="cancelado">Cancelado</option>
+                    </select>
+                </div>
+                <div class="col-md-3">
+                    <button class="btn btn-dark w-100">
+                     Filtrar Resultados
+                    </button>
+                </div>
+            </div>
+            <span class="badge bg-primary"> Total: 3 pedidos </span>
+        </div>
+        <div class="card-body">
+             <div class="table-responsive">
+            <table class="table table-hover align-middle">
+                <thead class="table-light">
+                    <tr>
+                        <th>ID Pedido</th>
+                        <th>Cliente</th>
+                        <th>Fecha</th>
+                        <th>Total</th>
+                        <th>Estado</th>
+                        <th class="text-center">Acciones</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>#10024</strong></td>
+                        <td>Valery </td>
+                        <td>04 Nov 2026</td>
+                        <td>$42.500</td>
+                        <td><span class="badge bg-warning text-dark">Pendiente</span></td>
+                        <td class="text-center">
+                            <button class="btn btn-sm btn-outline-secondary" data-bs-toggle="modal" data-bs-target="#modalEditarPedido">
+                                Ver Detalles
+                            </button>
+                        </td>
+                    </tr>
+                     <tr>
+                        <td><strong>#10024</strong></td>
+                        <td>Valery </td>
+                        <td>04 Nov 2026</td>
+                        <td>$42.500</td>
+                        <td><span class="badge bg-warning text-dark">Pendiente</span></td>
+                        <td class="text-center">
+                            <button class="btn btn-sm btn-outline-secondary" data-bs-toggle="modal" data-bs-target="#modalEditarPedido">
+                                Ver Detalles
+                            </button>
+                        </td>
+                    </tr>
+                     <tr>
+                        <td><strong>#10024</strong></td>
+                        <td>Valery </td>
+                        <td>04 Nov 2026</td>
+                        <td>$42.500</td>
+                        <td><span class="badge bg-warning text-dark">Pendiente</span></td>
+                        <td class="text-center">
+                            <button class="btn btn-sm btn-outline-secondary" data-bs-toggle="modal" data-bs-target="#modalEditarPedido">
+                                Ver Detalles
+                            </button>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <div class="modal fade" id="modalEditarPedido" tabindex="-1" aria-labelledby="modalEditarPedidoLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            
+           
+            <div class="modal-header bg-dark text-white">
+                <h5 class="modal-title" id="modalEditarPedidoLabel">Detalles y Edición de Pedido</h5>
+                <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+                        
+            <div class="modal-body">
+                <form>
+                    
+                    <div class="mb-3">
+                        <label class="form-label text-muted fw-bold">ID del Pedido</label>
+                        <input type="text" class="form-control bg-light" value="#10024" readonly>
+                    </div>
+
+                  
+                    <div class="mb-3">
+                        <label class="form-label fw-bold">Cliente</label>
+                        <input type="text" class="form-control" value="Valery ">
+                    </div>
+
+                    <div class="mb-3">
+                        <label class="form-label fw-bold">Dirección de Envío</label>
+                        <input type="text" class="form-control" value="Calle 14 Sur 14-23 B. Restrepo, Bogotá">
+                    </div>
+                        <div class="mb-3">
+                        <label class="form-label fw-bold">Estado del Pedido</label>
+                        <select class="form-select border-primary">
+                            <option value="pendiente" selected>Pendiente</option>
+                            <option value="enviado">Enviado</option>
+                            <option value="completado">Completado</option>
+                            <option value="cancelado">Cancelado</option>
+                        </select>
+                    </div>
+                </form>
+            </div>
+            
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                <button type="button" class="btn btn-primary">Guardar Cambios</button>
+            </div>
+
+        </div>
+    </div>
+</div>
+    
+</body>
+</html>

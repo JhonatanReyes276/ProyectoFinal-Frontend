@@ -40,7 +40,12 @@ function validarTelefono() {
   const valor = input.value.trim();
   const regex = /^[0-9]+$/; //asegura que desde el inicio "^" sea solo numeros "[0-9]" hasta el final "$"
 
-  if (valor === "" || !regex.test(valor) || valor.length < 9 || valor.length > 11) {
+  if (
+    valor === "" ||
+    !regex.test(valor) ||
+    valor.length < 9 ||
+    valor.length > 11
+  ) {
     return marcarInvalido(input);
   }
   return marcarValido(input);
@@ -72,96 +77,262 @@ function validarNombre() {
   const valor = input.value.trim();
   const regex = /^[a-zA-ZáéíóúÁÉÍÓÚñÑ\s]+$/; //regex se asegura que desde el inicio "^" hasta el final "$" solo haya letras del alfabeto "a-zA-Z", acentos "áéíóúÁÉÍÓÚñÑ", espacios "\s" y letra ñ
 
-  if (valor === "" || !regex.test(valor) || valor.indexOf(" ") === -1) { // (valor.indexOf(' ') Ubica donde hay un espacio)  === -1 obliga a que hayan 2 palabras dado que hay 2 espacios
+  if (valor === "" || !regex.test(valor) || valor.indexOf(" ") === -1) {
+    // (valor.indexOf(' ') Ubica donde hay un espacio)  === -1 obliga a que hayan 2 palabras dado que hay 2 espacios
     return marcarInvalido(input);
   }
   return marcarValido(input);
 }
+if (formulario) {
+  formulario.addEventListener("submit", enviar);
+}
 
-formulario.addEventListener("submit", enviar);
+//Catalogo de productos
 
 const productos = [
   {
     id: 1,
     nombre: "Camiseta Clásica",
     precio: 45000,
-    imagen: "IMG/camisetas.jpg",
+    imagen: "../../IMG/camisetas.jpg",
+    stock: 35,
     tallas: ["S", "M", "L", "XL"],
-    colores: ["negro", "blanco", "naranja"]
+    colores: ["negro", "blanco", "naranja"],
+    variantesStock: [
+      { color: "negro", talla: "S", cantidad: 3 },
+      { color: "negro", talla: "M", cantidad: 5 },
+      { color: "negro", talla: "L", cantidad: 2 },
+      { color: "negro", talla: "XL", cantidad: 2 },
+      { color: "blanco", talla: "S", cantidad: 4 },
+      { color: "blanco", talla: "M", cantidad: 4 },
+      { color: "blanco", talla: "L", cantidad: 3 },
+      { color: "blanco", talla: "XL", cantidad: 2 },
+      { color: "naranja", talla: "S", cantidad: 3 },
+      { color: "naranja", talla: "M", cantidad: 3 },
+      { color: "naranja", talla: "L", cantidad: 2 },
+      { color: "naranja", talla: "XL", cantidad: 2 }
+    ],
   },
   {
     id: 2,
     nombre: "Camiseta Oversize",
     precio: 55000,
-    imagen: "IMG/camisetas.jpg",
+    imagen: "../../IMG/camisetas.jpg",
+    stock: 50,
     tallas: ["M", "L", "XL"],
-    colores: ["negro", "gris", "azul", "verde", "rojo"]
+    colores: ["negro", "gris", "azul", "verde", "rojo"],
+    variantesStock: [],
   },
   {
     id: 3,
     nombre: "Gorra Snapback",
     precio: 35000,
-    imagen: "IMG/gorras.jpg",
+    imagen: "../../IMG/gorras.jpg",
+    stock: 25,
     tallas: ["M", "L"],
-    colores: ["negro", "blanco", "naranja", "verde"]
+    colores: ["negro", "blanco", "naranja", "verde"],
+    variantesStock: [],
   },
   {
     id: 4,
     nombre: "Gorra Trucker",
     precio: 32000,
-    imagen: "IMG/gorras.jpg",
+    imagen: "../../IMG/gorras.jpg",
+    stock: 25,
     tallas: ["S", "M"],
-    colores: ["azul", "gris", "rojo"]
+    colores: ["azul", "gris", "rojo"],
+    variantesStock: [],
   },
   {
     id: 5,
     nombre: "Medias Estampadas",
     precio: 18000,
-    imagen: "IMG/medias.jpg",
-    tallas: ["35-37", "27-30", "38-40", "41-43", "44-46"],
-    colores: ["blanco", "negro", "azul"]
+    imagen: "../../IMG/medias.jpg",
+    stock: 30,
+    tallas: ["35-37", "38-40", "41-43", "44-46"],
+    colores: ["blanco", "negro", "azul"],
+    variantesStock: [],
   },
   {
     id: 6,
     nombre: "Medias Largas",
     precio: 20000,
-    imagen: "IMG/medias.jpg",
-    tallas: ["31-34", "35-37", "27-30", "38-40", "41-43", "44-46"],
-    colores: ["gris", "naranja"]
+    imagen: "../../IMG/medias.jpg",
+    stock: 20,
+    tallas: ["31-34", "35-37", "38-40", "41-43", "44-46"],
+    colores: ["gris", "naranja"],
+    variantesStock: [],
   },
   {
     id: 7,
     nombre: "Medias infantiles",
     precio: 12000,
-    imagen: "IMG/medias.jpg",
+    imagen: "../../IMG/medias.jpg",
+    stock: 25,
     tallas: ["23-26", "27-30", "31-34"],
-    colores: ["blanco", "negro", "azul", "verde", "rojo"]
+    colores: ["blanco", "negro", "azul", "verde", "rojo"],
+    variantesStock: [],
   },
   {
     id: 8,
     nombre: "Medias tobilleras",
     precio: 12000,
-    imagen: "IMG/medias.jpg",
-    tallas: ["35-37", "27-30", "38-40", "41-43", "44-46"],
-    colores: ["blanco", "negro", "azul", "verde", "rojo", "café", "naranja"]
+    imagen: "../../IMG/medias.jpg",
+    stock: 30,
+    tallas: ["35-37", "38-40", "41-43", "44-46"],
+    colores: ["blanco", "negro", "azul", "verde", "rojo", "café", "naranja"],
+    variantesStock: [],
   },
 ];
 
-const tablaBody = document.getElementById('cuerpo-tabla');
+document.addEventListener("DOMContentLoaded", function () {
+  const listaProductos = document.getElementById("listaProductos");
+
+  if (!listaProductos) return;
+
+  let tallaActiva = "todas";
+  let colorActivo = "todos";
+
+  const tarjetasProductos = document.querySelectorAll(".producto");
+  const contador = document.getElementById("contador");
+  const sinResultados = document.getElementById("sinResultados");
+  const botonLimpiar = document.getElementById("limpiarFiltros");
+  const botonesTalla = document.querySelectorAll(".chip-talla");
+  const botonesColor = document.querySelectorAll(".chip-color");
+
+  function actualizarContador(visibles) {
+    if (contador) {
+      contador.textContent =
+        visibles === 1 ? "1 producto" : visibles + " productos";
+    }
+
+    if (sinResultados) {
+      sinResultados.classList.toggle("d-none", visibles !== 0);
+    }
+  }
+
+  // Filtrar
+  function filtrarProductos() {
+    let visibles = 0;
+
+    tarjetasProductos.forEach(function (tarjeta) {
+      const idTarjeta = Number(tarjeta.dataset.id);
+      const productoData = productos.find(function (p) {
+        return p.id === idTarjeta;
+      });
+
+      if (!productoData) return;
+
+      const cumpleTalla =
+        tallaActiva === "todas" || productoData.tallas.includes(tallaActiva);
+
+      const cumpleColor =
+        colorActivo === "todos" || productoData.colores.includes(colorActivo);
+
+      const columnaPadre = tarjeta.closest(".col-6, .col-md-4, .col-lg-3");
+
+      if (cumpleTalla && cumpleColor) {
+        if (columnaPadre) columnaPadre.classList.remove("d-none");
+        visibles++;
+      } else {
+        if (columnaPadre) columnaPadre.classList.add("d-none");
+      }
+    });
+
+    actualizarContador(visibles);
+  }
+
+  function marcarActivo(botones, botonPulsado) {
+    botones.forEach(function (boton) {
+      boton.classList.remove("activo");
+    });
+    botonPulsado.classList.add("activo");
+  }
+
+  // Eventos
+  botonesTalla.forEach(function (boton) {
+    boton.addEventListener("click", function () {
+      tallaActiva = boton.dataset.talla;
+      marcarActivo(botonesTalla, boton);
+      filtrarProductos();
+    });
+  });
+
+  botonesColor.forEach(function (boton) {
+    boton.addEventListener("click", function () {
+      colorActivo = boton.dataset.color;
+      marcarActivo(botonesColor, boton);
+      filtrarProductos();
+    });
+  });
+
+  if (botonLimpiar) {
+    botonLimpiar.addEventListener("click", function () {
+      tallaActiva = "todas";
+      colorActivo = "todos";
+      marcarActivo(botonesTalla, botonesTalla[0]);
+      marcarActivo(botonesColor, botonesColor[0]);
+      filtrarProductos();
+    });
+  }
+
+  filtrarProductos();
+});
+
+const mapaColores = {
+  negro: { bg: "#212529", text: "#ffffff" },
+  blanco: { bg: "#f8f9fa", text: "#212529" },
+  naranja: { bg: "#fd7e14", text: "#ffffff" },
+  gris: { bg: "#6c757d", text: "#ffffff" },
+  azul: { bg: "#0d6efd", text: "#ffffff" },
+  verde: { bg: "#198754", text: "#ffffff" },
+  rojo: { bg: "#dc3545", text: "#ffffff" },
+  café: { bg: "#795548", text: "#ffffff" },
+};
+
+const tablaBody = document.getElementById("cuerpo-tabla");
+
+function generarHTMLTooltip(variantesStock) {
+  const agrupado = {};
+
+  // Agrupamos el stock por color
+  variantesStock.forEach(v => {
+    if (!agrupado[v.color]) agrupado[v.color] = [];
+    agrupado[v.color].push(`${v.talla}: ${v.cantidad}`);
+  });
+
+  let html = `<div class='text-start p-1'><strong class='border-bottom d-block mb-1 pb-1'>Stock por Variación:</strong>`;
+  for (const [color, detalle] of Object.entries(agrupado)) {
+    html += `<div><strong class='text-capitalize'>${color}:</strong> ${detalle.join(' | ')}</div>`;
+  }
+  html += `</div>`;
+
+  return html;
+}
 
 function renderizarProductos(lista) {
-  tablaBody.innerHTML = '';
+  tablaBody.innerHTML = "";
 
   lista.forEach((producto, index) => {
-    const fila = document.createElement('tr');
+    const fila = document.createElement("tr");
 
     const htmlTallas = producto.tallas
-      .map(talla => `<span class="badge bg-secondary me-1">${talla}</span>`)
-      .join('');
+      .map((talla) => `<span class="badge bg-secondary me-1">${talla}</span>`)
+      .join("");
+
+    const tooltipContent = generarHTMLTooltip(producto.variantesStock);
 
     const htmlColores = producto.colores
-      .map(color => `<span class="badge bg-light text-dark border me-1">${color}</span>`)
-      .join('');
+      .map((color) => {
+        const colorKey = color.toLowerCase();
+        const estilo = mapaColores[colorKey] || {
+          bg: "#adb5bd",
+          text: "#000000",
+        };
+
+        return `<span class="badge me-1 border" style="background-color: ${estilo.bg}; color: ${estilo.text};">${color}</span>`;
+      })
+      .join("");
 
     fila.innerHTML = `
       <th class="text-center align-middle">${index + 1}</th>
@@ -169,17 +340,120 @@ function renderizarProductos(lista) {
         <img src="${producto.imagen}" alt="${producto.nombre}" class="img-thumbnail" style="width: 50px; height: 50px; object-fit: cover;">
       </td>
       <td class="align-middle fw-semibold">${producto.nombre}</td>
-      <td class="align-middle text-success fw-bold">$${producto.precio.toLocaleString('es-CO')}</td>
+      <td class="align-middle fw-bold" style="color: var(--tomato);">$${producto.precio.toLocaleString("es-CO")}</td>
+      <td class="align-middle">
+        <span class="badge bg-secondary p-2" 
+              style="cursor: pointer;"
+              data-bs-toggle="tooltip" 
+              data-bs-html="true" 
+              data-bs-title="${tooltipContent}">
+          ${producto.stock} <i class="bi bi-info-circle ms-1"></i>
+        </span>
+      </td>
       <td class="align-middle">
         <div class="d-flex flex-wrap gap-1">${htmlTallas}</div>
       </td>
       <td class="align-middle">
         <div class="d-flex flex-wrap gap-1">${htmlColores}</div>
       </td>
+      <td class="align-middle text-center">
+      <button class="btn btn-sm btn-outline-tomato" onclick="editarProducto(${producto.id})">
+        Editar / Actualizar
+      </button>
+      </td>
     `;
 
     tablaBody.appendChild(fila);
   });
+  inicializarTooltips();
 }
 
-renderizarProductos(productos);
+function inicializarTooltips() {
+  const tooltipTriggerList = document.querySelectorAll('[data-bs-toggle="tooltip"]');
+  [...tooltipTriggerList].map(tooltipTriggerEl => 
+    new bootstrap.Tooltip(tooltipTriggerEl, { sanitize: false })
+  );
+}
+
+document.addEventListener('DOMContentLoaded', () => {
+  renderizarProductos(productos);
+});
+
+const buscador = document.querySelector("#buscador");
+const selectTalla = document.querySelector("#filtroTalla");
+const selectColor = document.querySelector("#filtroColor");
+const filas = document.querySelectorAll("#miTabla tbody tr");
+
+const quitarTildes = (str) => {
+  // (str) hace referencia a string la palabra que entra
+  return str.normalize("NFD").replace(/[\u0300-\u036f]/g, ""); //normalize("NFD") separa la letra de la tilde ej: entra (café) sale (cafe´) cambia (.replace()) todas las tildes, diéresis o sombreritos ([\u0300-\u036f]) por nada ("")
+};
+
+// guardamos en una array un objeto que contiene todos los datos de las filas (columnas) que necesitamos para filtrar
+const datosTabla = Array.from(filas).map((fila, index) => {
+
+  const celdas = fila.querySelectorAll("td");
+
+  //traemos las tallas
+  const spansTallas = celdas[3].querySelectorAll("span");
+
+  //guardamos en un array las tallas
+  const arrayTallas = Array.from(spansTallas).map((span) =>
+    span.textContent.trim().toLowerCase());
+
+  // tomamos los colores
+  const spansColores = celdas[4].querySelectorAll("span");
+  // guardamos los colores en un array
+  const arrayColores = Array.from(spansColores).map((span) =>
+    quitarTildes(span.textContent.trim().toLowerCase()));
+
+  return {
+    indice: index,
+    nombre: quitarTildes(celdas[1].textContent.trim().toLowerCase()), // celdas[1] trae la segunda columna de la fila .texcontent trae su contenido .trim() quita espacios .toLowerCase() minusculas
+    tallas: arrayTallas,
+    colores: arrayColores
+  };
+});
+
+// configuracion de Fuse.js // se le pasa el array donde va a operar (datosTabla)
+const fuse = new Fuse(datosTabla, {   
+  keys: ["nombre"], // variables que el fuse va a tener en cuenta (nombre) para hacer la busqueda (podrian haber sido más)
+  threshold: 0.3, //nivel de toleracia a errores de ortografia que permite 0 siendo lo menos tolerante y 1 permitiendo cualquier cosa
+  ignoreLocation: true, // Permite que encuentre la palabra sin importar si esta escrita al principio, en medio o al final de la celda
+});
+
+function filtrarAdmin() {
+  
+  const texto = quitarTildes(buscador.value.trim().toLowerCase()); //input del usuario
+  const tallaBuscada = selectTalla.value.toLowerCase(); //selected del usuario
+  const colorBuscado = quitarTildes(selectColor.value.toLowerCase()); //selected del usuario
+
+  let indicesValidosTexto = [];
+  //si el input no esta vacio
+  if (texto) {
+
+    const resultados = fuse.search(texto); // trae los resultados que coinciden teniendo en cuenta la flexibilidad que le otorgamos
+    indicesValidosTexto = resultados.map((r) => r.item.indice); // extrae el numero de fila de los resultados
+  }
+
+  //recorremos TODAS las filas para aplicar el filtro
+  filas.forEach((fila, index) => {
+    // si el index de la fila que estamos recorriendo coincide con el que obtuvimos de fuse, será true
+    const cumpleTexto = texto === "" || indicesValidosTexto.includes(index); // el "" (espacio vacio) es el comodin, incluso si el input esta vacio, o la talla esta vacia pero el color no, se aplica el filtro
+
+    const cumpleTalla =
+      tallaBuscada === "" || datosTabla[index].tallas.includes(tallaBuscada); // si la fila que estamos recorriendo en su talla incluye la talla que selecciono el admin, será true
+
+    const cumpleColor =
+      colorBuscado === "" || datosTabla[index].colores.includes(colorBuscado); // si la fila que estamos recorriendo en su color incluye el color que selecciono el admin, será true
+
+    fila.hidden = !(cumpleTexto && cumpleTalla && cumpleColor); //escondemos las filas que no cumplan con todas las condiciones al mismo tiempo
+  });
+}
+
+buscador.addEventListener("input", filtrarAdmin);
+selectTalla.addEventListener("change", filtrarAdmin);
+selectColor.addEventListener("change", filtrarAdmin);
+
+
+

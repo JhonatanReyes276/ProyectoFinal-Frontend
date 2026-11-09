@@ -14,24 +14,32 @@
     integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous" />
   <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" rel="stylesheet" />
   <link rel="stylesheet" href="../CSS/estilos.css" />
-  <script
-    src="https://kit.fontawesome.com/e4df4f1c22.js"
-    crossorigin="anonymous"
-    defer
-  ></script>
+  <script src="https://kit.fontawesome.com/e4df4f1c22.js" crossorigin="anonymous" defer></script>
 </head>
 
-<body>
-     <!---------------------------------- NAVBAR----------------- -->
+<body class="d-flex flex-column min-vh-100" id="inicio">
+  <!---------------------------------- NAVBAR----------------- -->
 
-  <nav class="navbar navbar-expand-md navbar-bs py-3">
-  <div class="container">
+ <nav class="navbar navbar-expand-md navbar-bs py-3">
+  <div class="container d-flex justify-content-between align-items-center">
+    
     <a class="navbar-brand d-flex align-items-center" href="../index.html">
       <span class="logo">BS</span>
       <span class="marca">BLANK SPACE</span>
     </a>
 
-    <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+    <div class="d-flex align-items-center ms-auto gap-3 d-md-none">
+      <button class="navbar-toggler border-0 p-0" type="button" data-bs-toggle="collapse"
+        data-bs-target="#menu" aria-controls="menu" aria-expanded="false" aria-label="Abrir menú">
+        <i class="bi bi-list text-white fs-3"></i>
+      </button>
+
+      <a href="#" class="carrito text-decoration-none d-flex align-items-center">
+        <i class="bi bi-cart3 fs-4"></i><span class="badge">0</span>
+      </a>
+    </div>
+
+    <button class="navbar-toggler border-0 p-0 d-none" type="button" data-bs-toggle="collapse"
       data-bs-target="#menu" aria-controls="menu" aria-expanded="false" aria-label="Abrir menú">
       <i class="bi bi-list text-white fs-3"></i>
     </button>
@@ -41,107 +49,202 @@
         <li class="nav-item"><a class="nav-link" href="../index.html">Inicio</a></li>
         <li class="nav-item"><a class="nav-link" href="sobre-nosotros.html">Sobre nosotros</a></li>
         <li class="nav-item"><a class="nav-link active" href="contacto.html">Contacto</a></li>
-        <li class="nav-item"><a class="nav-link" href="#">Catálogo</a></li>
+        <li class="nav-item"><a class="nav-link" href="../HTML/catalogo.html">Catálogo</a></li>
         <li class="nav-item"><a class="nav-link" href="#">¿Cómo funciona?</a></li>
         <li class="nav-item"><a class="nav-link" href="#">Taller 3D</a></li>
+        
       </ul>
-      <a href="#" class="carrito"><i class="bi bi-cart3"></i><span class="badge">0</span></a>
+
+      <a href="#" class="carrito text-decoration-none d-none d-md-flex align-items-center">
+        <i class="bi bi-cart3 fs-4"></i><span class="badge"></span>
+      </a>
     </div>
+
   </div>
 </nav>
-    <main class="container py-5">
-      <section class="row g-5 align-items-start">
- 
-        <div class="col-lg-5">
-          <h1 class="titulo-hero mb-4">Hablemos</h1>
-          <p class="fs-5 mb-4">
-            ¿Tienes una idea para tu prenda, una duda sobre tu pedido o quieres trabajar con
-            nosotros? Escríbenos y te respondemos lo antes posible.
-          </p>
- 
-          <div class="datos-contacto">
-            <div class="dato-contacto">
-              <div class="icono icono-tomato"><i class="bi bi-envelope"></i></div>
-              <div>
-                <small>Correo</small>
-                <strong>contacto@blankspace.com</strong>
-              </div>
+
+  <main class="container py-5 flex-grow-1">
+    <section class="row g-5 align-items-start">
+
+      <div class="col-lg-5">
+        <h1 class="titulo-hero mb-4">Hablemos</h1>
+        <p class="fs-5 mb-4">
+          ¿Tienes una idea para tu prenda, una duda sobre tu pedido o quieres trabajar con
+          nosotros? Escríbenos y te respondemos lo antes posible.
+        </p>
+
+        <div class="datos-contacto">
+          <div class="dato-contacto">
+            <div class="icono icono-tomato"><i class="bi bi-envelope"></i></div>
+            <div>
+              <small>Correo</small>
+              <strong>contacto@blankspace.com</strong>
             </div>
- 
-            <div class="dato-contacto">
-              <div class="icono icono-tomato"><i class="bi bi-telephone"></i></div>
-              <div>
-                <small>Teléfono</small>
-                <strong>+57 300 000 0000</strong>
-              </div>
+          </div>
+
+          <div class="dato-contacto">
+            <div class="icono icono-tomato"><i class="bi bi-telephone"></i></div>
+            <div>
+              <small>Teléfono</small>
+              <strong>+57 300 000 0000</strong>
             </div>
- 
-            <div class="dato-contacto">
-              <div class="icono icono-tomato"><i class="bi bi-clock"></i></div>
-              <div>
-                <small>Tiempo de respuesta</small>
-                <strong>Menos de 48 horas</strong>
-              </div>
+          </div>
+
+          <div class="dato-contacto">
+            <div class="icono icono-tomato"><i class="bi bi-clock"></i></div>
+            <div>
+              <small>Tiempo de respuesta</small>
+              <strong>Menos de 48 horas</strong>
             </div>
           </div>
         </div>
- 
-        <div class="col-lg-7">
-          <article class="tarjeta tarjeta-form">
-            <header class="tarjeta-header">
-              <div class="icono icono-tomato"><i class="bi bi-chat-dots"></i></div>
-              <div>
-                <small class="sobretitulo texto-tomato">Escríbenos</small>
-                <h2 class="tarjeta-titulo">Envíanos un mensaje</h2>
-              </div>
-            </header>
- 
-            <form id="formulario" action="https://formspree.io/f/xqpppynl" method="POST" novalidate> <!--El navegador intenta hacer sus propias validaciones, con novalidate, solo toma las nuestras-->
-              <input type="hidden" name="_subject" value="Nuevo mensaje desde Blank Space" />
- 
-              <fieldset class="bloque-form">
-                <legend class="titulo-bloque"><i class="bi bi-person"></i> Tus datos</legend>
- 
-                <div class="row g-3">
-                  <div class="col-md-6">
-                    <label class="etiqueta-form" for="nombre">Nombre</label>
-                    <input class="campo form-control" type="text" id="nombre" name="nombre" placeholder="Tu nombre" required />
-                    <div class="invalid-feedback">Ingresa tu nombre y apellido (solo letras).</div>
-                  </div>
- 
-                  <div class="col-md-6">
-                    <label class="etiqueta-form" for="telefono">Teléfono</label>
-                    <input class="campo form-control" type="tel" id="telefono" name="telefono" placeholder="300 123 4567" />
-                    <div class="invalid-feedback">Ingresa un número válido (solo números).</div>
-                  </div>
- 
-                  <div class="col-12">
-                    <label class="etiqueta-form" for="email">Correo electrónico</label>
-                    <input class="campo form-control" type="email" id="email" name="email" placeholder="tucorreo@ejemplo.com" required />
-                    <div class="invalid-feedback">Ingresa un correo válido (ej: nombre@correo.com).</div>
-                  </div>
-                </div>
-              </fieldset>
- 
-              <fieldset class="bloque-form">
-                <legend class="titulo-bloque"><i class="bi bi-pencil-square"></i> Tu mensaje</legend>
- 
-                <textarea class="campo form-control" id="mensaje" name="mensaje" placeholder="Cuéntanos en qué podemos ayudarte" required></textarea>
-                <div class="invalid-feedback">El mensaje debe ser más largo</div>
-              </fieldset>
- 
-              <button class="boton-enviar" type="submit">
-                <i class="bi bi-send"></i> Enviar mensaje
-              </button>
-              <p class="nota-form">Tus datos solo se usan para responderte.</p>
-            </form>
-          </article>
-        </div>
- 
-      </section>
-    </main>
+      </div>
 
-    
-    <script src="/JS/script.js"></script>
+      <div class="col-lg-7">
+        <article class="tarjeta tarjeta-form">
+          <header class="tarjeta-header">
+            <div class="icono icono-tomato"><i class="bi bi-chat-dots"></i></div>
+            <div>
+              <small class="sobretitulo texto-tomato">Escríbenos</small>
+              <h2 class="tarjeta-titulo">Envíanos un mensaje</h2>
+            </div>
+          </header>
+
+          <form id="formulario" action="https://formspree.io/f/xqpppynl" method="POST" novalidate>
+            <!--El navegador intenta hacer sus propias validaciones, con novalidate, solo toma las nuestras-->
+            <input type="hidden" name="_subject" value="Nuevo mensaje desde Blank Space" />
+
+            <fieldset class="bloque-form">
+              <legend class="titulo-bloque"><i class="bi bi-person"></i> Tus datos</legend>
+
+              <div class="row g-3">
+                <div class="col-md-6">
+                  <label class="etiqueta-form" for="nombre">Nombre</label>
+                  <input class="campo form-control" type="text" id="nombre" name="nombre" placeholder="Tu nombre"
+                    required />
+                  <div class="invalid-feedback">Ingresa tu nombre y apellido (solo letras).</div>
+                </div>
+
+                <div class="col-md-6">
+                  <label class="etiqueta-form" for="telefono">Teléfono</label>
+                  <input class="campo form-control" type="tel" id="telefono" name="telefono"
+                    placeholder="300 123 4567" />
+                  <div class="invalid-feedback">Ingresa un número válido (solo números).</div>
+                </div>
+
+                <div class="col-12">
+                  <label class="etiqueta-form" for="email">Correo electrónico</label>
+                  <input class="campo form-control" type="email" id="email" name="email"
+                    placeholder="tucorreo@ejemplo.com" required />
+                  <div class="invalid-feedback">Ingresa un correo válido (ej: nombre@correo.com).</div>
+                </div>
+              </div>
+            </fieldset>
+
+            <fieldset class="bloque-form">
+              <label class="etiqueta-form" for="mensaje">Tu mensaje</label>
+
+              <textarea class="campo form-control" id="mensaje" name="mensaje"
+                placeholder="Cuéntanos en qué podemos ayudarte" required></textarea>
+              <div class="invalid-feedback">El mensaje debe ser más largo</div>
+            </fieldset>
+
+            <button class="boton-enviar" type="submit">
+              <i class="bi bi-send"></i> Enviar mensaje
+            </button>
+            <p class="nota-form">Tus datos solo se usan para responderte.</p>
+          </form>
+        </article>
+      </div>
+
+    </section>
+  </main>
+  <footer class="footer">
+    <div class="container py-5">
+
+      <div class="row gy-4">
+
+        <!-- LADO IZQUIERDO -->
+        <div class="col-12 col-md-5">
+
+          <!-- Marca -->
+          <a href="/index.html" class="text-decoration-none d-inline-block">
+            <span class="logo">BS</span>
+            <span class="marca">BLANK SPACE</span>
+          </a>
+
+          <p class="fw-semibold mt-2">
+            Tu diseño y personalidad en una prenda
+          </p>
+
+          <!-- Redes sociales -->
+          <div class="mt-4">
+            <h6 class="fw-bold mb-3">SÍGUENOS</h6>
+
+            <ul class="list-unstyled d-flex gap-4 mb-0">
+              <li>
+                <a href="https://www.facebook.com/" class="social-link">
+                  <i class="bi bi-facebook" id="facebook"></i>
+                </a>
+              </li>
+              <li>
+                <a href="https://www.instagram.com/" class="social-link">
+                  <i class="bi bi-instagram" id="instagram"></i>
+                </a>
+              </li>
+              <li>
+                <a href="https://www.tiktok.com/" class="social-link">
+                  <i class="bi bi-tiktok" id="tiktok"></i>
+                </a>
+              </li>
+            </ul>
+          </div>
+
+        </div>
+
+        <!-- LADO DERECHO -->
+        <div class="col-12 col-md-7">
+
+          <!-- Botón de pedido -->
+          <div class="text-md-end mb-4">
+            <a href="/HTML/catalogo.html" class="btn-pedido">
+              Hacer un pedido
+              <i class="bi bi-arrow-up-right"></i>
+            </a>
+          </div>
+
+          <!-- Menú -->
+          <nav class="footer-menu">
+            <ul class="list-unstyled d-flex flex-wrap justify-content-md-end gap-3 gap-lg-4 mb-0">
+              <li><a href="/index.html" class="footer-link">Inicio</a></li>
+              <li><a href="/HTML/sobre-nosotros.html" class="footer-link">Sobre nosotros</a></li>
+              <li><a href="/HTML/contacto.html" class="footer-link">Contacto</a></li>
+              <li><a href="../HTML/catalogo.html" class="footer-link">Catálogo</a></li>
+              <li><a href="#" class="footer-link">¿Cómo funciona?</a></li>
+              <li><a href="#" class="footer-link">Taller 3D</a></li>
+            </ul>
+          </nav>
+
+          <!-- Volver arriba -->
+          <div class="text-md-end mt-4">
+            <a href="#inicio" class="back-top">
+              Volver arriba
+              <i class="bi bi-arrow-up"></i>
+            </a>
+          </div>
+
+        </div>
+      </div>
+      <div class="copyright mt-5 pt-3">
+        <p class="mb-0">
+          &copy; 2026 BLANKSPACE. Todos los derechos reservados.
+        </p>
+      </div>
+
+    </div>
+  </footer>
+
+  <script src="/JS/script.js"></script>
 </body>
+
 </html>

@@ -1,0 +1,91 @@
+/* 1. DECLARACIÓN DE CONDICIONES GRUPALES */
+:root {
+  --soft-linen: #e8e2d5;
+  --shadow-gray: #22252a;
+  --tomato: #ff6b4a;
+  --glaucous: #7284a8;
+  --charcoal-blue: #474954;
+  --font-title: "Space Grotesk", sans-serif;
+  --font-text: "Inter", sans-serif;
+}
+
+/* Aplicamos la tipografía de texto base a todo el cuerpo de la página */
+body {
+    font-family: var(--font-text);
+    background-color: var(--soft-linen); /* Fondo suave de la página */
+}
+
+/* Aplicamos la tipografía de títulos a todos los encabezados */
+h1, h2, h3, h4, h5, h6 {
+    font-family: var(--font-title);
+    color: var(--shadow-gray);
+}
+
+/* 2. ESTRUCTURA DE LA ANIMACIÓN CORREGIDA CON LOS NUEVOS COLORES */
+
+.book-container {
+    width: 850px;
+    height: 550px;
+    background-color: #ffffff;
+    position: relative;
+    display: flex;
+    perspective: 1500px;
+}
+
+.page-base {
+    width: 50%;
+    height: 100%;
+}
+
+.moving-page {
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 50%;
+    height: 100%;
+    transform-origin: left center;
+    transform-style: preserve-3d;
+    transition: transform 0.8s ease-in-out;
+    z-index: 99;
+}
+
+.moving-page.flipped {
+    transform: rotateY(-180deg);
+}
+
+.page-side {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    backface-visibility: hidden;
+    -webkit-backface-visibility: hidden;
+}
+
+/* 🎨 APLICACIÓN DE LOS COLORES DEL EQUIPO A LAS HOJAS MÓVILES */
+/* Usamos el color --tomato (tomate) y --charcoal-blue (azul carbón) para hacer el degradado de tu equipo */
+.face-front, .face-back {
+    background: linear-gradient(135deg, var(--tomato), var(--charcoal-blue));
+}
+
+.face-back {
+    transform: rotateY(180deg);
+}
+
+/* Ajustamos los botones principales de los formularios para que usen el color oficial */
+.page-base .btn-danger {
+    background-color: var(--tomato) !important;
+    border-color: var(--tomato) !important;
+    font-family: var(--font-title);
+    transition: background-color 0.3s ease;
+}
+
+/* Efecto hover usando el azul glaucous del equipo */
+.page-base .btn-danger:hover {
+    background-color: var(--glaucous) !important;
+    border-color: var(--glaucous) !important;
+}
+
+/* Enlaces pequeños en color del grupo */
+a {
+    color: var(--glaucous);
+}
