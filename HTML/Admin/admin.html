@@ -33,6 +33,12 @@
       crossorigin="anonymous"
       referrerpolicy="no-referrer"
     />
+    <!--choicesjs-->
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/choices.js/public/assets/styles/choices.min.css"
+    />
+    <script src="https://cdn.jsdelivr.net/npm/choices.js/public/assets/scripts/choices.min.js"></script>
   </head>
 
   <body class="d-flex flex-column min-vh-100" id="inicio">
@@ -83,7 +89,9 @@
               <a class="nav-link" href="../../index.html">Inicio</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="../sobre-nosotros.html">Sobre nosotros</a>
+              <a class="nav-link" href="../sobre-nosotros.html"
+                >Sobre nosotros</a
+              >
             </li>
             <li class="nav-item">
               <a class="nav-link" href="../contacto.html">Contacto</a>
@@ -131,6 +139,36 @@
             <div class="col-12">
               <label for="precio" class="form-label">Precio($) </label>
               <input type="number" class="form-control" id="precio" />
+            </div>
+
+            <div class="col-12">
+              <label for="talla" class="form-label">Tallas </label>
+              <select
+                name="tallas[]"
+                id="talla"
+                multiple
+                class="form-select select-categoria"
+              >
+                <!--Desplega opciones dependiendo categoria-->
+              </select>
+            </div>
+            <div class="col-12">
+              <label for="color" class="form-label">Colores </label>
+              <select
+                id="color"
+                name="colores[]"
+                multiple
+                class="form-select select-categoria"
+              >
+                <option>Negro</option>
+                <option>Blanco</option>
+                <option>Naranja</option>
+                <option>Gris</option>
+                <option>Azul</option>
+                <option>Verde</option>
+                <option>Rojo</option>
+                <option>Café</option>
+              </select>
             </div>
 
             <div class="col-12">
