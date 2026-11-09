@@ -1013,3 +1013,8 @@ p {
         width: 100%;
     }
 }
+
+.choices__list--multiple .choices__item {
+  background-color: var(--tomato) !important;
+  border-color: var(--tomato) !important;    
+}

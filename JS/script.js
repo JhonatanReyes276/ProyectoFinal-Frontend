@@ -89,7 +89,7 @@ if (formulario) {
 
 //Catalogo de productos
 
-const productos = [
+const productosPorDefecto = [
   {
     id: 1,
     nombre: "Camiseta Clásica",
@@ -163,6 +163,14 @@ const productos = [
     colores: ["blanco", "negro", "azul", "verde", "rojo", "café", "naranja"],
   },
 ];
+
+const productosGuardados = localStorage.getItem("misProductos"); //busca los productos guardados previamente
+
+let productos = productosGuardados ? JSON.parse(productosGuardados) : productosPorDefecto; //se setea el array de productos dependiendo de si ya habian guardados, de lo contrario se setean los por defecto
+
+if (!productosGuardados) { //si la memoria estaba vacía, guardamos la lista por defecto convirtiendola a texto (JSON) para la proxima visita
+  localStorage.setItem("misProductos", JSON.stringify(productos));
+}
 
 document.addEventListener("DOMContentLoaded", function () {
   const listaProductos = document.getElementById("listaProductos");
@@ -332,7 +340,6 @@ const quitarTildes = (str) => {
 
 // guardamos en una array un objeto que contiene todos los datos de las filas (columnas) que necesitamos para filtrar
 const datosTabla = Array.from(filas).map((fila, index) => {
-
   const celdas = fila.querySelectorAll("td");
 
   //traemos las tallas
@@ -340,31 +347,32 @@ const datosTabla = Array.from(filas).map((fila, index) => {
 
   //guardamos en un array las tallas
   const arrayTallas = Array.from(spansTallas).map((span) =>
-    span.textContent.trim().toLowerCase());
+    span.textContent.trim().toLowerCase(),
+  );
 
   // tomamos los colores
   const spansColores = celdas[4].querySelectorAll("span");
   // guardamos los colores en un array
   const arrayColores = Array.from(spansColores).map((span) =>
-    quitarTildes(span.textContent.trim().toLowerCase()));
+    quitarTildes(span.textContent.trim().toLowerCase()),
+  );
 
   return {
     indice: index,
     nombre: quitarTildes(celdas[1].textContent.trim().toLowerCase()), // celdas[1] trae la segunda columna de la fila .texcontent trae su contenido .trim() quita espacios .toLowerCase() minusculas
     tallas: arrayTallas,
-    colores: arrayColores
+    colores: arrayColores,
   };
 });
 
 // configuracion de Fuse.js // se le pasa el array donde va a operar (datosTabla)
-const fuse = new Fuse(datosTabla, {   
+const fuse = new Fuse(datosTabla, {
   keys: ["nombre"], // variables que el fuse va a tener en cuenta (nombre) para hacer la busqueda (podrian haber sido más)
   threshold: 0.3, //nivel de toleracia a errores de ortografia que permite 0 siendo lo menos tolerante y 1 permitiendo cualquier cosa
   ignoreLocation: true, // Permite que encuentre la palabra sin importar si esta escrita al principio, en medio o al final de la celda
 });
 
 function filtrarAdmin() {
-  
   const texto = quitarTildes(buscador.value.trim().toLowerCase()); //input del usuario
   const tallaBuscada = selectTalla.value.toLowerCase(); //selected del usuario
   const colorBuscado = quitarTildes(selectColor.value.toLowerCase()); //selected del usuario
@@ -372,7 +380,6 @@ function filtrarAdmin() {
   let indicesValidosTexto = [];
   //si el input no esta vacio
   if (texto) {
-
     const resultados = fuse.search(texto); // trae los resultados que coinciden teniendo en cuenta la flexibilidad que le otorgamos
     indicesValidosTexto = resultados.map((r) => r.item.indice); // extrae el numero de fila de los resultados
   }
@@ -395,3 +402,121 @@ function filtrarAdmin() {
 buscador.addEventListener("input", filtrarAdmin);
 selectTalla.addEventListener("change", filtrarAdmin);
 selectColor.addEventListener("change", filtrarAdmin);
+
+const tallas = {
+  camiseta: ["S", "M", "L", "XL"],
+  medias: ["23-26", "27-30", "31-34", "35-37", "38-40", "41-43", "44-46"],
+  gorra: ["S", "M", "L"],
+};
+
+const categoria = document.querySelector("#categoria");
+const talla = document.querySelector("#talla");
+
+const colorOpciones = new Choices('#color', {
+  removeItemButton: true, // Agrega una 'x' para que el usuario pueda borrar su elección
+  searchEnabled: false,    // Oculta la barra de búsqueda si no la necesitas
+  position: 'bottom', // fuerza el menú hacia abajo
+  noChoicesText: 'No hay más opciones', // Reemplaza "No choices to choose from" por la indicacion en español
+  itemSelectText: 'Presiona para seleccionar' // Reemplaza "Press to select" por la indicacion en español
+});
+
+const tallaOpciones = new Choices('#talla', {
+  removeItemButton: true,
+  searchEnabled: false,
+  noChoicesText: 'No hay más opciones',
+  itemSelectText: 'Presiona para seleccionar'
+});
+
+function mostrarTallas() {
+
+  //tallaOpciones.removeActiveItems(); //borra las etiquetas previamente seleccionadas
+  //talla.innerHTML = "";
+  //tallaOpciones.clearChoices(); //borra la lista de opciones del menu desplegable
+
+  tallaOpciones.clearStore(); //borra la lista y etiquetas al mismo tiempo
+ 
+  const tipoCategoria = categoria.value;
+
+  let opciones = [];
+
+  if (tipoCategoria == "medias") {
+    for (let tallaMedias of tallas.medias) {
+      //talla.innerHTML += `<option value="${tallaMedias}">${tallaMedias}</option>`;
+      opciones.push({ value: tallaMedias, label: tallaMedias});
+    }
+  } else if (tipoCategoria == "camiseta") {
+    for (let tallaCamiseta of tallas.camiseta) {
+      //talla.innerHTML += `<option value="${tallaCamiseta}">${tallaCamiseta}</option>`;
+      opciones.push({ value: tallaCamiseta, label: tallaCamiseta});
+    }
+  } else if(tipoCategoria == "gorra"){
+    for (let tallaGorra of tallas.gorra) {
+      //talla.innerHTML += `<option value="${tallaGorra}">${tallaGorra}</option>`;
+      opciones.push({ value: tallaGorra, label: tallaGorra});
+    }
+  }
+  if(opciones.length > 0){ //Si no esta el seleccionar por defecto y el array se lleno con una de las opciones
+    tallaOpciones.setChoices(opciones, "value", "label", true);
+  }
+}
+
+categoria.addEventListener("change", mostrarTallas); //cuando haya cambios en la categoria, se ejecuta mostrarTallas
+
+const formularioProducto = document.getElementById("formulario-producto");
+
+function añadirProducto(){
+  e.preventDefault(); 
+
+  const nombre = document.getElementById("nombre").value.trim();
+  const precio = parseFloat(document.getElementById("precio").value);
+  const stock = parseInt(document.getElementById("stock").value);
+  
+  // extraer valores de choices js
+  const coloresSeleccionados = colorOpciones.getValue(true);
+  const tallasSeleccionadas = tallaOpciones.getValue(true);
+
+  // manejar la imagen | simulacion local
+  const inputImagen = document.getElementById("imagen");
+  let rutaImagen = "../../IMG/default.jpg"; 
+  if (inputImagen.files && inputImagen.files.length > 0) {
+    rutaImagen = "../../IMG/" + inputImagen.files[0].name;
+  }
+
+  // validar que los campos no esten vacios
+  if (!nombre || isNaN(precio) || isNaN(stock) || tallasSeleccionadas.length === 0 || coloresSeleccionados.length === 0) {
+    alert("Por favor, completa todos los campos.");
+    return;
+  }
+
+  // crear ID consecutivo
+  const nuevoId = productos.length > 0 ? Math.max(...productos.map(p => p.id)) + 1 : 1; // nusca el ID más alto y le suma 1, si la lista esta vacia, empieza en 1
+
+  // crear objeto
+  const nuevoProducto = {
+    id: nuevoId,
+    nombre: nombre,
+    precio: precio,
+    imagen: rutaImagen,
+    stock: stock,
+    tallas: tallasSeleccionadas,
+    colores: coloresSeleccionados,
+  };
+
+  // agregar al array
+  productos.push(nuevoProducto);
+
+  // actualizar el local storage
+  localStorage.setItem("misProductos", JSON.stringify(productos));
+
+  // limpiar form y choice js
+  formularioProducto.reset();
+  colorOpciones.removeActiveItems(); 
+  tallaOpciones.clearStore();        
+  
+  alert("Producto agregado y guardado correctamente");
+
+  // actualizar el "canva" dom
+  renderizarProductos(productos); 
+}
+
+formularioProducto.addEventListener("submit", añadirProducto);

@@ -33,6 +33,12 @@
       crossorigin="anonymous"
       referrerpolicy="no-referrer"
     />
+    <!--choicesjs-->
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/choices.js/public/assets/styles/choices.min.css"
+    />
+    <script src="https://cdn.jsdelivr.net/npm/choices.js/public/assets/scripts/choices.min.js"></script>
   </head>
 
   <body class="d-flex flex-column min-vh-100" id="inicio">
@@ -83,7 +89,9 @@
               <a class="nav-link" href="../../index.html">Inicio</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="../sobre-nosotros.html">Sobre nosotros</a>
+              <a class="nav-link" href="../sobre-nosotros.html"
+                >Sobre nosotros</a
+              >
             </li>
             <li class="nav-item">
               <a class="nav-link" href="../contacto.html">Contacto</a>
@@ -114,24 +122,55 @@
       <section class="gestion-productos">
         <!-- Formulario -->
         <div class="formulario-producto">
-          <form class="row g-3">
+          <form id="formulario-producto" class="row g-3">
             <div class="col-12">
               <label for="nombre" class="form-label">Nombre del producto</label>
               <input type="text" class="form-control" id="nombre" />
             </div>
             <div class="col-12">
-              <label for="categoria" class="form-label">Categoria</label>
+              <label for="categoria" class="form-label">Tipo de Prenda</label>
               <select id="categoria" class="form-select select-categoria">
                 <option selected disabled>Seleccionar</option>
-                <option>Camiseta</option>
-                <option>Gorra</option>
-                <option>Medias</option>
+                <option value="camiseta">Camiseta</option>
+                <option value="gorra">Gorra</option>
+                <option value="medias">Medias</option>
               </select>
             </div>
             <div class="col-12">
               <label for="precio" class="form-label">Precio($) </label>
               <input type="number" class="form-control" id="precio" />
             </div>
+
+            <div class="col-12">
+              <label for="talla" class="form-label">Tallas </label>
+              <select
+                name="tallas[]"
+                id="talla"
+                multiple
+                class="form-select select-categoria"
+              >
+                <!--Desplega opciones dependiendo categoria-->
+              </select>
+            </div>
+            <div class="col-12">
+              <label for="color" class="form-label">Colores </label>
+              <select
+                id="color"
+                name="colores[]"
+                multiple
+                class="form-select select-categoria"
+              >
+                <option>Negro</option>
+                <option>Blanco</option>
+                <option>Naranja</option>
+                <option>Gris</option>
+                <option>Azul</option>
+                <option>Verde</option>
+                <option>Rojo</option>
+                <option>Café</option>
+              </select>
+            </div>
+
             <div class="col-12">
               <label for="stock" class="form-label">Stock</label>
               <input type="number" class="form-control" id="stock" />
@@ -154,50 +193,50 @@
         </div>
 
         <div class="tabla-productos">
-                    <div class="d-flex flex-wrap gap-2 mb-3">
-          <div
-            class="position-relative d-inline-block flex-grow-1"
-            style="min-width: 200px"
-          >
-            <i
-              class="fa-solid fa-magnifying-glass texto-tomato position-absolute top-50 start-0 translate-middle-y ms-3 text-secondary"
-            ></i>
-            <input
-              id="buscador"
-              class="panel-input rounded-2 border-0 form-control ps-5"
-              type="text"
-              placeholder="Buscar"
-              aria-label="Buscar código de prenda, nombre, colores o tallas"
-            />
+          <div class="d-flex flex-wrap gap-2 mb-3">
+            <div
+              class="position-relative d-inline-block flex-grow-1"
+              style="min-width: 200px"
+            >
+              <i
+                class="fa-solid fa-magnifying-glass texto-tomato position-absolute top-50 start-0 translate-middle-y ms-3 text-secondary"
+              ></i>
+              <input
+                id="buscador"
+                class="panel-input rounded-2 border-0 form-control ps-5"
+                type="text"
+                placeholder="Buscar"
+                aria-label="Buscar código de prenda, nombre, colores o tallas"
+              />
+            </div>
+
+            <select id="filtroTalla" class="form-select w-auto pe-5">
+              <option value="">Todas las tallas</option>
+              <option value="S">S</option>
+              <option value="M">M</option>
+              <option value="L">L</option>
+              <option value="XL">XL</option>
+              <option value="23-26">23-26</option>
+              <option value="27-30">27-30</option>
+              <option value="31-34">31-34</option>
+              <option value="35-37">35-37</option>
+              <option value="38-40">38-40</option>
+              <option value="41-43">41-43</option>
+              <option value="44-46">44-46</option>
+            </select>
+
+            <select id="filtroColor" class="form-select w-auto pe-5">
+              <option value="">Todos los colores</option>
+              <option value="negro">Negro</option>
+              <option value="blanco">Blanco</option>
+              <option value="azul">Azul</option>
+              <option value="verde">Verde</option>
+              <option value="rojo">Rojo</option>
+              <option value="naranja">Naranja</option>
+              <option value="gris">Gris</option>
+              <option value="café">Café</option>
+            </select>
           </div>
-
-          <select id="filtroTalla" class="form-select w-auto pe-5">
-            <option value="">Todas las tallas</option>
-            <option value="S">S</option>
-            <option value="M">M</option>
-            <option value="L">L</option>
-            <option value="XL">XL</option>
-            <option value="23-26">23-26</option>
-            <option value="27-30">27-30</option>
-            <option value="31-34">31-34</option>
-            <option value="35-37">35-37</option>
-            <option value="38-40">38-40</option>
-            <option value="41-43">41-43</option>
-            <option value="44-46">44-46</option>
-          </select>
-
-          <select id="filtroColor" class="form-select w-auto pe-5">
-            <option value="">Todos los colores</option>
-            <option value="negro">Negro</option>
-            <option value="blanco">Blanco</option>
-            <option value="azul">Azul</option>
-            <option value="verde">Verde</option>
-            <option value="rojo">Rojo</option>
-            <option value="naranja">Naranja</option>
-            <option value="gris">Gris</option>
-            <option value="café">Café</option>
-          </select>
-        </div>
           <table id="miTabla" class="table table-dark table-bordered">
             <thead>
               <tr>
