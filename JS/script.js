@@ -177,6 +177,8 @@ document.addEventListener("DOMContentLoaded", function () {
 
   if (!listaProductos) return;
 
+  renderizarCatalogo(productos);
+
   let tallaActiva = "todas";
   let colorActivo = "todos";
 
@@ -464,7 +466,7 @@ categoria.addEventListener("change", mostrarTallas); //cuando haya cambios en la
 
 const formularioProducto = document.getElementById("formulario-producto");
 
-function añadirProducto(){
+function añadirProducto(e){
   e.preventDefault(); 
 
   const nombre = document.getElementById("nombre").value.trim();
@@ -520,3 +522,46 @@ function añadirProducto(){
 }
 
 formularioProducto.addEventListener("submit", añadirProducto);
+
+function renderizarCatalogo(lista) {
+  const contenedor = document.getElementById("listaProductos");
+  if (!contenedor) return;
+
+  contenedor.innerHTML = ""; // Limpiar el contenedor antes de renderizar
+
+  lista.forEach(producto => {
+    // Construir los spans de colores dinámicamente
+    const htmlColores = producto.colores.map(color => 
+      `<span class="punto color-${color.toLowerCase()}" title="${color}"></span>`
+    ).join("");
+
+    // Construir los spans de tallas dinámicamente
+    const htmlTallas = producto.tallas.map(talla => 
+      `<span class="etiqueta-talla">${talla}</span>`
+    ).join("");
+
+    // Crear la columna y el artículo del producto
+    const div = document.createElement("div");
+    div.className = "col-6 col-md-4 col-lg-3";
+    
+    div.innerHTML = `
+      <article class="producto" data-id="${producto.id}">
+        <div class="producto-img">
+          <img src="${producto.imagen}" alt="${producto.nombre}" />
+        </div>
+        <div class="producto-info">
+          <h3 class="producto-nombre">${producto.nombre}</h3>
+          <p class="producto-precio">$${producto.precio.toLocaleString("es-CO")}</p>
+          <div class="producto-colores">
+            ${htmlColores}
+          </div>
+          <div class="producto-tallas">
+            ${htmlTallas}
+          </div>
+        </div>
+      </article>
+    `;
+    
+    contenedor.appendChild(div);
+  });
+}
