@@ -59,7 +59,6 @@
   <main class="container py-5 flex-grow-1">
     <section id="catalogo">
 
-      <!-- Cabecera -->
       <div class="text-center mb-5 titulo-catalogo-wrapper">
         <span class="badge-subtitulo">NUESTRA COLECCIÓN</span>
         <h1 class="titulo-catalogo">CATÁLOGO</h1>
@@ -85,6 +84,8 @@
               <button type="button" class="chip-talla" data-talla="31-34">31-34</button>
               <button type="button" class="chip-talla" data-talla="35-37">35-37</button>
               <button type="button" class="chip-talla" data-talla="38-40">38-40</button>
+              <button type="button" class="chip-talla" data-talla="41-43">41-43</button>
+              <button type="button" class="chip-talla" data-talla="44-46">44-46</button>
             </div>
           </div>
 
@@ -92,180 +93,41 @@
             <h2 class="titulo-filtro">Color</h2>
             <div class="opciones">
               <button type="button" class="chip-color chip-texto activo" data-color="todos">Todos</button>
-              <button type="button" class="chip-color circulo color-negro" data-color="negro" aria-label="Negro" title="Negro"></button>
-              <button type="button" class="chip-color circulo color-blanco" data-color="blanco" aria-label="Blanco" title="Blanco"></button>
-              <button type="button" class="chip-color circulo color-naranja" data-color="naranja" aria-label="Naranja" title="Naranja"></button>
-              <button type="button" class="chip-color circulo color-azul" data-color="azul" aria-label="Azul" title="Azul"></button>
-              <button type="button" class="chip-color circulo color-gris" data-color="gris" aria-label="Gris" title="Gris"></button>
+              <button type="button" class="chip-color circulo color-negro" data-color="negro" aria-label="Negro"
+                title="Negro"></button>
+              <button type="button" class="chip-color circulo color-blanco" data-color="blanco" aria-label="Blanco"
+                title="Blanco"></button>
+              <button type="button" class="chip-color circulo color-naranja" data-color="naranja" aria-label="Naranja"
+                title="Naranja"></button>
+              <button type="button" class="chip-color circulo color-azul" data-color="azul" aria-label="Azul"
+                title="Azul"></button>
+              <button type="button" class="chip-color circulo color-gris" data-color="gris" aria-label="Gris"
+                title="Gris"></button>
+              <button type="button" class="chip-color circulo color-verde" data-color="verde" aria-label="Verde"
+                title="Verde"></button>
+              <button type="button" class="chip-color circulo color-rojo" data-color="rojo" aria-label="Rojo"
+                title="Rojo"></button>
+              <button type="button" class="chip-color circulo color-cafe" data-color="café" aria-label="Café"
+                title="Café"></button>
             </div>
           </div>
 
         </div>
       </div>
 
-      <div class="d-flex justify-content-between align-items-center mb-3">
+      <div class="d-flex justify-content-between align-items-center flex-wrap gap-2 mb-3">
         <p id="contador" class="contador-productos mb-0"></p>
-        <button type="button" id="limpiarFiltros" class="boton-limpiar">Limpiar filtros</button>
+        <div class="d-flex align-items-center gap-2">
+          <button type="button" id="limpiarFiltros" class="boton-limpiar">Limpiar filtros</button>
+          <button type="button" class="boton-lista" data-bs-toggle="offcanvas" data-bs-target="#panelLista"
+            aria-controls="panelLista">
+            <i class="bi bi-list-check"></i> Mi lista
+            <span id="badgeLista" class="badge-lista d-none">0</span>
+          </button>
+        </div>
       </div>
 
-      <div id="listaProductos" class="row g-4">
-
-        <div class="col-6 col-md-4 col-lg-3">
-          <article class="producto" data-id="1">
-            <div class="producto-img"><img src="../IMG/camisac.png" alt="Camiseta Clásica" /></div>
-            <div class="producto-info">
-              <h3 class="producto-nombre">Camiseta Clásica</h3>
-              <p class="producto-precio">$45.000</p>
-              <div class="producto-colores">
-                <span class="punto color-negro" title="negro"></span>
-                <span class="punto color-blanco" title="blanco"></span>
-                <span class="punto color-naranja" title="naranja"></span>
-              </div>
-              <div class="producto-tallas">
-                <span class="etiqueta-talla">S</span>
-                <span class="etiqueta-talla">M</span>
-                <span class="etiqueta-talla">L</span>
-                <span class="etiqueta-talla">XL</span>
-              </div>
-            </div>
-          </article>
-        </div>
-
-        <div class="col-6 col-md-4 col-lg-3">
-          <article class="producto" data-id="2">
-            <div class="producto-img"><img src="../IMG/camisaO.png" alt="Camiseta Oversize" /></div>
-            <div class="producto-info">
-              <h3 class="producto-nombre">Camiseta Oversize</h3>
-              <p class="producto-precio">$55.000</p>
-              <div class="producto-colores">
-                <span class="punto color-negro" title="negro"></span>
-                <span class="punto color-gris" title="gris"></span>
-                <span class="punto color-azul" title="azul"></span>
-              </div>
-              <div class="producto-tallas">
-                <span class="etiqueta-talla">M</span>
-                <span class="etiqueta-talla">L</span>
-                <span class="etiqueta-talla">XL</span>
-              </div>
-            </div>
-          </article>
-        </div>
-
-        <div class="col-6 col-md-4 col-lg-3">
-          <article class="producto" data-id="3">
-            <div class="producto-img"><img src="../IMG/gorras.png" alt="Gorra Snapback" /></div>
-            <div class="producto-info">
-              <h3 class="producto-nombre">Gorra Snapback</h3>
-              <p class="producto-precio">$35.000</p>
-              <div class="producto-colores">
-                <span class="punto color-negro" title="negro"></span>
-                <span class="punto color-blanco" title="blanco"></span>
-                <span class="punto color-naranja" title="naranja"></span>
-              </div>
-              <div class="producto-tallas">
-                <span class="etiqueta-talla">M</span>
-                <span class="etiqueta-talla">L</span>
-              </div>
-            </div>
-          </article>
-        </div>
-
-        <div class="col-6 col-md-4 col-lg-3">
-          <article class="producto" data-id="4">
-            <div class="producto-img"><img src="../IMG/gorrat.png" alt="Gorra Trucker" /></div>
-            <div class="producto-info">
-              <h3 class="producto-nombre">Gorra Trucker</h3>
-              <p class="producto-precio">$32.000</p>
-              <div class="producto-colores">
-                <span class="punto color-azul" title="azul"></span>
-                <span class="punto color-gris" title="gris"></span>
-              </div>
-              <div class="producto-tallas">
-                <span class="etiqueta-talla">S</span>
-                <span class="etiqueta-talla">M</span>
-              </div>
-            </div>
-          </article>
-        </div>
-
-        <div class="col-6 col-md-4 col-lg-3">
-          <article class="producto" data-id="5">
-            <div class="producto-img"><img src="../IMG/medias.jpg" alt="Medias Estampadas" /></div>
-            <div class="producto-info">
-              <h3 class="producto-nombre">Medias Estampadas</h3>
-              <p class="producto-precio">$18.000</p>
-              <div class="producto-colores">
-                <span class="punto color-blanco" title="blanco"></span>
-                <span class="punto color-negro" title="negro"></span>
-                <span class="punto color-azul" title="azul"></span>
-              </div>
-              <div class="producto-tallas">
-                <span class="etiqueta-talla">35-37</span>
-                <span class="etiqueta-talla">38-40</span>
-              </div>
-            </div>
-          </article>
-        </div>
-
-        <div class="col-6 col-md-4 col-lg-3">
-          <article class="producto" data-id="6">
-            <div class="producto-img"><img src="../IMG/medial.png" alt="Medias Largas" /></div>
-            <div class="producto-info">
-              <h3 class="producto-nombre">Medias Largas</h3>
-              <p class="producto-precio">$20.000</p>
-              <div class="producto-colores">
-                <span class="punto color-gris" title="gris"></span>
-                <span class="punto color-naranja" title="naranja"></span>
-              </div>
-              <div class="producto-tallas">
-                <span class="etiqueta-talla">31-34</span>
-                <span class="etiqueta-talla">35-37</span>
-                <span class="etiqueta-talla">38-40</span>
-              </div>
-            </div>
-          </article>
-        </div>
-
-        <div class="col-6 col-md-4 col-lg-3">
-          <article class="producto" data-id="7">
-            <div class="producto-img"><img src="../IMG/median.png" alt="Medias infantiles" /></div>
-            <div class="producto-info">
-              <h3 class="producto-nombre">Medias infantiles</h3>
-              <p class="producto-precio">$12.000</p>
-              <div class="producto-colores">
-                <span class="punto color-blanco" title="blanco"></span>
-                <span class="punto color-negro" title="negro"></span>
-                <span class="punto color-azul" title="azul"></span>
-              </div>
-              <div class="producto-tallas">
-                <span class="etiqueta-talla">23-26</span>
-                <span class="etiqueta-talla">27-30</span>
-                <span class="etiqueta-talla">31-34</span>
-              </div>
-            </div>
-          </article>
-        </div>
-
-        <div class="col-6 col-md-4 col-lg-3">
-          <article class="producto" data-id="8">
-            <div class="producto-img"><img src="../IMG/mediat.png" alt="Medias tobilleras" /></div>
-            <div class="producto-info">
-              <h3 class="producto-nombre">Medias tobilleras</h3>
-              <p class="producto-precio">$12.000</p>
-              <div class="producto-colores">
-                <span class="punto color-blanco" title="blanco"></span>
-                <span class="punto color-negro" title="negro"></span>
-                <span class="punto color-azul" title="azul"></span>
-              </div>
-              <div class="producto-tallas">
-                <span class="etiqueta-talla">35-37</span>
-                <span class="etiqueta-talla">38-40</span>
-              </div>
-            </div>
-          </article>
-        </div>
-
-      </div>
+      <div id="listaProductos" class="row g-4"></div>
 
       <div id="sinResultados" class="sin-resultados d-none">
         <h2 class="h4">No hay productos con esa combinación</h2>
@@ -289,9 +151,12 @@
           <div class="mt-4">
             <h6 class="fw-bold mb-3">SÍGUENOS</h6>
             <ul class="list-unstyled d-flex gap-4 mb-0">
-              <li><a href="https://www.facebook.com/" class="social-link"><i class="bi bi-facebook" id="facebook"></i></a></li>
-              <li><a href="https://www.instagram.com/" class="social-link"><i class="bi bi-instagram" id="instagram"></i></a></li>
-              <li><a href="https://www.tiktok.com/" class="social-link"><i class="bi bi-tiktok" id="tiktok"></i></a></li>
+              <li><a href="https://www.facebook.com/" class="social-link"><i class="bi bi-facebook"
+                    id="facebook"></i></a></li>
+              <li><a href="https://www.instagram.com/" class="social-link"><i class="bi bi-instagram"
+                    id="instagram"></i></a></li>
+              <li><a href="https://www.tiktok.com/" class="social-link"><i class="bi bi-tiktok" id="tiktok"></i></a>
+              </li>
             </ul>
           </div>
         </div>
@@ -323,6 +188,29 @@
       </div>
     </div>
   </footer>
+
+  <div class="offcanvas offcanvas-end panel-lista" tabindex="-1" id="panelLista" aria-labelledby="tituloPanelLista">
+    <div class="offcanvas-header">
+      <h2 class="offcanvas-title" id="tituloPanelLista">Mi lista</h2>
+      <button type="button" class="btn-close btn-close-white" data-bs-dismiss="offcanvas" aria-label="Cerrar"></button>
+    </div>
+    <div class="offcanvas-body">
+      <p id="listaVacia" class="lista-vacia">
+        Aún no has agregado productos. Pulsa «Agregar a la lista» en las prendas que te gusten.
+      </p>
+      <ul id="itemsLista" class="items-lista"></ul>
+    </div>
+    <div class="pie-lista">
+    <div class="total-lista">
+      <span>Total</span>
+      <strong id="totalLista">$0</strong>
+    </div>
+    <button type="button" id="btnIrTaller3D" class="boton-taller mb-2 w-100 py-2">
+      Ir al Taller 3D <i class="bi bi-box-seam"></i>
+    </button>
+    <button type="button" id="vaciarLista" class="boton-vaciar">Vaciar lista</button>
+  </div>
+  </div>
 
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"
     integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI"
