@@ -307,10 +307,14 @@ function renderizarProductos(lista) {
       })
       .join("");
 
+    const rutaImg = producto.imagen.startsWith("data:")
+      ? producto.imagen
+      : `../../${producto.imagen}`;
+
     fila.innerHTML = `
       <th class="text-center align-middle">${index + 1}</th>
       <td class="text-center align-middle">
-        <img src="../../${producto.imagen}" alt="${producto.nombre}" class="img-thumbnail" style="width: 50px; height: 50px; object-fit: cover;">
+        <img src="${rutaImg}" alt="${producto.nombre}" class="img-thumbnail" style="width: 50px; height: 50px; object-fit: cover;">
       </td>
       <td class="align-middle fw-semibold">${producto.nombre}</td>
       <td class="align-middle fw-bold" style="color: var(--tomato);">$${producto.precio.toLocaleString("es-CO")}</td>
@@ -353,7 +357,7 @@ if (filas.length > 0) {
     const celdas = fila.querySelectorAll("td");
 
     // traemos las tallas
-    const spansTallas = celdas[3].querySelectorAll("span");
+    const spansTallas = celdas[4].querySelectorAll("span");
 
     // guardamos en un array las tallas
     const arrayTallas = Array.from(spansTallas).map((span) =>
@@ -361,7 +365,7 @@ if (filas.length > 0) {
     );
 
     // tomamos los colores
-    const spansColores = celdas[4].querySelectorAll("span");
+    const spansColores = celdas[5].querySelectorAll("span");
     // guardamos los colores en un array
     const arrayColores = Array.from(spansColores).map((span) =>
       quitarTildes(span.textContent.trim().toLowerCase()),
@@ -488,9 +492,18 @@ if (categoria) {
   categoria.addEventListener("change", mostrarTallas); // cuando haya cambios en la categoria, se ejecuta mostrarTallas
 }
 
+const convertirImagenABase64 = (archivo) => {
+  return new Promise((resolve, reject) => {
+    const reader = new FileReader();
+    reader.readAsDataURL(archivo); // Convierte la imagen a URL Base64
+    reader.onload = () => resolve(reader.result);
+    reader.onerror = (error) => reject(error);
+  });
+};
+
 const formularioProducto = document.getElementById("formulario-producto");
 
-function añadirProducto(e) {
+async function añadirProducto(e) {
   e.preventDefault();
 
   const nombre = document.getElementById("nombre").value.trim();
@@ -501,17 +514,26 @@ function añadirProducto(e) {
   const coloresSeleccionados = colorOpciones ? colorOpciones.getValue(true) : [];
   const tallasSeleccionadas = tallaOpciones ? tallaOpciones.getValue(true) : [];
 
-  // manejar la imagen | simulacion local
-  const inputImagen = document.getElementById("imagen");
-  let rutaImagen = "../../IMG/default.jpg";
-  if (inputImagen && inputImagen.files && inputImagen.files.length > 0) {
-    rutaImagen = "../../IMG/" + inputImagen.files[0].name;
-  }
-
   // validar que los campos no esten vacios
   if (!nombre || isNaN(precio) || isNaN(stock) || tallasSeleccionadas.length === 0 || coloresSeleccionados.length === 0) {
     alert("Por favor, completa todos los campos.");
     return;
+  }
+
+    const inputImagen = document.getElementById("imagen");
+  // Este código genera un icono de imagen genérica gris directamente en el navegador
+  let rutaImagen =
+    "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='400' height='400' fill='%23dee2e6'><rect width='400' height='400' fill='%23f8f9fa'/><path d='M100 150l75 100 50-75 75 125H100z'/><circle cx='275' cy='125' r='25'/></svg>"; // Imagen por defecto si no suben nada
+
+  if (inputImagen.files && inputImagen.files.length > 0) {
+    try {
+      // Esperamos a que la imagen se convierta a texto Base64
+      rutaImagen = await convertirImagenABase64(inputImagen.files[0]);
+    } catch (error) {
+      console.error("Error al procesar la imagen: ", error);
+      alert("Hubo un problema al cargar la imagen.");
+      return;
+    }
   }
 
   // crear ID consecutivo
@@ -569,10 +591,14 @@ function renderizarCatalogo(lista) {
     const div = document.createElement("div");
     div.className = "col-6 col-md-4 col-lg-3";
 
+    const rutaImg = producto.imagen.startsWith("data:") 
+      ? producto.imagen 
+      : `../${producto.imagen}`;
+
     div.innerHTML = `
       <article class="producto" data-id="${producto.id}">
         <div class="producto-img">
-          <img src="../${producto.imagen}" alt="${producto.nombre}" />
+          <img src="${rutaImg}" alt="${producto.nombre}" />
         </div>
         <div class="producto-info">
           <h3 class="producto-nombre">${producto.nombre}</h3>
