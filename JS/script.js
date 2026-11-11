@@ -1,7 +1,7 @@
 const formulario = document.getElementById("formulario");
 
 function enviar(evento) {
-  evento.preventDefault(); //Evita que el formulario se envie por defecto para hacer la validacion
+  evento.preventDefault(); // Evita que el formulario se envie por defecto para hacer la validacion
 
   const esValido = validar(
     validarNombre(),
@@ -38,7 +38,7 @@ function marcarValido(input) {
 function validarTelefono() {
   const input = document.getElementById("telefono");
   const valor = input.value.trim();
-  const regex = /^[0-9]+$/; //asegura que desde el inicio "^" sea solo numeros "[0-9]" hasta el final "$"
+  const regex = /^[0-9]+$/; // asegura que desde el inicio "^" sea solo numeros "[0-9]" hasta el final "$"
 
   if (
     valor === "" ||
@@ -64,7 +64,7 @@ function validarMensaje() {
 function validarCorreo() {
   const input = document.getElementById("email");
   const valor = input.value.trim();
-  const regex = /^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$/; //asegura que desde el inicio "^" haya texto "[a-zA-Z0-9_.+-]" luego "@" luego texto "[a-zA-Z0-9-] luego un punto "\."
+  const regex = /^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$/; // asegura que desde el inicio "^" haya texto "[a-zA-Z0-9_.+-]" luego "@" luego texto "[a-zA-Z0-9-] luego un punto "\."
 
   if (valor === "" || !regex.test(valor)) {
     return marcarInvalido(input);
@@ -75,7 +75,7 @@ function validarCorreo() {
 function validarNombre() {
   const input = document.getElementById("nombre");
   const valor = input.value.trim();
-  const regex = /^[a-zA-ZáéíóúÁÉÍÓÚñÑ\s]+$/; //regex se asegura que desde el inicio "^" hasta el final "$" solo haya letras del alfabeto "a-zA-Z", acentos "áéíóúÁÉÍÓÚñÑ", espacios "\s" y letra ñ
+  const regex = /^[a-zA-ZáéíóúÁÉÍÓÚñÑ\s]+$/; // regex se asegura que desde el inicio "^" hasta el final "$" solo haya letras del alfabeto "a-zA-Z", acentos "áéíóúÁÉÍÓÚñÑ", espacios "\s" y letra ñ
 
   if (valor === "" || !regex.test(valor) || valor.indexOf(" ") === -1) {
     // (valor.indexOf(' ') Ubica donde hay un espacio)  === -1 obliga a que hayan 2 palabras dado que hay 2 espacios
@@ -83,11 +83,12 @@ function validarNombre() {
   }
   return marcarValido(input);
 }
+
 if (formulario) {
   formulario.addEventListener("submit", enviar);
 }
 
-//Catalogo de productos
+// Catalogo de productos
 
 const productosPorDefecto = [
   {
@@ -164,11 +165,12 @@ const productosPorDefecto = [
   },
 ];
 
-const productosGuardados = localStorage.getItem("misProductos"); //busca los productos guardados previamente
+const productosGuardados = localStorage.getItem("misProductos"); // busca los productos guardados previamente
 
-let productos = productosGuardados ? JSON.parse(productosGuardados) : productosPorDefecto; //se setea el array de productos dependiendo de si ya habian guardados, de lo contrario se setean los por defecto
+let productos = productosGuardados ? JSON.parse(productosGuardados) : productosPorDefecto; // se setea el array de productos dependiendo de si ya habian guardados, de lo contrario se setean los por defecto
 
-if (!productosGuardados) { //si la memoria estaba vacía, guardamos la lista por defecto convirtiendola a texto (JSON) para la proxima visita
+if (!productosGuardados) {
+  // si la memoria estaba vacía, guardamos la lista por defecto convirtiendola a texto (JSON) para la proxima visita
   localStorage.setItem("misProductos", JSON.stringify(productos));
 }
 
@@ -203,8 +205,9 @@ document.addEventListener("DOMContentLoaded", function () {
   // Filtrar
   function filtrarProductos() {
     let visibles = 0;
+    const tarjetasActualizadas = document.querySelectorAll(".producto");
 
-    tarjetasProductos.forEach(function (tarjeta) {
+    tarjetasActualizadas.forEach(function (tarjeta) {
       const idTarjeta = Number(tarjeta.dataset.id);
       const productoData = productos.find(function (p) {
         return p.id === idTarjeta;
@@ -282,6 +285,7 @@ const mapaColores = {
 const tablaBody = document.getElementById("cuerpo-tabla");
 
 function renderizarProductos(lista) {
+  if (!tablaBody) return;
   tablaBody.innerHTML = "";
 
   lista.forEach((producto, index) => {
@@ -328,7 +332,9 @@ function renderizarProductos(lista) {
   });
 }
 
-renderizarProductos(productos);
+if (tablaBody) {
+  renderizarProductos(productos);
+}
 
 const buscador = document.querySelector("#buscador");
 const selectTalla = document.querySelector("#filtroTalla");
@@ -337,56 +343,64 @@ const filas = document.querySelectorAll("#miTabla tbody tr");
 
 const quitarTildes = (str) => {
   // (str) hace referencia a string la palabra que entra
-  return str.normalize("NFD").replace(/[\u0300-\u036f]/g, ""); //normalize("NFD") separa la letra de la tilde ej: entra (café) sale (cafe´) cambia (.replace()) todas las tildes, diéresis o sombreritos ([\u0300-\u036f]) por nada ("")
+  return str.normalize("NFD").replace(/[\u0300-\u036f]/g, ""); // normalize("NFD") separa la letra de la tilde ej: entra (café) sale (cafe´) cambia (.replace()) todas las tildes, diéresis o sombreritos ([\u0300-\u036f]) por nada ("")
 };
 
 // guardamos en una array un objeto que contiene todos los datos de las filas (columnas) que necesitamos para filtrar
-const datosTabla = Array.from(filas).map((fila, index) => {
-  const celdas = fila.querySelectorAll("td");
+let datosTabla = [];
+if (filas.length > 0) {
+  datosTabla = Array.from(filas).map((fila, index) => {
+    const celdas = fila.querySelectorAll("td");
 
-  //traemos las tallas
-  const spansTallas = celdas[3].querySelectorAll("span");
+    // traemos las tallas
+    const spansTallas = celdas[3].querySelectorAll("span");
 
-  //guardamos en un array las tallas
-  const arrayTallas = Array.from(spansTallas).map((span) =>
-    span.textContent.trim().toLowerCase(),
-  );
+    // guardamos en un array las tallas
+    const arrayTallas = Array.from(spansTallas).map((span) =>
+      span.textContent.trim().toLowerCase(),
+    );
 
-  // tomamos los colores
-  const spansColores = celdas[4].querySelectorAll("span");
-  // guardamos los colores en un array
-  const arrayColores = Array.from(spansColores).map((span) =>
-    quitarTildes(span.textContent.trim().toLowerCase()),
-  );
+    // tomamos los colores
+    const spansColores = celdas[4].querySelectorAll("span");
+    // guardamos los colores en un array
+    const arrayColores = Array.from(spansColores).map((span) =>
+      quitarTildes(span.textContent.trim().toLowerCase()),
+    );
 
-  return {
-    indice: index,
-    nombre: quitarTildes(celdas[1].textContent.trim().toLowerCase()), // celdas[1] trae la segunda columna de la fila .texcontent trae su contenido .trim() quita espacios .toLowerCase() minusculas
-    tallas: arrayTallas,
-    colores: arrayColores,
-  };
-});
+    return {
+      indice: index,
+      nombre: quitarTildes(celdas[1].textContent.trim().toLowerCase()), // celdas[1] trae la segunda columna de la fila .texcontent trae su contenido .trim() quita espacios .toLowerCase() minusculas
+      tallas: arrayTallas,
+      colores: arrayColores,
+    };
+  });
+}
 
 // configuracion de Fuse.js // se le pasa el array donde va a operar (datosTabla)
-const fuse = new Fuse(datosTabla, {
-  keys: ["nombre"], // variables que el fuse va a tener en cuenta (nombre) para hacer la busqueda (podrian haber sido más)
-  threshold: 0.3, //nivel de toleracia a errores de ortografia que permite 0 siendo lo menos tolerante y 1 permitiendo cualquier cosa
-  ignoreLocation: true, // Permite que encuentre la palabra sin importar si esta escrita al principio, en medio o al final de la celda
-});
+let fuse = null;
+if (datosTabla.length > 0 && typeof Fuse !== "undefined") {
+  fuse = new Fuse(datosTabla, {
+    keys: ["nombre"], // variables que el fuse va a tener en cuenta (nombre) para hacer la busqueda (podrian haber sido más)
+    threshold: 0.3, // nivel de toleracia a errores de ortografia que permite 0 siendo lo menos tolerante y 1 permitiendo cualquier cosa
+    ignoreLocation: true, // Permite que encuentre la palabra sin importar si esta escrita al principio, en medio o al final de la celda
+  });
+}
 
 function filtrarAdmin() {
-  const texto = quitarTildes(buscador.value.trim().toLowerCase()); //input del usuario
-  const tallaBuscada = selectTalla.value.toLowerCase(); //selected del usuario
-  const colorBuscado = quitarTildes(selectColor.value.toLowerCase()); //selected del usuario
+  if (!buscador || !selectTalla || !selectColor || !fuse) return;
+
+  const texto = quitarTildes(buscador.value.trim().toLowerCase()); // input del usuario
+  const tallaBuscada = selectTalla.value.toLowerCase(); // selected del usuario
+  const colorBuscado = quitarTildes(selectColor.value.toLowerCase()); // selected del usuario
 
   let indicesValidosTexto = [];
-  //si el input no esta vacio
+  // si el input no esta vacio
   if (texto) {
     const resultados = fuse.search(texto); // trae los resultados que coinciden teniendo en cuenta la flexibilidad que le otorgamos
     indicesValidosTexto = resultados.map((r) => r.item.indice); // extrae el numero de fila de los resultados
   }
 
-  //recorremos TODAS las filas para aplicar el filtro
+  // recorremos TODAS las filas para aplicar el filtro
   filas.forEach((fila, index) => {
     // si el index de la fila que estamos recorriendo coincide con el que obtuvimos de fuse, será true
     const cumpleTexto = texto === "" || indicesValidosTexto.includes(index); // el "" (espacio vacio) es el comodin, incluso si el input esta vacio, o la talla esta vacia pero el color no, se aplica el filtro
@@ -397,13 +411,13 @@ function filtrarAdmin() {
     const cumpleColor =
       colorBuscado === "" || datosTabla[index].colores.includes(colorBuscado); // si la fila que estamos recorriendo en su color incluye el color que selecciono el admin, será true
 
-    fila.hidden = !(cumpleTexto && cumpleTalla && cumpleColor); //escondemos las filas que no cumplan con todas las condiciones al mismo tiempo
+    fila.hidden = !(cumpleTexto && cumpleTalla && cumpleColor); // escondemos las filas que no cumplan con todas las condiciones al mismo tiempo
   });
 }
 
-buscador.addEventListener("input", filtrarAdmin);
-selectTalla.addEventListener("change", filtrarAdmin);
-selectColor.addEventListener("change", filtrarAdmin);
+if (buscador) buscador.addEventListener("input", filtrarAdmin);
+if (selectTalla) selectTalla.addEventListener("change", filtrarAdmin);
+if (selectColor) selectColor.addEventListener("change", filtrarAdmin);
 
 const tallas = {
   camiseta: ["S", "M", "L", "XL"],
@@ -414,29 +428,37 @@ const tallas = {
 const categoria = document.querySelector("#categoria");
 const talla = document.querySelector("#talla");
 
-const colorOpciones = new Choices('#color', {
-  removeItemButton: true, // Agrega una 'x' para que el usuario pueda borrar su elección
-  searchEnabled: false,    // Oculta la barra de búsqueda si no la necesitas
-  position: 'bottom', // fuerza el menú hacia abajo
-  noChoicesText: 'No hay más opciones', // Reemplaza "No choices to choose from" por la indicacion en español
-  itemSelectText: 'Presiona para seleccionar' // Reemplaza "Press to select" por la indicacion en español
-});
+let colorOpciones = null;
+let tallaOpciones = null;
 
-const tallaOpciones = new Choices('#talla', {
-  removeItemButton: true,
-  searchEnabled: false,
-  noChoicesText: 'No hay más opciones',
-  itemSelectText: 'Presiona para seleccionar'
-});
+if (document.querySelector('#color') && typeof Choices !== "undefined") {
+  colorOpciones = new Choices('#color', {
+    removeItemButton: true, // Agrega una 'x' para que el usuario pueda borrar su elección
+    searchEnabled: false,    // Oculta la barra de búsqueda si no la necesitas
+    position: 'bottom', // fuerza el menú hacia abajo
+    noChoicesText: 'No hay más opciones', // Reemplaza "No choices to choose from" por la indicacion en español
+    itemSelectText: 'Presiona para seleccionar' // Reemplaza "Press to select" por la indicacion en español
+  });
+}
+
+if (document.querySelector('#talla') && typeof Choices !== "undefined") {
+  tallaOpciones = new Choices('#talla', {
+    removeItemButton: true,
+    searchEnabled: false,
+    noChoicesText: 'No hay más opciones',
+    itemSelectText: 'Presiona para seleccionar'
+  });
+}
 
 function mostrarTallas() {
+  if (!categoria || !tallaOpciones) return;
 
   //tallaOpciones.removeActiveItems(); //borra las etiquetas previamente seleccionadas
   //talla.innerHTML = "";
   //tallaOpciones.clearChoices(); //borra la lista de opciones del menu desplegable
 
-  tallaOpciones.clearStore(); //borra la lista y etiquetas al mismo tiempo
- 
+  tallaOpciones.clearStore(); // borra la lista y etiquetas al mismo tiempo
+
   const tipoCategoria = categoria.value;
 
   let opciones = [];
@@ -444,43 +466,45 @@ function mostrarTallas() {
   if (tipoCategoria == "medias") {
     for (let tallaMedias of tallas.medias) {
       //talla.innerHTML += `<option value="${tallaMedias}">${tallaMedias}</option>`;
-      opciones.push({ value: tallaMedias, label: tallaMedias});
+      opciones.push({ value: tallaMedias, label: tallaMedias });
     }
   } else if (tipoCategoria == "camiseta") {
     for (let tallaCamiseta of tallas.camiseta) {
       //talla.innerHTML += `<option value="${tallaCamiseta}">${tallaCamiseta}</option>`;
-      opciones.push({ value: tallaCamiseta, label: tallaCamiseta});
+      opciones.push({ value: tallaCamiseta, label: tallaCamiseta });
     }
-  } else if(tipoCategoria == "gorra"){
+  } else if (tipoCategoria == "gorra") {
     for (let tallaGorra of tallas.gorra) {
       //talla.innerHTML += `<option value="${tallaGorra}">${tallaGorra}</option>`;
-      opciones.push({ value: tallaGorra, label: tallaGorra});
+      opciones.push({ value: tallaGorra, label: tallaGorra });
     }
   }
-  if(opciones.length > 0){ //Si no esta el seleccionar por defecto y el array se lleno con una de las opciones
+  if (opciones.length > 0) { // Si no esta el seleccionar por defecto y el array se lleno con una de las opciones
     tallaOpciones.setChoices(opciones, "value", "label", true);
   }
 }
 
-categoria.addEventListener("change", mostrarTallas); //cuando haya cambios en la categoria, se ejecuta mostrarTallas
+if (categoria) {
+  categoria.addEventListener("change", mostrarTallas); // cuando haya cambios en la categoria, se ejecuta mostrarTallas
+}
 
 const formularioProducto = document.getElementById("formulario-producto");
 
-function añadirProducto(e){
-  e.preventDefault(); 
+function añadirProducto(e) {
+  e.preventDefault();
 
   const nombre = document.getElementById("nombre").value.trim();
   const precio = parseFloat(document.getElementById("precio").value);
   const stock = parseInt(document.getElementById("stock").value);
-  
+
   // extraer valores de choices js
-  const coloresSeleccionados = colorOpciones.getValue(true);
-  const tallasSeleccionadas = tallaOpciones.getValue(true);
+  const coloresSeleccionados = colorOpciones ? colorOpciones.getValue(true) : [];
+  const tallasSeleccionadas = tallaOpciones ? tallaOpciones.getValue(true) : [];
 
   // manejar la imagen | simulacion local
   const inputImagen = document.getElementById("imagen");
-  let rutaImagen = "../../IMG/default.jpg"; 
-  if (inputImagen.files && inputImagen.files.length > 0) {
+  let rutaImagen = "../../IMG/default.jpg";
+  if (inputImagen && inputImagen.files && inputImagen.files.length > 0) {
     rutaImagen = "../../IMG/" + inputImagen.files[0].name;
   }
 
@@ -491,7 +515,7 @@ function añadirProducto(e){
   }
 
   // crear ID consecutivo
-  const nuevoId = productos.length > 0 ? Math.max(...productos.map(p => p.id)) + 1 : 1; // nusca el ID más alto y le suma 1, si la lista esta vacia, empieza en 1
+  const nuevoId = productos.length > 0 ? Math.max(...productos.map(p => p.id)) + 1 : 1; // busca el ID más alto y le suma 1, si la lista esta vacia, empieza en 1
 
   // crear objeto
   const nuevoProducto = {
@@ -512,38 +536,39 @@ function añadirProducto(e){
 
   // limpiar form y choice js
   formularioProducto.reset();
-  colorOpciones.removeActiveItems(); 
-  tallaOpciones.clearStore();        
-  
+  if (colorOpciones) colorOpciones.removeActiveItems();
+  if (tallaOpciones) tallaOpciones.clearStore();
+
   alert("Producto agregado y guardado correctamente");
 
   // actualizar el "canva" dom
-  renderizarProductos(productos); 
+  renderizarProductos(productos);
 }
 
-formularioProducto.addEventListener("submit", añadirProducto);
+if (formularioProducto) {
+  formularioProducto.addEventListener("submit", añadirProducto);
+}
 
 function renderizarCatalogo(lista) {
   const contenedor = document.getElementById("listaProductos");
   if (!contenedor) return;
 
-  contenedor.innerHTML = ""; // Limpiar el contenedor antes de renderizar
+  contenedor.innerHTML = ""; // Limpiar el contenedor
 
   lista.forEach(producto => {
-    // Construir los spans de colores dinámicamente
-    const htmlColores = producto.colores.map(color => 
-      `<span class="punto color-${color.toLowerCase()}" title="${color}"></span>`
-    ).join("");
+    // Puntitos de color
+    const htmlColores = producto.colores.map(color => {
+      const clase = color.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "");
+      return `<span class="punto color-${clase}" title="${color}"></span>`;
+    }).join("");
 
-    // Construir los spans de tallas dinámicamente
-    const htmlTallas = producto.tallas.map(talla => 
+    const htmlTallas = producto.tallas.map(talla =>
       `<span class="etiqueta-talla">${talla}</span>`
     ).join("");
 
-    // Crear la columna y el artículo del producto
     const div = document.createElement("div");
     div.className = "col-6 col-md-4 col-lg-3";
-    
+
     div.innerHTML = `
       <article class="producto" data-id="${producto.id}">
         <div class="producto-img">
@@ -552,16 +577,188 @@ function renderizarCatalogo(lista) {
         <div class="producto-info">
           <h3 class="producto-nombre">${producto.nombre}</h3>
           <p class="producto-precio">$${producto.precio.toLocaleString("es-CO")}</p>
-          <div class="producto-colores">
-            ${htmlColores}
-          </div>
-          <div class="producto-tallas">
-            ${htmlTallas}
-          </div>
+          <div class="producto-colores">${htmlColores}</div>
+          <div class="producto-tallas">${htmlTallas}</div>
+          <button type="button" class="btn-agregar" data-id="${producto.id}">
+            <i class="bi bi-plus-lg"></i> Agregar a la lista
+          </button>
         </div>
       </article>
     `;
-    
+
     contenedor.appendChild(div);
   });
 }
+
+
+// LISTA DE SELECCION 
+document.addEventListener("DOMContentLoaded", function () {
+  const contenedorProductos = document.getElementById("listaProductos");
+  if (!contenedorProductos) return;
+
+  const badgeLista = document.getElementById("badgeLista");
+  const itemsLista = document.getElementById("itemsLista");
+  const listaVacia = document.getElementById("listaVacia");
+  const totalLista = document.getElementById("totalLista");
+  const botonVaciar = document.getElementById("vaciarLista");
+  const botonIrTaller3D = document.getElementById("btnIrTaller3D");
+
+  function leerLista() {
+    try {
+      return JSON.parse(localStorage.getItem("miLista")) || [];
+    } catch (error) {
+      return [];
+    }
+  }
+
+  function guardarLista() {
+    localStorage.setItem("miLista", JSON.stringify(lista));
+  }
+
+  let lista = leerLista();
+
+  function buscarProducto(id) {
+    return productos.find(function (p) {
+      return p.id === id;
+    });
+  }
+
+  function alternarProducto(id) {
+
+    const posicion = lista.findIndex(function (item) {
+      return item.id === id;
+    });
+    if (posicion === -1) {
+      const producto = buscarProducto(id);
+      if (!producto || producto.stock < 1) return;
+      lista.push({ id: id, cantidad: 1 });
+    } else {
+      lista.splice(posicion, 1);
+    }
+    actualizar();
+  }
+
+  function cambiarCantidad(id, cambio) {
+
+    const item = lista.find(function (i) {
+      return i.id === id;
+    });
+    const producto = buscarProducto(id);
+    if (!item || !producto) return;
+    const nueva = item.cantidad + cambio;
+    if (nueva < 1 || nueva > producto.stock) return;
+    item.cantidad = nueva;
+    actualizar();
+  }
+
+  function quitarDeLista(id) {
+    lista = lista.filter(function (item) {
+      return item.id !== id;
+    });
+    actualizar();
+  }
+
+  function dibujarLista() {
+
+    if (!itemsLista || !totalLista || !badgeLista || !listaVacia || !botonVaciar) return;
+
+    let html = "";
+    let total = 0;
+    let unidades = 0;
+
+    lista.forEach(function (item) {
+
+      const p = buscarProducto(item.id);
+      if (!p) return;
+      const subtotal = p.precio * item.cantidad;
+      total += subtotal;
+      unidades += item.cantidad;
+
+      html += `
+        <li class="item-lista">
+          <img src="../${p.imagen}" alt="${p.nombre}" />
+          <div class="item-datos">
+            <p class="item-nombre">${p.nombre}</p>
+            <p class="item-precio">$${subtotal.toLocaleString("es-CO")}</p>
+            <div class="item-cantidad">
+              <button type="button" class="btn-cantidad" data-accion="restar" data-id="${p.id}"
+                aria-label="Quitar una unidad" ${item.cantidad <= 1 ? "disabled" : ""}>−</button>
+              <span>${item.cantidad}</span>
+              <button type="button" class="btn-cantidad" data-accion="sumar" data-id="${p.id}"
+                aria-label="Agregar una unidad" ${item.cantidad >= p.stock ? "disabled" : ""}>+</button>
+            </div>
+          </div>
+          <button type="button" class="btn-quitar" data-accion="quitar" data-id="${p.id}"
+            aria-label="Quitar ${p.nombre} de la lista"><i class="bi bi-trash"></i></button>
+        </li>
+      `;
+    });
+
+    itemsLista.innerHTML = html;
+    totalLista.textContent = "$" + total.toLocaleString("es-CO");
+    badgeLista.textContent = unidades;
+    badgeLista.classList.toggle("d-none", unidades === 0);
+    listaVacia.classList.toggle("d-none", unidades !== 0);
+    botonVaciar.disabled = unidades === 0;
+  }
+
+  function actualizarBotones() {
+
+    document.querySelectorAll(".btn-agregar").forEach(function (boton) {
+      const id = Number(boton.dataset.id);
+      const enLista = lista.some(function (item) {
+        return item.id === id;
+      });
+      boton.classList.toggle("en-lista", enLista);
+      boton.innerHTML = enLista
+
+        ? '<i class="bi bi-x-lg"></i> Quitar de la lista'
+        : '<i class="bi bi-plus-lg"></i> Agregar a la lista';
+    });
+  }
+
+  function actualizar() {
+    guardarLista();
+    dibujarLista();
+    actualizarBotones();
+  }
+
+  contenedorProductos.addEventListener("click", function (e) {
+
+    const boton = e.target.closest(".btn-agregar");
+    if (!boton) return;
+    alternarProducto(Number(boton.dataset.id));
+  });
+
+  if (itemsLista) {
+
+    itemsLista.addEventListener("click", function (e) {
+      const boton = e.target.closest("button[data-accion]");
+      if (!boton) return;
+      const id = Number(boton.dataset.id);
+      const accion = boton.dataset.accion;
+      if (accion === "sumar") cambiarCantidad(id, 1);
+      if (accion === "restar") cambiarCantidad(id, -1);
+      if (accion === "quitar") quitarDeLista(id);
+    });
+  }
+
+  if (botonVaciar) {
+    botonVaciar.addEventListener("click", function () {
+
+      lista = [];
+      actualizar();
+    });
+  }
+  if (botonIrTaller3D) {
+    botonIrTaller3D.addEventListener("click", function () {
+      if (lista.length === 0) {
+        alert("Tu lista está vacía.");
+        return;
+      }
+      window.location.href = "vista-carrito.hmtl";
+    });
+  }
+
+  actualizar();
+});

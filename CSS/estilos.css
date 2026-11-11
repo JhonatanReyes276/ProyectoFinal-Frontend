@@ -7,6 +7,31 @@
   --white: #ffffff;
   --black: #000000;
 
+  .color-verde {
+    background-color: #198754;
+  }
+
+  .color-rojo {
+    background-color: #dc3545;
+  }
+
+  .color-cafe {
+    background-color: #795548;
+  }
+
+
+  .color-verde {
+    background-color: #198754;
+  }
+
+  .color-rojo {
+    background-color: #dc3545;
+  }
+
+  .color-cafe {
+    background-color: #795548;
+  }
+
   --tomato-12: color-mix(in srgb, var(--tomato) 12%, transparent);
   --tomato-20: color-mix(in srgb, var(--tomato) 20%, transparent);
   --tomato-35: color-mix(in srgb, var(--tomato) 35%, transparent);
@@ -22,8 +47,10 @@
   --black-85: color-mix(in srgb, var(--black) 85%, transparent);
 
   /* Tipografías */
-  --font-title: "Space Grotesk", sans-serif;
-  --font-text: "Inter", sans-serif;
+  --font-title: "Space Grotesk",
+  sans-serif;
+  --font-text: "Inter",
+  sans-serif;
 }
 
 /* BASE */
@@ -92,7 +119,7 @@ p {
   display: inline-flex;
   align-items: center;
   transform: translateY(-6px);
-    color: white; 
+  color: white;
 }
 
 .carrito:hover {
@@ -513,7 +540,7 @@ p {
   margin-bottom: 0;
 }
 
-.tarjeta-equipo:hover{
+.tarjeta-equipo:hover {
   background-color: var(--tomato);
 }
 
@@ -872,24 +899,24 @@ p {
 /* ADMIN  */
 
 .gestion-productos {
-    display: flex;
-    gap: 20px;
-    margin-top: 25px;
-    padding-left: 20px;
-    align-items: flex-start;
+  display: flex;
+  gap: 20px;
+  margin-top: 25px;
+  padding-left: 20px;
+  align-items: flex-start;
 }
 
 .formulario-producto {
-    width: 280px;
-    flex-shrink: 0;
-    padding: 15px;
-    border: 1px solid var(--tomato);
-    border-radius: 8px;
+  width: 280px;
+  flex-shrink: 0;
+  padding: 15px;
+  border: 1px solid var(--tomato);
+  border-radius: 8px;
 }
 
 .tabla-productos {
-    flex: 1;
-    overflow-x: auto;
+  flex: 1;
+  overflow-x: auto;
 }
 
 .contenido {
@@ -957,16 +984,16 @@ p {
 }
 
 .btn-outline-tomato {
-    color: var(--tomato);
-    border-color: var(--tomato);
-    background-color: transparent;
-    transition: all 0.2s ease-in-out;
+  color: var(--tomato);
+  border-color: var(--tomato);
+  background-color: transparent;
+  transition: all 0.2s ease-in-out;
 }
 
 .btn-outline-tomato:hover {
-    background-color: var(--tomato);
-    color: #ffffff;
-    border-color: var(--tomato);
+  background-color: var(--tomato);
+  color: #ffffff;
+  border-color: var(--tomato);
 }
 
 /* ---Estilos de formulario contacto */
@@ -974,16 +1001,17 @@ p {
 .etiqueta-form {
   margin-bottom: 0.5rem;
 }
-.bloque-form{
+
+.bloque-form {
   margin-bottom: 1rem;
 }
 
-.nota-form{
+.nota-form {
   margin-top: 1rem;
   font-size: 15px;
 }
 
-.boton-enviar{
+.boton-enviar {
   background: none;
   color: var(--shadow-gray);
   background-color: #FFFFFF;
@@ -998,25 +1026,25 @@ p {
 
 
 @media (max-width: 992px) {
-    .gestion-productos {
-        flex-direction: column;
-        padding-left: 10px;
-        padding-right: 10px;
-    }
+  .gestion-productos {
+    flex-direction: column;
+    padding-left: 10px;
+    padding-right: 10px;
+  }
 
-    .formulario-producto {
-        width: 100%;
-        margin-bottom: 20px;
-    }
+  .formulario-producto {
+    width: 100%;
+    margin-bottom: 20px;
+  }
 
-    .tabla-productos {
-        width: 100%;
-    }
+  .tabla-productos {
+    width: 100%;
+  }
 }
 
 .choices__list--multiple .choices__item {
   background-color: var(--tomato) !important;
-  border-color: var(--tomato) !important;    
+  border-color: var(--tomato) !important;
 }
 
 /* ================= CARRITO DE COMPRAS ================= */
@@ -1101,4 +1129,192 @@ p {
   color: var(--white);
   border-color: var(--tomato);
   box-shadow: 0 0 0 3px var(--tomato-20);
+}
+.btn-agregar {
+  width: 100%;
+  padding: 8px 12px;
+  background: transparent;
+  color: var(--soft-linen);
+  border: 1px solid var(--tomato);
+  border-radius: 12px;
+  font-size: 13px;
+  font-weight: 600;
+  transition: all 0.3s ease;
+}
+.btn-agregar:hover {
+  background-color: var(--tomato);
+  color: var(--shadow-gray);
+}
+.btn-agregar.en-lista {
+  background-color: var(--soft-linen);
+  border-color: var(--soft-linen);
+  color: var(--shadow-gray);
+}
+.btn-agregar.en-lista:hover {
+  background-color: var(--tomato);
+  border-color: var(--tomato);
+}
+
+/* Botón "Mi lista" con su badge */
+.boton-lista {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background-color: var(--shadow-gray);
+  color: white;
+  border: 0;
+  border-radius: 20px;
+  padding: 7px 16px;
+  font-size: 13px;
+  font-weight: 600;
+  transition: all 0.3s ease;
+}
+.boton-lista:hover {
+  background-color: var(--tomato);
+  color: var(--shadow-gray);
+}
+.badge-lista {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 20px;
+  height: 20px;
+  padding: 0 6px;
+  background-color: var(--tomato);
+  color: var(--shadow-gray);
+  border-radius: 10px;
+  font-size: 11px;
+  font-weight: 700;
+}
+.boton-lista:hover .badge-lista {
+  background-color: var(--shadow-gray);
+  color: white;
+}
+
+/* Panel lateral */
+.panel-lista {
+  background-color: var(--shadow-gray);
+  color: white;
+}
+.panel-lista .offcanvas-title {
+  font-size: 18px;
+}
+.lista-vacia {
+  color: var(--glaucous);
+  font-size: 14px;
+}
+.items-lista {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+.item-lista {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 10px;
+  background-color: var(--charcoal-blue);
+  border-radius: 14px;
+}
+.item-lista img {
+  width: 64px;
+  height: 64px;
+  object-fit: cover;
+  border-radius: 10px;
+}
+.item-datos {
+  flex-grow: 1;
+}
+.item-nombre {
+  margin: 0;
+  font-size: 14px;
+  font-weight: 600;
+}
+.item-precio {
+  margin: 2px 0 6px;
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--tomato);
+}
+.item-cantidad {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 13px;
+}
+.btn-cantidad {
+  width: 26px;
+  height: 26px;
+  border: 0;
+  border-radius: 50%;
+  background-color: var(--shadow-gray);
+  color: white;
+  line-height: 1;
+  transition: all 0.3s ease;
+}
+.btn-cantidad:hover:not(:disabled) {
+  background-color: var(--tomato);
+  color: var(--shadow-gray);
+}
+.btn-cantidad:disabled {
+  opacity: 0.4;
+}
+.btn-quitar {
+  background: none;
+  border: 0;
+  color: var(--soft-linen);
+  font-size: 18px;
+  transition: color 0.3s ease;
+}
+.btn-quitar:hover {
+  color: var(--tomato);
+}
+
+/* Pie del panel */
+.pie-lista {
+  padding: 16px;
+  border-top: 1px solid var(--charcoal-blue);
+}
+.total-lista {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 12px;
+  font-size: 16px;
+}
+.total-lista strong {
+  color: var(--tomato);
+}
+.boton-vaciar {
+  width: 100%;
+  padding: 10px;
+  background: none;
+  color: var(--soft-linen);
+  border: 1px solid var(--charcoal-blue);
+  border-radius: 12px;
+  font-weight: 600;
+  transition: all 0.3s ease;
+}
+.boton-vaciar:hover:not(:disabled) {
+  border-color: var(--tomato);
+  color: var(--tomato);
+}
+.boton-vaciar:disabled {
+  opacity: 0.4;
+}
+
+/* Botón taller */
+.boton-taller {
+  background-color: var(--tomato);
+  color: var(--shadow-gray);
+  border: 0;
+  border-radius: 12px;
+  font-weight: 600;
+  transition: all 0.3s ease;
+}
+.boton-taller:hover {
+  opacity: 0.9;
+  color: var(--shadow-gray);
 }
