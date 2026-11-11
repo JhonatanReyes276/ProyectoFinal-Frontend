@@ -1018,3 +1018,87 @@ p {
   background-color: var(--tomato) !important;
   border-color: var(--tomato) !important;    
 }
+
+/* ================= CARRITO DE COMPRAS ================= */
+.item-carrito {
+  height: auto;
+  transition: transform 0.3s ease, border-color 0.3s ease;
+}
+
+.item-carrito:hover {
+  border-color: var(--tomato);
+}
+
+.item-carrito-img {
+  width: 115px;
+  height: 115px;
+  object-fit: cover;
+  border-radius: 12px;
+  background-color: var(--charcoal-blue);
+  flex-shrink: 0;
+}
+
+.control-cantidad {
+  display: inline-flex;
+  align-items: center;
+  background-color: var(--charcoal-blue);
+  border-radius: 20px;
+  padding: 2px;
+  border: 1px solid var(--white-10);
+}
+
+.control-cantidad button {
+  width: 30px;
+  height: 30px;
+  border: none;
+  border-radius: 50%;
+  background-color: transparent;
+  color: var(--white);
+  font-weight: 700;
+  transition: background-color 0.2s ease, color 0.2s ease;
+}
+
+.control-cantidad button:hover {
+  background-color: var(--tomato);
+  color: var(--shadow-gray);
+}
+
+.control-cantidad span {
+  width: 36px;
+  text-align: center;
+  font-weight: 600;
+  font-size: 14px;
+}
+
+.btn-eliminar-item {
+  background: none;
+  border: none;
+  color: var(--white-40);
+  font-size: 1.1rem;
+  transition: color 0.2s ease, transform 0.2s ease;
+}
+
+.btn-eliminar-item:hover {
+  color: var(--tomato);
+  transform: scale(1.1);
+}
+
+.input-cupon {
+  background-color: var(--charcoal-blue);
+  border: 1px solid var(--white-10);
+  color: var(--white);
+  border-radius: 20px;
+  font-size: 13px;
+  padding: 6px 14px;
+}
+
+.input-cupon::placeholder {
+  color: var(--white-40);
+}
+
+.input-cupon:focus {
+  background-color: var(--charcoal-blue);
+  color: var(--white);
+  border-color: var(--tomato);
+  box-shadow: 0 0 0 3px var(--tomato-20);
+}

@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Carrito | Blank Space</title>
+   
+ 
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Space+Grotesk:wght@300..700&display=swap"
+    rel="stylesheet" />
+
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous" />
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" rel="stylesheet" />
+
+  <link rel="stylesheet" href="../CSS/estilos.css" />
+    <link rel="stylesheet" href="/CSS/carrito.css">
+</head>
+
+
+<body>
+
+   
+    <!--  NAVBAR -->
+  <nav class="navbar navbar-expand-md navbar-bs py-3">
+    <div class="container d-flex justify-content-between align-items-center">
+      <a class="navbar-brand d-flex align-items-center" href="../index.html">
+        <span class="logo">BS</span>
+        <span class="marca">BLANK SPACE</span>
+      </a>
+
+      <div class="d-flex align-items-center ms-auto gap-3 d-md-none">
+        <button class="navbar-toggler border-0 p-0" type="button" data-bs-toggle="collapse" data-bs-target="#menu"
+          aria-controls="menu" aria-expanded="false" aria-label="Abrir menú">
+          <i class="bi bi-list text-white fs-3"></i>
+        </button>
+        <a href="#" class="carrito text-decoration-none d-flex align-items-center">
+          <i class="bi bi-cart3 fs-4"></i><span class="badge"></span>
+        </a>
+      </div>
+
+      <div class="collapse navbar-collapse" id="menu">
+        <ul class="navbar-nav mx-auto">
+          <li class="nav-item"><a class="nav-link" href="../index.html">Inicio</a></li>
+          <li class="nav-item"><a class="nav-link" href="sobre-nosotros.html">Sobre nosotros</a></li>
+          <li class="nav-item"><a class="nav-link" href="contacto.html">Contacto</a></li>
+          <li class="nav-item"><a class="nav-link active" href="catalogo.html">Catálogo</a></li>
+          <li class="nav-item"><a class="nav-link" href="#">¿Cómo funciona?</a></li>
+          <li class="nav-item"><a class="nav-link" href="#">Taller 3D</a></li>
+        </ul>
+        <a href="#" class="carrito text-decoration-none d-none d-md-flex align-items-center">
+          <i class="bi bi-cart3 fs-4"></i><span class="badge"></span>
+        </a>
+      </div>
+    </div>
+  </nav>
+
+    <main class="container my-5">
+       
+        <header class="titulo-catalogo-wrapper text-center mb-5">
+            <span class="badge-subtitulo">Tu Selección</span>
+            <h1 class="titulo-catalogo">Carrito de Compras</h1>
+            <div class="linea-decorativa"></div>
+            <p class="subtitulo-catalogo">Revisa tus prendas personalizadas antes de confirmar tu pedido.</p>
+        </header>
+
+       
+        <div class="row g-4">
+            
+           <section class="col-lg-8">
+                
+                <!-- Barra superior -->
+                <div class="d-flex flex-wrap justify-content-between align-items-center gap-2 mb-3">
+                    <span class="contador-productos" id="texto-cantidad-productos">0 Prendas en tu bolsa</span>
+                    <a href="catalogo.html" class="boton-limpiar text-decoration-none">
+                        <i class="bi bi-arrow-left me-1"></i> Ir al catálogo
+                    </a>
+                </div>
+
+                <!-- Contenedor  -->
+                <div id="lista-productos-carrito">
+                    
+                   
+                    <div class="sin-resultados" id="carrito-vacio">
+                        <i class="bi bi-bag-x fs-1 texto-tomato d-block mb-3"></i>
+                        <h2 class="h4 fw-bold mb-2">Tu carrito está vacío</h2>
+                        <p class="subtitulo-catalogo mb-4">
+                            Aún no has agregado prendas personalizadas. Explora nuestro catálogo o diseña tu estilo desde cero en el Taller 3D.
+                        </p>
+                        <div class="d-flex flex-wrap justify-content-center gap-3">
+                            <a href="catalogo.html" class="btn-pedido">
+                                <span>Explorar Catálogo</span>
+                                <i class="bi bi-grid"></i>
+                            </a>
+                            <a href="taller3d.html" class="boton-limpiar text-decoration-none d-inline-flex align-items-center">
+                                <i class="bi bi-palette me-2"></i> Diseñar en Taller 3D
+                            </a>
+                        </div>
+                    </div>
+
+                </div>
+
+            </section>
+
+            <!--  Resumen del Pedido  -->
+            <aside class="col-lg-4">
+                <div class="card tarjeta border-0 sticky-lg-top" style="top: 90px;">
+                    <div class="tarjeta-header">
+                        <div class="icono icono-tomato">
+                            <i class="bi bi-receipt"></i>
+                        </div>
+                        <div>
+                            <span class="sobretitulo texto-glaucous">Detalle</span>
+                            <h2 class="tarjeta-titulo">Resumen del Pedido</h2>
+                        </div>
+                    </div>
+
+                    <ul class="list-unstyled mb-3">
+                        <li class="d-flex justify-content-between mb-2">
+                            <span class="text-white-50">Subtotal</span>
+                            <span class="fw-semibold text-white" id="resumen-subtotal">$0</span>
+                        </li>
+                        <li class="d-flex justify-content-between mb-2">
+                            <span class="text-white-50">Envío Nacional</span>
+                            <span class="fw-semibold text-white" id="resumen-envio">$0</span>
+                        </li>
+                        <li class="d-flex justify-content-between mb-2">
+                            <span class="text-white-50">Descuento</span>
+                            <span class="texto-tomato fw-semibold" id="resumen-descuento">-$0</span>
+                        </li>
+                    </ul>
+
+                    <div class="caja justify-content-between mt-2 mb-4">
+                        <span class="fw-bold text-uppercase">Total a pagar</span>
+                        <span class="fs-4 fw-bold texto-tomato" id="resumen-total">$0</span>
+                    </div>
+
+                   
+                    <button type="button" id="btn-finalizar-pedido" class="btn btn-pedido w-100 justify-content-center" disabled>
+                        <span>Finalizar Pedido</span>
+                        <i class="bi bi-arrow-right"></i>
+                    </button>
+
+                    <div class="tarjeta-footer text-white-50 mt-3">
+                        <i class="bi bi-shield-check texto-tomato me-1"></i> Producción bajo demanda 100% garantizada
+                    </div>
+                </div>
+            </aside>
+
+        </div>
+    </main>
+
+    <footer class="footer">
+    <div class="container py-5">
+      <div class="row gy-4">
+
+        <div class="col-12 col-md-5">
+          <a href="../index.html" class="text-decoration-none d-inline-block">
+            <span class="logo">BS</span>
+            <span class="marca">BLANK SPACE</span>
+          </a>
+          <p class="fw-semibold mt-2">Tu diseño y personalidad en una prenda</p>
+
+          <div class="mt-4">
+            <h6 class="fw-bold mb-3">SÍGUENOS</h6>
+            <ul class="list-unstyled d-flex gap-4 mb-0">
+              <li><a href="https://www.facebook.com/" class="social-link"><i class="bi bi-facebook" id="facebook"></i></a></li>
+              <li><a href="https://www.instagram.com/" class="social-link"><i class="bi bi-instagram" id="instagram"></i></a></li>
+              <li><a href="https://www.tiktok.com/" class="social-link"><i class="bi bi-tiktok" id="tiktok"></i></a></li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="col-12 col-md-7">
+          <div class="text-md-end mb-4">
+            <a href="#catalogo" class="btn-pedido">Hacer un pedido <i class="bi bi-arrow-up-right"></i></a>
+          </div>
+
+          <nav class="footer-menu">
+            <ul class="list-unstyled d-flex flex-wrap justify-content-md-end gap-3 gap-lg-4 mb-0">
+              <li><a href="../index.html" class="footer-link">Inicio</a></li>
+              <li><a href="sobre-nosotros.html" class="footer-link">Sobre nosotros</a></li>
+              <li><a href="contacto.html" class="footer-link">Contacto</a></li>
+              <li><a href="catalogo.html" class="footer-link">Catálogo</a></li>
+              <li><a href="#" class="footer-link">¿Cómo funciona?</a></li>
+              <li><a href="#" class="footer-link">Taller 3D</a></li>
+            </ul>
+          </nav>
+
+          <div class="text-md-end mt-4">
+            <a href="#" class="back-top">Volver arriba <i class="bi bi-arrow-up"></i></a>
+          </div>
+        </div>
+
+      </div>
+      <div class="copyright mt-5 pt-3">
+        <p class="mb-0">&copy; 2026 BLANKSPACE. Todos los derechos reservados.</p>
+      </div>
+    </div>
+  </footer>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI"
+    crossorigin="anonymous"></script>
+  <script src="../JS/script.js"></script>
+</body>
+</html>
