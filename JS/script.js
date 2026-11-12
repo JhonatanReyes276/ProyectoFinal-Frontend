@@ -1,93 +1,3 @@
-const formulario = document.getElementById("formulario");
-
-function enviar(evento) {
-  evento.preventDefault(); // Evita que el formulario se envie por defecto para hacer la validacion
-
-  const esValido = validar(
-    validarNombre(),
-    validarCorreo(),
-    validarTelefono(),
-    validarMensaje(),
-  );
-
-  if (esValido) {
-    formulario.submit();
-  }
-}
-
-function validar(nombre, correo, telefono, mensaje) {
-  if (nombre && correo && telefono && mensaje) {
-    return true;
-  } else {
-    return false;
-  }
-}
-
-function marcarInvalido(input) {
-  input.classList.remove("is-valid");
-  input.classList.add("is-invalid");
-  return false;
-}
-
-function marcarValido(input) {
-  input.classList.remove("is-invalid");
-  input.classList.add("is-valid");
-  return true;
-}
-
-function validarTelefono() {
-  const input = document.getElementById("telefono");
-  const valor = input.value.trim();
-  const regex = /^[0-9]+$/; // asegura que desde el inicio "^" sea solo numeros "[0-9]" hasta el final "$"
-
-  if (
-    valor === "" ||
-    !regex.test(valor) ||
-    valor.length < 9 ||
-    valor.length > 11
-  ) {
-    return marcarInvalido(input);
-  }
-  return marcarValido(input);
-}
-
-function validarMensaje() {
-  const input = document.getElementById("mensaje");
-  const valor = input.value.trim();
-
-  if (valor === "" || valor.length < 50) {
-    return marcarInvalido(input);
-  }
-  return marcarValido(input);
-}
-
-function validarCorreo() {
-  const input = document.getElementById("email");
-  const valor = input.value.trim();
-  const regex = /^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$/; // asegura que desde el inicio "^" haya texto "[a-zA-Z0-9_.+-]" luego "@" luego texto "[a-zA-Z0-9-] luego un punto "\."
-
-  if (valor === "" || !regex.test(valor)) {
-    return marcarInvalido(input);
-  }
-  return marcarValido(input);
-}
-
-function validarNombre() {
-  const input = document.getElementById("nombre");
-  const valor = input.value.trim();
-  const regex = /^[a-zA-ZáéíóúÁÉÍÓÚñÑ\s]+$/; // regex se asegura que desde el inicio "^" hasta el final "$" solo haya letras del alfabeto "a-zA-Z", acentos "áéíóúÁÉÍÓÚñÑ", espacios "\s" y letra ñ
-
-  if (valor === "" || !regex.test(valor) || valor.indexOf(" ") === -1) {
-    // (valor.indexOf(' ') Ubica donde hay un espacio)  === -1 obliga a que hayan 2 palabras dado que hay 2 espacios
-    return marcarInvalido(input);
-  }
-  return marcarValido(input);
-}
-
-if (formulario) {
-  formulario.addEventListener("submit", enviar);
-}
-
 // Catalogo de productos
 
 const productosPorDefecto = [
@@ -666,15 +576,34 @@ async function añadirProducto(e) {
 
   const nombre = document.getElementById("nombre").value.trim();
   const precio = parseFloat(document.getElementById("precio").value);
-  const stock = parseInt(document.getElementById("stock").value);
 
   // extraer valores de choices js
   const coloresSeleccionados = colorOpciones ? colorOpciones.getValue(true) : [];
   const tallasSeleccionadas = tallaOpciones ? tallaOpciones.getValue(true) : [];
 
+  let variantesStockSeleccionadas = [];
+  let stockTotalCalculado = 0;
+  const inputsVariantes = document.querySelectorAll(".input-stock-variante");
+
+  inputsVariantes.forEach(input => {
+    const cantidad = parseInt(input.value) || 0;
+    const color = input.getAttribute("data-color");
+    const talla = input.getAttribute("data-talla");
+
+    if (cantidad > 0) {
+      variantesStockSeleccionadas.push({ color, talla, cantidad: cantidad });
+      stockTotalCalculado += cantidad;
+    }
+  });
+
   // validar que los campos no esten vacios
-  if (!nombre || isNaN(precio) || isNaN(stock) || tallasSeleccionadas.length === 0 || coloresSeleccionados.length === 0) {
+  if (!nombre || isNaN(precio) || tallasSeleccionadas.length === 0 || coloresSeleccionados.length === 0) {
     alert("Por favor, completa todos los campos.");
+    return;
+  }
+
+  if (variantesStockSeleccionadas.length === 0) {
+    alert("Debes asignar una cantidad de stock a al menos una variante de color/talla.");
     return;
   }
 
@@ -703,16 +632,17 @@ async function añadirProducto(e) {
     nombre: nombre,
     precio: precio,
     imagen: rutaImagen,
-    stock: stock,
+    stock: stockTotalCalculado,
     tallas: tallasSeleccionadas,
     colores: coloresSeleccionados,
+    variantesStock: variantesStockSeleccionadas
   };
 
   // agregar al array
   productos.push(nuevoProducto);
 
   // actualizar el local storage
-  localStorage.setItem(STORAGE_KEY, JSON.stringify(productos));
+  localStorage.setItem("misProductos_v4", JSON.stringify(productos));
 
   // limpiar form y choice js
   formularioProducto.reset();
@@ -946,3 +876,64 @@ document.addEventListener("DOMContentLoaded", function () {
 
   actualizar();
 });
+
+const contenedorVariantes = document.getElementById("contenedor-variantes");
+
+function actualizarInputsDeStock() {
+  const contenedorVariantes = document.getElementById("contenedor-variantes");
+ 
+  if (!contenedorVariantes) {
+    console.error("Error: No se encontró el #contenedor-variantes en el HTML.");
+    return;
+  }
+
+  // Extracción segura que evita que el código se rompa si Choices.js devuelve undefined o un string
+  const obtenerValores = (instancia) => {
+    if (!instancia) return [];
+    const valor = instancia.getValue(true);
+    if (!valor) return [];
+    return Array.isArray(valor) ? valor : [valor];
+  };
+
+  const coloresArray = obtenerValores(colorOpciones);
+  const tallasArray = obtenerValores(tallaOpciones);
+
+
+  // Si falta alguno, mostrar el mensaje de ayuda con color blanco forzado (!important)
+  if (coloresArray.length === 0 || tallasArray.length === 0) {
+    contenedorVariantes.innerHTML = '<span style="color: #ffffff !important; font-size: 14px;">Selecciona tallas y colores para asignar el stock.</span>';
+    return;
+  }
+
+  contenedorVariantes.innerHTML = "";
+
+  // generar los inputs por cada combinacion de talla y color
+  coloresArray.forEach(color => {
+    tallasArray.forEach(talla => {
+      contenedorVariantes.innerHTML += `
+        <div class="d-flex justify-content-between align-items-center bg-secondary p-2 rounded mb-2">
+          <label class="mb-0 text-white" style="color: #ffffff !important;">${color} - Talla ${talla}</label>
+          <input type="number" min="0" class="form-control form-control-sm input-stock-variante"
+                 style="width: 100px;"
+                 data-color="${color}"
+                 data-talla="${talla}"
+                 value="0" required>
+        </div>
+      `;
+    });
+  });
+}
+
+// choices.js dispara eventos 'addItem' y 'removeItem' cuando el usuario interactúa
+const selectTallaEl = document.getElementById('talla');
+const selectColorEl = document.getElementById('color');
+
+if (selectTallaEl) {
+  selectTallaEl.addEventListener('addItem', actualizarInputsDeStock);
+  selectTallaEl.addEventListener('removeItem', actualizarInputsDeStock);
+}
+
+if (selectColorEl) {
+  selectColorEl.addEventListener('addItem', actualizarInputsDeStock);
+  selectColorEl.addEventListener('removeItem', actualizarInputsDeStock);
+}
