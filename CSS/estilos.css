@@ -1344,3 +1344,49 @@ p {
 .fondo-carrusel-personalizado {
   background-color: var(--shadow-gray);
 }
+.canvas-prenda {
+  background-color:  var(--soft-linen);
+  border-radius: 12px;
+  max-width: 100%;
+  height: auto;
+  display: block;
+  margin: 0 auto;
+}
+
+.canvas-prenda {
+  background-color: var(--soft-linen);
+  border-radius: 8px;
+  max-width: 100%;
+  height: auto;
+  display: block;
+  margin: 0 auto;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3); 
+}
+
+.fondo-carrusel-personalizado {
+  background-color: var(--black)!important; 
+  color: var(--soft-linen) !important;            
+}
+
+.zona-carrusel h2 {
+  font-family: 'Space Grotesk', sans-serif; 
+  font-weight: 700;
+  font-size: 1.8rem;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  color: var(--black);
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin: 0; 
+}
+
+.zona-carrusel h2::before {
+  content: "";
+  display: block;
+  width: 6px;
+  height: 28px;
+  background-color: var(--tomato);
+  border-radius: 4px;
+}
+
