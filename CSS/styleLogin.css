@@ -159,3 +159,29 @@ a {
 .page-base:hover h2::after {
     width: 80%;
 }
+
+
+/*estilos para mostrar los requisitos de la contraseña */
+.requisitos,
+.contrasenaLogin{
+    display: none;
+}
+
+.requisitos.mostrar,
+.contrasenaLogin.mostrar{
+    display: block;
+}
+
+
+.requisitos li {
+    color: #888;
+}
+
+.requisitos li.valido {
+    color: green;
+}
+
+.password-input {
+    background-image: none !important;
+    padding-right: 45px;
+}
