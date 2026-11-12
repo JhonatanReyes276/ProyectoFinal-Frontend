@@ -99,6 +99,20 @@ const productosPorDefecto = [
     stock: 35,
     tallas: ["S", "M", "L", "XL"],
     colores: ["negro", "blanco", "naranja"],
+    variantesStock: [
+      { color: "negro", talla: "S", cantidad: 3 },
+      { color: "negro", talla: "M", cantidad: 5 },
+      { color: "negro", talla: "L", cantidad: 2 },
+      { color: "negro", talla: "XL", cantidad: 2 },
+      { color: "blanco", talla: "S", cantidad: 4 },
+      { color: "blanco", talla: "M", cantidad: 4 },
+      { color: "blanco", talla: "L", cantidad: 3 },
+      { color: "blanco", talla: "XL", cantidad: 2 },
+      { color: "naranja", talla: "S", cantidad: 3 },
+      { color: "naranja", talla: "M", cantidad: 3 },
+      { color: "naranja", talla: "L", cantidad: 2 },
+      { color: "naranja", talla: "XL", cantidad: 2 }
+    ],
   },
   {
     id: 2,
@@ -108,6 +122,23 @@ const productosPorDefecto = [
     stock: 50,
     tallas: ["M", "L", "XL"],
     colores: ["negro", "gris", "azul", "verde", "rojo"],
+    variantesStock: [
+      { color: "negro", talla: "M", cantidad: 4 },
+      { color: "negro", talla: "L", cantidad: 4 },
+      { color: "negro", talla: "XL", cantidad: 3 },
+      { color: "gris", talla: "M", cantidad: 3 },
+      { color: "gris", talla: "L", cantidad: 3 },
+      { color: "gris", talla: "XL", cantidad: 3 },
+      { color: "azul", talla: "M", cantidad: 3 },
+      { color: "azul", talla: "L", cantidad: 3 },
+      { color: "azul", talla: "XL", cantidad: 3 },
+      { color: "verde", talla: "M", cantidad: 3 },
+      { color: "verde", talla: "L", cantidad: 3 },
+      { color: "verde", talla: "XL", cantidad: 2 },
+      { color: "rojo", talla: "M", cantidad: 3 },
+      { color: "rojo", talla: "L", cantidad: 4 },
+      { color: "rojo", talla: "XL", cantidad: 3 }
+    ],
   },
   {
     id: 3,
@@ -117,6 +148,16 @@ const productosPorDefecto = [
     stock: 25,
     tallas: ["M", "L"],
     colores: ["negro", "blanco", "naranja", "verde"],
+    variantesStock: [
+      { color: "negro", talla: "M", cantidad: 3 },
+      { color: "negro", talla: "L", cantidad: 3 },
+      { color: "blanco", talla: "M", cantidad: 3 },
+      { color: "blanco", talla: "L", cantidad: 3 },
+      { color: "naranja", talla: "M", cantidad: 3 },
+      { color: "naranja", talla: "L", cantidad: 3 },
+      { color: "verde", talla: "M", cantidad: 4 },
+      { color: "verde", talla: "L", cantidad: 3 }
+    ],
   },
   {
     id: 4,
@@ -126,6 +167,14 @@ const productosPorDefecto = [
     stock: 25,
     tallas: ["S", "M"],
     colores: ["azul", "gris", "rojo"],
+    variantesStock: [
+      { color: "azul", talla: "S", cantidad: 4 },
+      { color: "azul", talla: "M", cantidad: 4 },
+      { color: "gris", talla: "S", cantidad: 4 },
+      { color: "gris", talla: "M", cantidad: 4 },
+      { color: "rojo", talla: "S", cantidad: 4 },
+      { color: "rojo", talla: "M", cantidad: 5 }
+    ],
   },
   {
     id: 5,
@@ -135,6 +184,20 @@ const productosPorDefecto = [
     stock: 30,
     tallas: ["35-37", "38-40", "41-43", "44-46"],
     colores: ["blanco", "negro", "azul"],
+    variantesStock: [
+      { color: "blanco", talla: "35-37", cantidad: 2 },
+      { color: "blanco", talla: "38-40", cantidad: 3 },
+      { color: "blanco", talla: "41-43", cantidad: 2 },
+      { color: "blanco", talla: "44-46", cantidad: 2 },
+      { color: "negro", talla: "35-37", cantidad: 2 },
+      { color: "negro", talla: "38-40", cantidad: 3 },
+      { color: "negro", talla: "41-43", cantidad: 3 },
+      { color: "negro", talla: "44-46", cantidad: 2 },
+      { color: "azul", talla: "35-37", cantidad: 2 },
+      { color: "azul", talla: "38-40", cantidad: 3 },
+      { color: "azul", talla: "41-43", cantidad: 2 },
+      { color: "azul", talla: "44-46", cantidad: 2 }
+    ],
   },
   {
     id: 6,
@@ -144,6 +207,18 @@ const productosPorDefecto = [
     stock: 20,
     tallas: ["31-34", "35-37", "38-40", "41-43", "44-46"],
     colores: ["gris", "naranja"],
+    variantesStock: [
+      { color: "gris", talla: "31-34", cantidad: 1 },
+      { color: "gris", talla: "35-37", cantidad: 2 },
+      { color: "gris", talla: "38-40", cantidad: 2 },
+      { color: "gris", talla: "41-43", cantidad: 2 },
+      { color: "gris", talla: "44-46", cantidad: 2 },
+      { color: "naranja", talla: "31-34", cantidad: 1 },
+      { color: "naranja", talla: "35-37", cantidad: 2 },
+      { color: "naranja", talla: "38-40", cantidad: 3 },
+      { color: "naranja", talla: "41-43", cantidad: 2 },
+      { color: "naranja", talla: "44-46", cantidad: 3 }
+    ],
   },
   {
     id: 7,
@@ -153,6 +228,23 @@ const productosPorDefecto = [
     stock: 25,
     tallas: ["23-26", "27-30", "31-34"],
     colores: ["blanco", "negro", "azul", "verde", "rojo"],
+    variantesStock: [
+      { color: "blanco", talla: "23-26", cantidad: 1 },
+      { color: "blanco", talla: "27-30", cantidad: 1 },
+      { color: "blanco", talla: "31-34", cantidad: 1 },
+      { color: "negro", talla: "23-26", cantidad: 1 },
+      { color: "negro", talla: "27-30", cantidad: 2 },
+      { color: "negro", talla: "31-34", cantidad: 1 },
+      { color: "azul", talla: "23-26", cantidad: 2 },
+      { color: "azul", talla: "27-30", cantidad: 1 },
+      { color: "azul", talla: "31-34", cantidad: 2 },
+      { color: "verde", talla: "23-26", cantidad: 1 },
+      { color: "verde", talla: "27-30", cantidad: 2 },
+      { color: "verde", talla: "31-34", cantidad: 1 },
+      { color: "rojo", talla: "23-26", cantidad: 2 },
+      { color: "rojo", talla: "27-30", cantidad: 3 },
+      { color: "rojo", talla: "31-34", cantidad: 4 }
+    ],
   },
   {
     id: 8,
@@ -162,10 +254,40 @@ const productosPorDefecto = [
     stock: 30,
     tallas: ["35-37", "38-40", "41-43", "44-46"],
     colores: ["blanco", "negro", "azul", "verde", "rojo", "café", "naranja"],
+    variantesStock: [
+      { color: "blanco", talla: "35-37", cantidad: 2 },
+      { color: "blanco", talla: "38-40", cantidad: 2 },
+      { color: "blanco", talla: "41-43", cantidad: 2 },
+      { color: "blanco", talla: "44-46", cantidad: 2 },
+      { color: "negro", talla: "35-37", cantidad: 2 },
+      { color: "negro", talla: "38-40", cantidad: 2 },
+      { color: "negro", talla: "41-43", cantidad: 2 },
+      { color: "negro", talla: "44-46", cantidad: 2 },
+      { color: "azul", talla: "35-37", cantidad: 2 },
+      { color: "azul", talla: "38-40", cantidad: 2 },
+      { color: "azul", talla: "41-43", cantidad: 2 },
+      { color: "azul", talla: "44-46", cantidad: 2 },
+      { color: "verde", talla: "35-37", cantidad: 2 },
+      { color: "verde", talla: "38-40", cantidad: 2 },
+      { color: "verde", talla: "41-43", cantidad: 2 },
+      { color: "verde", talla: "44-46", cantidad: 2 },
+      { color: "rojo", talla: "35-37", cantidad: 2 },
+      { color: "rojo", talla: "38-40", cantidad: 2 },
+      { color: "rojo", talla: "41-43", cantidad: 2 },
+      { color: "rojo", talla: "44-46", cantidad: 2 },
+      { color: "café", talla: "35-37", cantidad: 1 },
+      { color: "café", talla: "38-40", cantidad: 1 },
+      { color: "café", talla: "41-43", cantidad: 1 },
+      { color: "café", talla: "44-46", cantidad: 1 },
+      { color: "naranja", talla: "35-37", cantidad: 1 },
+      { color: "naranja", talla: "38-40", cantidad: 1 },
+      { color: "naranja", talla: "41-43", cantidad: 1 },
+      { color: "naranja", talla: "44-46", cantidad: 1 }
+    ],
   },
 ];
 
-const STORAGE_KEY = "misProductos_v3";
+const STORAGE_KEY = "misProductos_v4";
 
 const productosGuardados = localStorage.getItem(STORAGE_KEY); // busca los productos guardados previamente
 
@@ -286,6 +408,24 @@ const mapaColores = {
 
 const tablaBody = document.getElementById("cuerpo-tabla");
 
+function generarHTMLTooltip(variantesStock) {
+  const agrupado = {};
+
+  variantesStock.forEach(v => {
+    if (!agrupado[v.color]) agrupado[v.color] = [];
+    agrupado[v.color].push(`${v.talla}: ${v.cantidad}`);
+  });
+
+  let html = `<div class='text-start p-1'><strong class='border-bottom d-block mb-1 pb-1'>Stock por Variación:</strong>`;
+  for (const [color, detalle] of Object.entries(agrupado)) {
+    html += `<div><strong class='text-capitalize'>${color}:</strong> ${detalle.join(' | ')}</div>`;
+  }
+  html += `</div>`;
+
+  return html;
+}
+
+
 function renderizarProductos(lista) {
   if (!tablaBody) return;
   tablaBody.innerHTML = "";
@@ -320,7 +460,15 @@ function renderizarProductos(lista) {
       </td>
       <td class="align-middle fw-semibold">${producto.nombre}</td>
       <td class="align-middle fw-bold" style="color: var(--tomato);">$${producto.precio.toLocaleString("es-CO")}</td>
-      <td class="align-middle fw-semibold">${producto.stock}</td>
+      <td class="align-middle">
+        <span class="badge bg-secondary p-2" 
+              style="cursor: pointer;"
+              data-bs-toggle="tooltip" 
+              data-bs-html="true" 
+              data-bs-title="${tooltipContent}">
+          ${producto.stock} <i class="bi bi-info-circle ms-1"></i>
+        </span>
+      </td>
       <td class="align-middle">
         <div class="d-flex flex-wrap gap-1">${htmlTallas}</div>
       </td>
@@ -336,6 +484,14 @@ function renderizarProductos(lista) {
 
     tablaBody.appendChild(fila);
   });
+  inicializarTooltips();
+}
+
+function inicializarTooltips() {
+  const tooltipTriggerList = document.querySelectorAll('[data-bs-toggle="tooltip"]');
+  [...tooltipTriggerList].map(tooltipTriggerEl => 
+    new bootstrap.Tooltip(tooltipTriggerEl, { sanitize: false })
+  );
 }
 
 if (tablaBody) {
