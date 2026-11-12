@@ -1,4 +1,4 @@
-/* 1. DECLARACIÓN DE CONDICIONES GRUPALES */
+/* 1. DECLARACIÓN DE CONDICIONES GRUPAL */
 :root {
   --soft-linen: #e8e2d5;
   --shadow-gray: #22252a;
@@ -62,7 +62,7 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 /* 🎨 APLICACIÓN DE LOS COLORES DEL EQUIPO A LAS HOJAS MÓVILES */
-/* Usamos el color --tomato (tomate) y --charcoal-blue (azul carbón) para hacer el degradado de tu equipo */
+/* Usamos el color --tomato (tomate) y --charcoal-blue (azul carbón) para hacer el degradado  */
 .face-front, .face-back {
     background: linear-gradient(135deg, var(--tomato), var(--charcoal-blue));
 }
@@ -71,7 +71,7 @@ h1, h2, h3, h4, h5, h6 {
     transform: rotateY(180deg);
 }
 
-/* Ajustamos los botones principales de los formularios para que usen el color oficial */
+
 .page-base .btn-danger {
     background-color: var(--tomato) !important;
     border-color: var(--tomato) !important;
@@ -79,13 +79,83 @@ h1, h2, h3, h4, h5, h6 {
     transition: background-color 0.3s ease;
 }
 
-/* Efecto hover usando el azul glaucous del equipo */
+/* Efecto hover usando el azul glaucous  */
 .page-base .btn-danger:hover {
     background-color: var(--glaucous) !important;
     border-color: var(--glaucous) !important;
 }
 
-/* Enlaces pequeños en color del grupo */
+
 a {
     color: var(--glaucous);
+}
+
+.project-logo{
+    width: 85px;
+    height: auto;
+    object-fit: contain;
+    filter: drop-shadow(0 4px 6px rgba(0, 0, 0, 0.2));
+}
+.page-side h2{
+    color:#ffffff !important;
+
+}
+
+.page-base .face-front{
+    border : 2px solid #e0e0e0;
+    border-radius: 10px;
+    padding: 12px 16px;
+    background-color: #fafafa;
+    transition: all 0.35s cubic-bezier(0.25, 0.8 , 0.25, 1 );
+}
+
+.page-base .form-control::placeholder {
+    color: var(--glaucous);
+    transition: all 0.35s ease;
+    transform: translateY(0);
+}
+.page-base .form-control:hover,
+.page-base .form-control:focus {
+    background-color: #ffffff;
+    border-color: var(--tomato);
+    transform: translateY(-3px); /* El cuadro completo se eleva un poco */
+    box-shadow: 0 8px 18px rgba(255, 107, 74, 0.18); /* Resplandor suave color tomate */
+    outline: none;
+}
+.page-base .form-control:hover::placeholder,
+.page-base .form-control:focus::placeholder {
+    color: var(--tomato);
+    transform: translateX(6px); /* Se desliza suavemente hacia la derecha */
+    opacity: 0.85;
+}
+
+.page-base h2 {
+    font-weight: 700;
+    position: relative;
+    display: inline-block;
+    padding-bottom: 8px;
+    transition: all 0.3s ease;
+}
+
+.page-base:hover h2 {
+    background: linear-gradient(135deg, var(--tomato), var(--charcoal-blue));
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+.page-base h2::after {
+    content: "";
+    position: absolute;
+    left: 50%;
+    bottom: 0;
+    width: 0;
+    height: 4px;
+    border-radius: 4px;
+    background: linear-gradient(90deg, var(--tomato), var(--charcoal-blue));
+    transition: width 0.4s ease;
+    transform: translateX(-50%);
+}
+.page-base:hover h2::after {
+    width: 80%;
 }

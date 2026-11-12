@@ -19,6 +19,7 @@
     <link href="https://jsdelivr.net" rel="stylesheet">
     <link rel="stylesheet" href="https://jsdelivr.net">
     <link rel="stylesheet" href="/CSS/styleLogin.css" />
+    <link rel="stylesheet" href="/CSS/estilos.css">
     
     
     
@@ -30,8 +31,8 @@
         
         <!-- Formulario de Login -->
         <div class="page-base login-form p-5 d-flex flex-column justify-content-center">
-            <h2 class="fw-bold mb-4 text-center">Log In</h2>
-            <form>
+            <h2 class="fw-bold mb-4 text-center">LogIn</h2>
+            <form id="loginForm">
                 <div class="mb-3">
                     <input type="email" class="form-control form-control-lg" placeholder="Email" required>
                 </div>
@@ -49,7 +50,7 @@
         <!-- Formulario de Registro -->
         <div class="page-base register-form p-5 d-flex flex-column justify-content-center bg-white">
             <h2 class="fw-bold mb-4 text-center">Crea tu Cuenta</h2>
-            <form>
+            <form id="registroForm">
                 <div class="mb-3">
                     <input type="text" class="form-control" placeholder="Nombre completo" required>
                 </div>
@@ -72,6 +73,7 @@
             
             <!-- CARA FRONTAL -->
             <div class="page-side face-front p-5 d-flex flex-column align-items-center justify-content-center text-center text-white">
+                
                 <h2 class="fw-bold mb-3">Hello, Friend!</h2>
                 <p class="mb-4 opacity-75">Enter your personal details and start your journey with us.</p>
                 <button type="button" class="btn btn-outline-light btn-lg rounded-pill fw-bold px-4" id="btnGoToRegister">REGISTER ➔</button>
@@ -79,6 +81,7 @@
 
             <!-- CARA TRASERA -->
             <div class="page-side face-back p-5 d-flex flex-column align-items-center justify-content-center text-center text-white">
+                
                 <h2 class="fw-bold mb-3">Welcome Back!</h2>
                 <p class="mb-4 opacity-75">To keep connected with us please login with your personal info.</p>
                 <button type="button" class="btn btn-outline-light btn-lg rounded-pill fw-bold px-4" id="btnGoToLogin">⬅ LOG IN</button>
