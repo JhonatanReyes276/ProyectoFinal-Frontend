@@ -95,7 +95,7 @@ const productosPorDefecto = [
     id: 1,
     nombre: "Camiseta Clásica",
     precio: 45000,
-    imagen: "IMG/camisetas.jpg",
+    imagen: "IMG/camisa1.jpg",
     stock: 35,
     tallas: ["S", "M", "L", "XL"],
     colores: ["negro", "blanco", "naranja"],
@@ -104,7 +104,7 @@ const productosPorDefecto = [
     id: 2,
     nombre: "Camiseta Oversize",
     precio: 55000,
-    imagen: "IMG/camisetas.jpg",
+    imagen: "IMG/camisa1.jpg",
     stock: 50,
     tallas: ["M", "L", "XL"],
     colores: ["negro", "gris", "azul", "verde", "rojo"],
@@ -165,13 +165,15 @@ const productosPorDefecto = [
   },
 ];
 
-const productosGuardados = localStorage.getItem("misProductos"); // busca los productos guardados previamente
+const STORAGE_KEY = "misProductos_v3";
+
+const productosGuardados = localStorage.getItem(STORAGE_KEY); // busca los productos guardados previamente
 
 let productos = productosGuardados ? JSON.parse(productosGuardados) : productosPorDefecto; // se setea el array de productos dependiendo de si ya habian guardados, de lo contrario se setean los por defecto
 
 if (!productosGuardados) {
   // si la memoria estaba vacía, guardamos la lista por defecto convirtiendola a texto (JSON) para la proxima visita
-  localStorage.setItem("misProductos", JSON.stringify(productos));
+  localStorage.setItem(STORAGE_KEY, JSON.stringify(productos));
 }
 
 document.addEventListener("DOMContentLoaded", function () {
@@ -554,7 +556,7 @@ async function añadirProducto(e) {
   productos.push(nuevoProducto);
 
   // actualizar el local storage
-  localStorage.setItem("misProductos", JSON.stringify(productos));
+  localStorage.setItem(STORAGE_KEY, JSON.stringify(productos));
 
   // limpiar form y choice js
   formularioProducto.reset();
@@ -787,171 +789,4 @@ document.addEventListener("DOMContentLoaded", function () {
   }
 
   actualizar();
-});
-
-
-
-// TALLER 3D
-
-
-document.addEventListener("DOMContentLoaded", function () {
-
-  // ELEMENTOS DEL HTML
-  const contenedorCarrusel = document.getElementById("contenedor-productos");
-  const mensajeVacio = document.getElementById("listaVacia");
-  const carrusel = document.getElementById("carruselProductos");
-
-  const nombreProducto = document.getElementById("nombre-producto");
-  const precioProducto = document.getElementById("precio-producto");
-
-  const opcionesProducto = document.getElementById("opciones-producto");
-
-  const totalPedido = document.getElementById("totalLista");
-  const cantidadProducto = document.getElementById("inputCantidadPrenda");
-
-  
-  // RECUPERAR INFORMACIÓN DEL LOCAL STORAGE
-  const productosGuardados = JSON.parse(
-    localStorage.getItem("misProductos")
-  ) || [];
-
-  const listaGuardada = JSON.parse(
-    localStorage.getItem("miLista")
-  ) || [];
-
-  // Se relacionan los productos con sus datos
-  const productosTaller = listaGuardada.map(function (item) {
-
-    const producto = productosGuardados.find(function (p) {
-      return Number(p.id) === Number(item.id);
-    });
-
-    if (!producto) return null;
-
-    return {
-      ...producto,
-      cantidad: Number(item.cantidad) || 1
-    };
-
-  }).filter(function (producto) {
-    return producto !== null;
-  });
-
-
-  // Funcion para mostrar el producto
-  function mostrarProducto(producto) {
-
-    nombreProducto.textContent = producto.nombre;
-
-    precioProducto.textContent =
-      "$" + Number(producto.precio).toLocaleString("es-CO");
-
-    cantidadProducto.value = producto.cantidad;
-  }
-
-
-  // Función para totalizar el valor a través de reduce
-  function actualizarTotal() {
-
-    const total = productosTaller.reduce(function (acumulado, producto) {
-
-      return acumulado + (
-        Number(producto.precio) * producto.cantidad
-      );
-
-    }, 0);
-
-    totalPedido.textContent =
-      "$" + total.toLocaleString("es-CO");
-  }
-
-
-  // Renderización para mostrar los productos en el carrusel de HTML
-  function renderizarCarrusel() {
-
-    if (productosTaller.length === 0) {
-
-      mensajeVacio.classList.remove("d-none");
-      carrusel.classList.add("d-none");
-      opcionesProducto.classList.add("d-none");
-
-      nombreProducto.textContent = "";
-      precioProducto.textContent = "";
-
-      actualizarTotal();
-
-      return;
-    }
-
-    mensajeVacio.classList.add("d-none");
-    carrusel.classList.remove("d-none");
-    opcionesProducto.classList.remove("d-none");
-
-    contenedorCarrusel.innerHTML = "";
-
-    productosTaller.forEach(function (producto, index) {
-
-      const elemento = document.createElement("div");
-      elemento.classList.add("carousel-item");
-
-      if (index === 0) {
-        elemento.classList.add("active");
-      }
-
-      const imagen = document.createElement("img");
-
-      imagen.src = producto.imagen.startsWith("data:")
-        ? producto.imagen
-        : "../" + producto.imagen;
-
-      imagen.alt = producto.nombre;
-      imagen.classList.add("img-fluid");
-
-      imagen.style.maxHeight = "350px";
-      imagen.style.objectFit = "contain";
-
-      const contenedorImagen = document.createElement("div");
-      contenedorImagen.classList.add("text-center");
-
-      contenedorImagen.appendChild(imagen);
-      elemento.appendChild(contenedorImagen);
-
-      contenedorCarrusel.appendChild(elemento);
-
-    });
-
-    mostrarProducto(productosTaller[0]);
-
-    actualizarTotal();
-
-    // Si no existen productos se ocultan las flechas del carrusel
-    const botonesCarrusel = carrusel.querySelectorAll(
-      ".carousel-control-prev, .carousel-control-next"
-    );
-
-    botonesCarrusel.forEach(function (boton) {
-
-      boton.classList.toggle(
-        "d-none",
-        productosTaller.length <= 1
-      );
-
-    });
-
-  }
-
-
-  // Se cambia el producto al mover el carrusel
-  carrusel.addEventListener("slid.bs.carousel", function (evento) {
-
-    const productoActual = productosTaller[evento.to];
-
-    if (productoActual) {
-      mostrarProducto(productoActual);
-    }
-
-  });
-
-  renderizarCarrusel();
-
 });
