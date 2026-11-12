@@ -161,7 +161,7 @@ const productosPorDefecto = [
     nombre: "Medias tobilleras",
     precio: 12000,
     imagen: "IMG/mediastob.jpg",
-    stock: 30,
+    stock: 50,
     tallas: ["35-37", "38-40", "41-43", "44-46"],
     colores: ["blanco", "negro", "azul", "verde", "rojo", "café", "naranja"],
     variantesStock: [

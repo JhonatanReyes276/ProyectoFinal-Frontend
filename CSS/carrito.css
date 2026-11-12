@@ -81,3 +81,7 @@
   border-color: var(--tomato);
   box-shadow: 0 0 0 3px var(--tomato-20);
 }
+
+.text-tomato {
+  color: #ff6b4a;
+}
