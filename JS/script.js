@@ -465,7 +465,7 @@ function renderizarProductos(lista) {
               style="cursor: pointer;"
               data-bs-toggle="tooltip" 
               data-bs-html="true" 
-              data-bs-title="${tooltipContent}">
+              data-bs-title="${generarHTMLTooltip(producto.variantesStock)}">
           ${producto.stock} <i class="bi bi-info-circle ms-1"></i>
         </span>
       </td>
