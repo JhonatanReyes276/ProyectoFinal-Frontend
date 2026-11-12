@@ -89,3 +89,15 @@ h1, h2, h3, h4, h5, h6 {
 a {
     color: var(--glaucous);
 }
+
+.project-logo{
+    width: 85px;
+    height: auto;
+    object-fit: contain;
+    filter: drop-shadow(0 4px 6px rgba(0, 0, 0, 0.2));
+}
+.page-side h2{
+    color:#ffffff !important;
+
+}
+
