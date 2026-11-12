@@ -494,9 +494,9 @@ function inicializarTooltips() {
   );
 }
 
-if (tablaBody) {
+document.addEventListener('DOMContentLoaded', () => {
   renderizarProductos(productos);
-}
+});
 
 const buscador = document.querySelector("#buscador");
 const selectTalla = document.querySelector("#filtroTalla");
