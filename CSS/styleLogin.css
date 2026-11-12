@@ -11,6 +11,7 @@
 
 /* Aplicamos la tipografía de texto base a todo el cuerpo de la página */
 body {
+    background-image: url(../IMG/fondoLogin.jpg);
     font-family: var(--font-text);
     background-color: var(--soft-linen); /* Fondo suave de la página */
 }
@@ -30,6 +31,9 @@ h1, h2, h3, h4, h5, h6 {
     position: relative;
     display: flex;
     perspective: 1500px;
+    border: 1px solid var(--shadow-gray);
+    
+    
 }
 
 .page-base {
@@ -79,10 +83,24 @@ h1, h2, h3, h4, h5, h6 {
     transition: background-color 0.3s ease;
 }
 
+.moving-page .btn-outline-light:hover {
+    background-color: var(--shadow-gray) !important; 
+    border-color: var(--shadow-gray) !important;
+    color: #ffffff !important;
+    transform: scale(1.05); 
+    transition: all 0.3s ease-in-out;
+}
+
+.moving-page .btn-outline-light {
+    background-color: var(--tomato) !important; 
+    border-color: var(--tomato) !important;
+    color: #ffffff !important;
+}
+
 /* Efecto hover usando el azul glaucous  */
 .page-base .btn-danger:hover {
-    background-color: var(--glaucous) !important;
-    border-color: var(--glaucous) !important;
+    background-color: var(--shadow-gray) !important;
+    border-color: var(--shadow-gray)!important;
 }
 
 
