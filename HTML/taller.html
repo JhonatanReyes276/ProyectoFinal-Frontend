@@ -78,129 +78,92 @@
     <main class="container my-5">
 
         <section class="text-center mb-5">
-            <h1>Taller de personalización</h1>
-            <p>
+            <h1 class="titulo-catalogo">Taller de personalización</h1>
+            <div class="linea-decorativa"></div>
+            <p class="subtitulo-catalogo">
                 Personaliza tus prendas y crea diseños únicos.
             </p>
         </section>
-        
+
         <!-- TOTAL -->
-            <div class="d-flex justify-content-end align-items-center gap-3 mt-4">
+        <div class="d-flex justify-content-end align-items-center gap-3 mt-4">
 
-                <span>Total:</span>
+            <span>Total:</span>
 
-                <strong id="total-pedido">$0</strong>
+            <span id="totalLista" class="text-dark">$0</span>
 
-            </div>
+        </div>
 
         <!-- ÁREA DE PERSONALIZACIÓN -->
         <section class="row g-4">
 
             <!-- COLUMNA IZQUIERDA: CARRUSEL -->
-            <div class="col-lg-7">
+            <div class="col-12 col-lg-7">
                 <div class="zona-carrusel">
                     <div class="d-flex justify-content-between align-items-center mb-3">
                         <h2>Mis productos</h2>
                     </div>
 
-                    <div id="carruselProductos" class="carousel slide">
-
-                        <!-- CONTENEDOR DE LOS PRODUCTOS -->
-                        <div class="carousel-inner" id="contenedor-productos">
-
-                            <!--
-                            JavaScript agregará aquí los productos
-                            seleccionados desde el catálogo.
-                            -->
-                        </div>
-
-                        <!-- FLECHA IZQUIERDA -->
-                        <button class="carousel-control-prev" type="button" id="btn-anterior"
-                            data-bs-target="#carruselProductos" data-bs-slide="prev" aria-label="Producto anterior">
-
-                            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-
-                        </button>
-
-                        <!-- FLECHA DERECHA -->
-                        <button class="carousel-control-next" type="button" id="btn-siguiente"
-                            data-bs-target="#carruselProductos" data-bs-slide="next" aria-label="Producto siguiente">
-
-                            <span class="carousel-control-next-icon" aria-hidden="true"></span>
-
-                        </button>
-
+                    <div id="listaVacia" class="text-center py-5">
+                        <h3>Aún no tienes productos</h3>
+                        <p>Agrega prendas desde el catálogo para comenzar a personalizarlas</p>
+                        <a href="HTML/catalogo.html" class="btn btn-outline-dark btn-sm mt-2">Ir al catálogo</a>
                     </div>
 
-                    <!-- MENSAJE CUANDO EL CARRUSEL ESTÁ VACÍO -->
-                    <div id="mensaje-vacio" class="text-center my-4">
+                    <div id="carruselProductos" class="carousel slide d-none">
+                        <div class="carousel-inner fondo-carrusel-personalizado p-4 rounded text-white shadow"
+                            id="contenedor-productos">
 
-                        <h3>Aún no tienes productos</h3>
+                        </div>
 
-                        <p>
-                            Agrega prendas desde el catálogo para comenzar a personalizarlas.
-                        </p>
+                        <button class="carousel-control-prev" type="button" data-bs-target="#carruselProductos"
+                            data-bs-slide="prev" style="width: 8%;">
+                            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                            <span class="visually-hidden">Anterior</span>
+                        </button>
+                        <button class="carousel-control-next" type="button" data-bs-target="#carruselProductos"
+                            data-bs-slide="next" style="width: 8%;">
+                            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                            <span class="visually-hidden">Siguiente</span>
+                        </button>
                     </div>
                 </div>
             </div>
 
+
             <!-- COLUMNA DERECHA: PERSONALIZACIÓN -->
-            <div class="col-lg-5">
+            <div class="contenedor-panel col-12 col-lg-5 text-light p-4 rounded-3">
                 <div class="panel-personalizacion">
 
                     <h2>Personaliza tu prenda</h2>
-
-                    <!-- NOMBRE Y PRECIO -->
-                    <div class="informacion-producto my-4">
-
-                        <h3 id="nombre-producto"></h3>
-                        <p id="precio-producto"></p>
-
-                    </div>
-
-                    <p>Selecciona las características de tu prenda.</p>
-
 
                     <!-- OPCIONES DE PERSONALIZACIÓN -->
                     <div id="opciones-producto">
 
                         <!-- TALLAS -->
                         <div class="grupo-opcion mb-4">
-                            <label class="form-label">
-                                TALLA:
-                            </label>
-                            <div class="opciones-tallas" id="tallas-producto">
-                                <!-- JavaScript generará los botones de tallas -->
-
+                            <label class="form-label fw-bold small text-uppercase">TALLA:</label>
+                            <div id="opcionesTallas" class="d-flex flex-wrap gap-2">
                             </div>
-
                         </div>
 
                         <!-- COLORES -->
                         <div class="grupo-opcion mb-4">
-
-                            <label class="form-label">
-                                COLOR:
-                            </label>
-                            <div class="informacion-color">
-                                <span id="color-seleccionado"></span>
-                            </div>
-                            <div class="opciones-colores" id="colores-producto">
-
-                                <!-- JavaScript generará los botones de colores -->
+                            <label class="form-label fw-bold small text-uppercase">COLOR:</label>
+                            <div id="opcionesColores" class="d-flex flex-wrap gap-2">
                             </div>
                         </div>
 
                         <!-- SUBIR DISEÑO -->
                         <div class="grupo-opcion mb-4">
-                            <label for="archivo-logo" class="form-label">
+                            <label for="archivo-logo" class="form-label fw-bold small text-uppercase">
                                 DISEÑO:
                             </label>
 
                             <input type="file" id="archivo-logo" class="form-control"
                                 accept="image/png, image/jpeg, image/webp">
 
-                            <small class="text-muted">
+                            <small class="text-light">
                                 Sube tu archivo en formato PNG, JPG o WEBP.
                             </small>
 
@@ -208,24 +171,21 @@
 
                         <!-- CANTIDAD -->
                         <div class="grupo-opcion mb-4">
-                            <label for="cantidad-producto" class="form-label">
-                                Cantidad
-                            </label>
-                            <input type="number" id="cantidad-producto" class="form-control" min="1" value="1">
-
-                        </div>
-
-                        <!-- BOTÓN GUARDAR -->
-                        <div class="acciones-producto">
-                            <button type="button" id="btn-guardar" class="btn btn-primary">
-
-                                Guardar producto
-
-                            </button>
+                            <label for="inputCantidadPrenda" class="form-label fw-bold small text-uppercase">Cantidad</label>
+                            <input type="number" id="inputCantidadPrenda" class="form-control bg-white text-dark" value="1" min="1">
                         </div>
 
                     </div>
+
+                    <!-- BOTÓN GUARDAR -->
+                    <div class="acciones-producto">
+                        <button type="button" id="btn-guardar">
+                            Guardar producto
+                        </button>
+                    </div>
+
                 </div>
+            </div>
             </div>
         </section>
 

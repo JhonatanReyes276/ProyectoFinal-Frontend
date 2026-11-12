@@ -7,6 +7,7 @@
   --white: #ffffff;
   --black: #000000;
 
+
   .color-verde {
     background-color: #198754;
   }
@@ -1317,4 +1318,29 @@ p {
 .boton-taller:hover {
   opacity: 0.9;
   color: var(--shadow-gray);
+}
+
+.contenedor-panel {
+  background-color: var(--charcoal-blue);
+}
+
+#btn-guardar {
+  width: 100%;
+  padding: 8px 12px;
+  background: transparent;
+  color: var(--soft-linen);
+  border: 1px solid var(--tomato);
+  border-radius: 12px;
+  font-size: 13px;
+  font-weight: 600;
+  transition: all 0.3s ease;
+}
+
+#btn-guardar:hover {
+  background-color: var(--tomato);
+  color: var(--shadow-gray);
+}
+
+.fondo-carrusel-personalizado {
+  background-color: var(--shadow-gray);
 }
