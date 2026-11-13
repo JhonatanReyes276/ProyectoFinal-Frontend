@@ -103,6 +103,7 @@ document.addEventListener("DOMContentLoaded", function () {
     pedido.forEach(function (item, index) {
       const articulo = document.createElement("div");
       articulo.className = "card border-0 shadow-sm rounded-3 p-3 bg-white text-dark d-flex flex-row align-items-center justify-content-between gap-3";
+      const precioTotalItem = Number(item.precio) * Number(item.cantidad);
 
       articulo.innerHTML = `
         <div class="d-flex align-items-center gap-3">
@@ -115,7 +116,7 @@ document.addEventListener("DOMContentLoaded", function () {
               Cantidad: <span class="fw-semibold text-dark">${item.cantidad}</span>
               ${item.diseno ? `<br>Diseño: <span class="text-info">${item.diseno}</span>` : ''}
             </p>
-            <span class="fw-bold text-tomato">$${Number(item.precio).toLocaleString("es-CO")}</span>
+            <span class="fw-bold text-tomato">$${precioTotalItem.toLocaleString("es-CO")}</span>
           </div>
         </div>
 
