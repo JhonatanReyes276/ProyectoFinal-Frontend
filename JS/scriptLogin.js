@@ -186,4 +186,5 @@ if (registroForm) {
             }
         });
     }
+
 }
