@@ -908,6 +908,8 @@ document.addEventListener("DOMContentLoaded", function () {
     }
   }
 
+  const btnIrCarrito = document.getElementById("btn-ir-carrito");
+
   botonGuardar.addEventListener("click", function () {
     const p = productosTaller[indiceActual];
     if (!p) return;
@@ -964,11 +966,41 @@ document.addEventListener("DOMContentLoaded", function () {
     try {
       localStorage.setItem("miPedido", JSON.stringify(pedido));
       avisar("Producto guardado con éxito.", false);
+
+
+      botonGuardar.textContent = "Guardado con éxito";
+      botonGuardar.classList.add = ("btn-success");
+      botonGuardar.disabled = true;
+
+      if(btnIrCarrito){
+        btnIrCarrito.disabled = false;
+      }
+
     } catch (error) {
       avisar("No se pudo guardar: el almacenamiento está lleno.", true);
     }
   });
 
+    if(btnIrCarrito){
+    btnIrCarrito.addEventListener("click", function(){
+      const pedidoActual = leerPedido();
+      if(!pedidoActual || pedidoActual.length === 0){
+        avisar("Guarda al menos un producto antes de ir al carrito.", true);
+        return;
+      }
+
+      const usuarioActivo = localStorage.getItem("usuarioActivo");
+      if(usuarioActivo){
+        window.location.href = "vista-carrito.html";
+      }else{
+        localStorage.setItem("redirigirDespuesDeLogin", "vista-carrito.html");
+        window.location.href = "login.html";
+      }
+    })
+  }
+
   //  ARRANQUE
   renderizarCarrusel();
+    
+
 });
