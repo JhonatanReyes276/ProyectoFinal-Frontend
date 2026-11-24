@@ -1389,4 +1389,23 @@ p {
   background-color: var(--tomato);
   border-radius: 4px;
 }
+.panel-estilo { margin-top: 1.25rem; }
+
+.chip-estilo {
+  border: 2px solid #dee2e6;
+  background: #fff;
+  border-radius: 50rem;
+  padding: .4rem 1.1rem;
+  font-weight: 600;
+  transition: all .2s ease;
+}
+.chip-estilo:hover { border-color: var(--acento); color: var(--acento); }
+.chip-estilo.activo {
+  background: var(--acento);
+  border-color: var(--acento);
+  color: #fff;
+  box-shadow: 0 4px 10px var(--soft-linen);
+}
+
+#relieveBordado { accent-color: var(--acento); }
 

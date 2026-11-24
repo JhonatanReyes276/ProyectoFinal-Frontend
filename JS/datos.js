@@ -10,9 +10,6 @@ const productosPorDefecto = [
     tallas: ["S", "M", "L", "XL"],
     colores: ["blanco", "naranja"],
     variantesStock: [
-      { color: "negro", talla: "M", cantidad: 5 },
-      { color: "negro", talla: "L", cantidad: 2 },
-      { color: "negro", talla: "XL", cantidad: 2 },
       { color: "blanco", talla: "S", cantidad: 4 },
       { color: "blanco", talla: "M", cantidad: 4 },
       { color: "blanco", talla: "L", cantidad: 3 },
