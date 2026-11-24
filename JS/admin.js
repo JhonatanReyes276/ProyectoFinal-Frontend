@@ -1,5 +1,4 @@
 const mapaColores = {
-  negro: { bg: "#212529", text: "#ffffff" },
   blanco: { bg: "#f8f9fa", text: "#212529" },
   naranja: { bg: "#fd7e14", text: "#ffffff" },
   gris: { bg: "#6c757d", text: "#ffffff" },
@@ -14,20 +13,19 @@ const tablaBody = document.getElementById("cuerpo-tabla");
 function generarHTMLTooltip(variantesStock) {
   const agrupado = {};
 
-  variantesStock.forEach(v => {
+  variantesStock.forEach((v) => {
     if (!agrupado[v.color]) agrupado[v.color] = [];
     agrupado[v.color].push(`${v.talla}: ${v.cantidad}`);
   });
 
   let html = `<div class='text-start p-1'><strong class='border-bottom d-block mb-1 pb-1'>Stock por Variación:</strong>`;
   for (const [color, detalle] of Object.entries(agrupado)) {
-    html += `<div><strong class='text-capitalize'>${color}:</strong> ${detalle.join(' | ')}</div>`;
+    html += `<div><strong class='text-capitalize'>${color}:</strong> ${detalle.join(" | ")}</div>`;
   }
   html += `</div>`;
 
   return html;
 }
-
 
 function renderizarTabla(lista) {
   if (!tablaBody) return;
@@ -88,23 +86,26 @@ function renderizarTabla(lista) {
     tablaBody.appendChild(fila);
   });
   inicializarTooltips();
+  prepararFiltros();
 }
 
 function inicializarTooltips() {
-  const tooltipTriggerList = document.querySelectorAll('[data-bs-toggle="tooltip"]');
-  [...tooltipTriggerList].map(tooltipTriggerEl => 
-    new bootstrap.Tooltip(tooltipTriggerEl, { sanitize: false })
+  const tooltipTriggerList = document.querySelectorAll(
+    '[data-bs-toggle="tooltip"]',
+  );
+  [...tooltipTriggerList].map(
+    (tooltipTriggerEl) =>
+      new bootstrap.Tooltip(tooltipTriggerEl, { sanitize: false }),
   );
 }
 
-document.addEventListener('DOMContentLoaded', () => {
+document.addEventListener("DOMContentLoaded", () => {
   renderizarTabla(productos);
 });
 
 const buscador = document.querySelector("#buscador");
 const selectTalla = document.querySelector("#filtroTalla");
 const selectColor = document.querySelector("#filtroColor");
-const filas = document.querySelectorAll("#miTabla tbody tr");
 
 const quitarTildes = (str) => {
   // (str) hace referencia a string la palabra que entra
@@ -113,70 +114,67 @@ const quitarTildes = (str) => {
 
 // guardamos en una array un objeto que contiene todos los datos de las filas (columnas) que necesitamos para filtrar
 let datosTabla = [];
-if (filas.length > 0) {
+let fuse = null;
+
+// construye el índice con las filas que YA están pintadas en la tabla
+function prepararFiltros() {
+  const filas = document.querySelectorAll("#cuerpo-tabla tr");
+
   datosTabla = Array.from(filas).map((fila, index) => {
     const celdas = fila.querySelectorAll("td");
 
-    // traemos las tallas
-    const spansTallas = celdas[4].querySelectorAll("span");
-
-    // guardamos en un array las tallas
-    const arrayTallas = Array.from(spansTallas).map((span) =>
-      span.textContent.trim().toLowerCase(),
+    // celdas: [0] miniatura, [1] nombre, [2] precio, [3] stock, [4] tallas, [5] colores
+    const arrayTallas = Array.from(celdas[4].querySelectorAll("span")).map(
+      (span) => span.textContent.trim().toLowerCase(),
     );
-
-    // tomamos los colores
-    const spansColores = celdas[5].querySelectorAll("span");
-    // guardamos los colores en un array
-    const arrayColores = Array.from(spansColores).map((span) =>
-      quitarTildes(span.textContent.trim().toLowerCase()),
+    const arrayColores = Array.from(celdas[5].querySelectorAll("span")).map(
+      (span) => quitarTildes(span.textContent.trim().toLowerCase()),
     );
 
     return {
       indice: index,
-      nombre: quitarTildes(celdas[1].textContent.trim().toLowerCase()), // celdas[1] trae la segunda columna de la fila .texcontent trae su contenido .trim() quita espacios .toLowerCase() minusculas
+      nombre: quitarTildes(celdas[1].textContent.trim().toLowerCase()),
       tallas: arrayTallas,
       colores: arrayColores,
     };
   });
-}
 
-// configuracion de Fuse.js // se le pasa el array donde va a operar (datosTabla)
-let fuse = null;
-if (datosTabla.length > 0 && typeof Fuse !== "undefined") {
-  fuse = new Fuse(datosTabla, {
-    keys: ["nombre"], // variables que el fuse va a tener en cuenta (nombre) para hacer la busqueda (podrian haber sido más)
-    threshold: 0.3, // nivel de toleracia a errores de ortografia que permite 0 siendo lo menos tolerante y 1 permitiendo cualquier cosa
-    ignoreLocation: true, // Permite que encuentre la palabra sin importar si esta escrita al principio, en medio o al final de la celda
-  });
+  fuse =
+    typeof Fuse !== "undefined" && datosTabla.length > 0
+      ? new Fuse(datosTabla, {
+          keys: ["nombre"],
+          threshold: 0.3,
+          ignoreLocation: true,
+        })
+      : null;
+
+  filtrarAdmin(); // vuelve a aplicar los filtros que estén activos
 }
 
 function filtrarAdmin() {
-  if (!buscador || !selectTalla || !selectColor || !fuse) return;
+  if (!buscador || !selectTalla || !selectColor) return;
 
-  const texto = quitarTildes(buscador.value.trim().toLowerCase()); // input del usuario
-  const tallaBuscada = selectTalla.value.toLowerCase(); // selected del usuario
-  const colorBuscado = quitarTildes(selectColor.value.toLowerCase()); // selected del usuario
+  const filas = document.querySelectorAll("#cuerpo-tabla tr");
+
+  const texto = quitarTildes(buscador.value.trim().toLowerCase());
+  const tallaBuscada = selectTalla.value.toLowerCase();
+  const colorBuscado = quitarTildes(selectColor.value.toLowerCase());
 
   let indicesValidosTexto = [];
-  // si el input no esta vacio
-  if (texto) {
-    const resultados = fuse.search(texto); // trae los resultados que coinciden teniendo en cuenta la flexibilidad que le otorgamos
-    indicesValidosTexto = resultados.map((r) => r.item.indice); // extrae el numero de fila de los resultados
+  if (texto && fuse) {
+    indicesValidosTexto = fuse.search(texto).map((r) => r.item.indice);
   }
 
-  // recorremos TODAS las filas para aplicar el filtro
   filas.forEach((fila, index) => {
-    // si el index de la fila que estamos recorriendo coincide con el que obtuvimos de fuse, será true
-    const cumpleTexto = texto === "" || indicesValidosTexto.includes(index); // el "" (espacio vacio) es el comodin, incluso si el input esta vacio, o la talla esta vacia pero el color no, se aplica el filtro
+    if (!datosTabla[index]) return;
 
+    const cumpleTexto = texto === "" || indicesValidosTexto.includes(index);
     const cumpleTalla =
-      tallaBuscada === "" || datosTabla[index].tallas.includes(tallaBuscada); // si la fila que estamos recorriendo en su talla incluye la talla que selecciono el admin, será true
-
+      tallaBuscada === "" || datosTabla[index].tallas.includes(tallaBuscada);
     const cumpleColor =
-      colorBuscado === "" || datosTabla[index].colores.includes(colorBuscado); // si la fila que estamos recorriendo en su color incluye el color que selecciono el admin, será true
+      colorBuscado === "" || datosTabla[index].colores.includes(colorBuscado);
 
-    fila.hidden = !(cumpleTexto && cumpleTalla && cumpleColor); // escondemos las filas que no cumplan con todas las condiciones al mismo tiempo
+    fila.hidden = !(cumpleTexto && cumpleTalla && cumpleColor);
   });
 }
 
@@ -196,22 +194,22 @@ const talla = document.querySelector("#talla");
 let colorOpciones = null;
 let tallaOpciones = null;
 
-if (document.querySelector('#color') && typeof Choices !== "undefined") {
-  colorOpciones = new Choices('#color', {
+if (document.querySelector("#color") && typeof Choices !== "undefined") {
+  colorOpciones = new Choices("#color", {
     removeItemButton: true, // Agrega una 'x' para que el usuario pueda borrar su elección
-    searchEnabled: false,    // Oculta la barra de búsqueda si no la necesitas
-    position: 'bottom', // fuerza el menú hacia abajo
-    noChoicesText: 'No hay más opciones', // Reemplaza "No choices to choose from" por la indicacion en español
-    itemSelectText: 'Presiona para seleccionar' // Reemplaza "Press to select" por la indicacion en español
+    searchEnabled: false, // Oculta la barra de búsqueda si no la necesitas
+    position: "bottom", // fuerza el menú hacia abajo
+    noChoicesText: "No hay más opciones", // Reemplaza "No choices to choose from" por la indicacion en español
+    itemSelectText: "Presiona para seleccionar", // Reemplaza "Press to select" por la indicacion en español
   });
 }
 
-if (document.querySelector('#talla') && typeof Choices !== "undefined") {
-  tallaOpciones = new Choices('#talla', {
+if (document.querySelector("#talla") && typeof Choices !== "undefined") {
+  tallaOpciones = new Choices("#talla", {
     removeItemButton: true,
     searchEnabled: false,
-    noChoicesText: 'No hay más opciones',
-    itemSelectText: 'Presiona para seleccionar'
+    noChoicesText: "No hay más opciones",
+    itemSelectText: "Presiona para seleccionar",
   });
 }
 
@@ -244,7 +242,8 @@ function mostrarTallas() {
       opciones.push({ value: tallaGorra, label: tallaGorra });
     }
   }
-  if (opciones.length > 0) { // Si no esta el seleccionar por defecto y el array se lleno con una de las opciones
+  if (opciones.length > 0) {
+    // Si no esta el seleccionar por defecto y el array se lleno con una de las opciones
     tallaOpciones.setChoices(opciones, "value", "label", true);
   }
 }
@@ -264,21 +263,25 @@ const convertirImagenABase64 = (archivo) => {
 
 const formularioProducto = document.getElementById("formulario-producto");
 
-async function añadirProducto(e) {
+async function guardarProducto(e) {
   e.preventDefault();
 
   const nombre = document.getElementById("nombre").value.trim();
   const precio = parseFloat(document.getElementById("precio").value);
 
   // extraer valores de choices js
-  const coloresSeleccionados = colorOpciones ? colorOpciones.getValue(true) : [];
+  const coloresSeleccionados = colorOpciones
+    ? colorOpciones.getValue(true)
+    : [];
   const tallasSeleccionadas = tallaOpciones ? tallaOpciones.getValue(true) : [];
 
+  //inicializar el array de variantes que guardara un objeto para las diferentes variantes ej: {color: azul talla: XL cantidad: 20}
   let variantesStockSeleccionadas = [];
+  //stock total es la suma de stock para X producto ejemplo: camiseta oversize: cantidad 30 {color:azul talla: M cantidad:10} {color:azul talla: XL cantidad:10} {color:rojo talla: S cantidad:10}
   let stockTotalCalculado = 0;
   const inputsVariantes = document.querySelectorAll(".input-stock-variante");
 
-  inputsVariantes.forEach(input => {
+  inputsVariantes.forEach((input) => {
     const cantidad = parseInt(input.value) || 0;
     const color = input.getAttribute("data-color");
     const talla = input.getAttribute("data-talla");
@@ -290,20 +293,26 @@ async function añadirProducto(e) {
   });
 
   // validar que los campos no esten vacios
-  if (!nombre || isNaN(precio) || tallasSeleccionadas.length === 0 || coloresSeleccionados.length === 0) {
+  if (
+    !nombre ||
+    isNaN(precio) ||
+    tallasSeleccionadas.length === 0 ||
+    coloresSeleccionados.length === 0
+  ) {
     alert("Por favor, completa todos los campos.");
     return;
   }
 
   if (variantesStockSeleccionadas.length === 0) {
-    alert("Debes asignar una cantidad de stock a al menos una variante de color/talla.");
+    alert(
+      "Debes asignar una cantidad de stock a al menos una variante de color/talla.",
+    );
     return;
   }
 
   const inputImagen = document.getElementById("imagen");
+  let rutaImagen = null;
   // Este código genera un icono de imagen genérica gris directamente en el navegador
-  let rutaImagen =
-    "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='400' height='400' fill='%23dee2e6'><rect width='400' height='400' fill='%23f8f9fa'/><path d='M100 150l75 100 50-75 75 125H100z'/><circle cx='275' cy='125' r='25'/></svg>"; // Imagen por defecto si no suben nada
 
   if (inputImagen.files && inputImagen.files.length > 0) {
     try {
@@ -316,47 +325,86 @@ async function añadirProducto(e) {
     }
   }
 
-  // crear ID consecutivo
-  const nuevoId = productos.length > 0 ? Math.max(...productos.map(p => p.id)) + 1 : 1; // busca el ID más alto y le suma 1, si la lista esta vacia, empieza en 1
+  if (productoIdEnEdicion !== null) {
+    //UPDATE
+    const index = productos.findIndex((p) => p.id === productoIdEnEdicion);
 
-  // crear objeto
-  const nuevoProducto = {
-    id: nuevoId,
-    nombre: nombre,
-    precio: precio,
-    imagen: rutaImagen,
-    stock: stockTotalCalculado,
-    tallas: tallasSeleccionadas,
-    colores: coloresSeleccionados,
-    variantesStock: variantesStockSeleccionadas
-  };
+    if (index !== -1) {
+      // Actualizamos los datos del producto
+      productos[index].nombre = nombre;
+      productos[index].precio = precio;
+      productos[index].stock = stockTotalCalculado;
+      productos[index].tallas = tallasSeleccionadas;
+      productos[index].colores = coloresSeleccionados;
+      productos[index].variantesStock = variantesStockSeleccionadas;
 
-  // agregar al array
-  productos.push(nuevoProducto);
+      // Solo actualizamos la imagen si el usuario seleccionó una nueva
+      if (rutaImagen) {
+        productos[index].imagen = rutaImagen;
+      }
+    }
 
-  // actualizar el local storage
-  localStorage.setItem("misProductos_v4", JSON.stringify(productos));
+    localStorage.setItem("misProductos_v4", JSON.stringify(productos));
 
-  // limpiar form y choice js
-  formularioProducto.reset();
-  if (colorOpciones) colorOpciones.removeActiveItems();
-  if (tallaOpciones) tallaOpciones.clearStore();
+    //limpiar el form despues de actualizar para poder crear si se desea
+    productoIdEnEdicion = null;
+    const btnSubmit = document.querySelector(
+      "#formulario-producto input[type='submit']",
+    );
+    if (btnSubmit) btnSubmit.value = "Guardar producto";
 
-  alert("Producto agregado y guardado correctamente");
+    formularioProducto.reset();
+    if (colorOpciones) colorOpciones.removeActiveItems();
+    if (tallaOpciones) tallaOpciones.clearStore();
+    actualizarInputsDeStock();
+
+  } else {
+    //CREAR
+
+    // crear ID consecutivo
+    const nuevoId =
+      productos.length > 0 ? Math.max(...productos.map((p) => p.id)) + 1 : 1; // busca el ID más alto y le suma 1, si la lista esta vacia, empieza en 1
+
+    // crear objeto
+    const nuevoProducto = {
+      id: nuevoId,
+      nombre: nombre,
+      categoria: categoria.value,
+      precio: precio,
+      imagen: rutaImagen,
+      stock: stockTotalCalculado,
+      tallas: tallasSeleccionadas,
+      colores: coloresSeleccionados,
+      variantesStock: variantesStockSeleccionadas,
+    };
+
+    // agregar al array
+    productos.push(nuevoProducto);
+
+    // actualizar el local storage
+    localStorage.setItem("misProductos_v4", JSON.stringify(productos));
+
+    // limpiar form y choice js
+    formularioProducto.reset();
+    if (colorOpciones) colorOpciones.removeActiveItems();
+    if (tallaOpciones) tallaOpciones.clearStore();
+
+    alert("Producto agregado y guardado correctamente");
+  }
 
   // actualizar el "canva" dom
   renderizarTabla(productos);
 }
 
 if (formularioProducto) {
-  formularioProducto.addEventListener("submit", añadirProducto);
+  formularioProducto.addEventListener("submit", guardarProducto);
 }
 
 const contenedorVariantes = document.getElementById("contenedor-variantes");
 
 function actualizarInputsDeStock() {
   const contenedorVariantes = document.getElementById("contenedor-variantes");
- 
+
   if (!contenedorVariantes) {
     console.error("Error: No se encontró el #contenedor-variantes en el HTML.");
     return;
@@ -373,21 +421,21 @@ function actualizarInputsDeStock() {
   const coloresArray = obtenerValores(colorOpciones);
   const tallasArray = obtenerValores(tallaOpciones);
 
-
   // Si falta alguno, mostrar el mensaje de ayuda con color blanco forzado (!important)
   if (coloresArray.length === 0 || tallasArray.length === 0) {
-    contenedorVariantes.innerHTML = '<span style="color: #ffffff !important; font-size: 14px;">Selecciona tallas y colores para asignar el stock.</span>';
+    contenedorVariantes.innerHTML =
+      '<span style="color: #ffffff !important; font-size: 14px;">Selecciona tallas y colores para asignar el stock.</span>';
     return;
   }
 
   contenedorVariantes.innerHTML = "";
 
   // generar los inputs por cada combinacion de talla y color
-  coloresArray.forEach(color => {
-    tallasArray.forEach(talla => {
+  coloresArray.forEach((color) => {
+    tallasArray.forEach((talla) => {
       contenedorVariantes.innerHTML += `
         <div class="d-flex justify-content-between align-items-center bg-secondary p-2 rounded mb-2">
-          <label class="mb-0 text-white" style="color: #ffffff !important;">${color} - Talla ${talla}</label>
+          <label class="mb-0 text-white text-capitalize" style="color: #ffffff !important;">${color} - Talla ${talla}</label>
           <input type="number" min="0" class="form-control form-control-sm input-stock-variante"
                  style="width: 100px;"
                  data-color="${color}"
@@ -400,15 +448,76 @@ function actualizarInputsDeStock() {
 }
 
 // choices.js dispara eventos 'addItem' y 'removeItem' cuando el usuario interactúa
-const selectTallaEl = document.getElementById('talla');
-const selectColorEl = document.getElementById('color');
+const selectTallaEl = document.getElementById("talla");
+const selectColorEl = document.getElementById("color");
 
 if (selectTallaEl) {
-  selectTallaEl.addEventListener('addItem', actualizarInputsDeStock);
-  selectTallaEl.addEventListener('removeItem', actualizarInputsDeStock);
+  selectTallaEl.addEventListener("addItem", actualizarInputsDeStock);
+  selectTallaEl.addEventListener("removeItem", actualizarInputsDeStock);
 }
 
 if (selectColorEl) {
-  selectColorEl.addEventListener('addItem', actualizarInputsDeStock);
-  selectColorEl.addEventListener('removeItem', actualizarInputsDeStock);
+  selectColorEl.addEventListener("addItem", actualizarInputsDeStock);
+  selectColorEl.addEventListener("removeItem", actualizarInputsDeStock);
+}
+
+// variable "bandera" para saber si se esta creando o actualizando
+let productoIdEnEdicion = null;
+
+const normalizar = (texto) => quitarTildes(String(texto).trim().toLowerCase());
+
+function editarProducto(id) {
+  // buscamos el producto en el array
+  const producto = productos.find((p) => p.id === id);
+  if (!producto) return;
+
+  // bandera: estamos editando
+  productoIdEnEdicion = id;
+
+  // datos básicos
+  document.getElementById("nombre").value = producto.nombre;
+  document.getElementById("precio").value = producto.precio;
+
+  // minúscula para que coincida con el value del select
+  const colores = (producto.colores || []).map((c) => c.toLowerCase());
+
+  if (colorOpciones) {
+    colorOpciones.removeActiveItems();
+    colorOpciones.setChoiceByValue(colores);
+  }
+
+  if (tallaOpciones) {
+    tallaOpciones.clearStore();
+    const opcionesTalla = (producto.tallas || []).map((t) => ({
+      value: t,
+      label: t,
+    }));
+    tallaOpciones.setChoices(opcionesTalla, "value", "label", true);
+    tallaOpciones.setChoiceByValue(producto.tallas || []);
+  }
+
+  // creamos los inputs de stock dinámicamente
+  actualizarInputsDeStock();
+
+  // llenamos el stock guardado (sin setTimeout: los inputs ya existen)
+  const variantes = producto.variantesStock || [];
+  document.querySelectorAll(".input-stock-variante").forEach((input) => {
+    const variante = variantes.find(
+      (v) =>
+        normalizar(v.color) === normalizar(input.dataset.color) &&
+        normalizar(v.talla) === normalizar(input.dataset.talla),
+    );
+    if (variante) input.value = variante.cantidad;
+  });
+
+  // el submit es un <input>, así que se cambia su value
+  const btnSubmit = document.querySelector(
+    "#formulario-producto input[type='submit']",
+  );
+  if (btnSubmit) btnSubmit.value = "Actualizar Producto";
+
+  // llevamos al usuario al formulario
+  document
+    .getElementById("formulario-producto")
+    .scrollIntoView({ behavior: "smooth" });
 }
