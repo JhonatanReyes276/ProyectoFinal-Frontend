@@ -96,11 +96,15 @@
             <li class="nav-item">
               <a class="nav-link" href="../contacto.html">Contacto</a>
             </li>
-            <li class="nav-item"><a class="nav-link" href="../catalogo.html">Catálogo</a></li>
+            <li class="nav-item">
+              <a class="nav-link" href="../catalogo.html">Catálogo</a>
+            </li>
             <li class="nav-item">
               <a class="nav-link" href="#">¿Cómo funciona?</a>
             </li>
-            <li class="nav-item"><a class="nav-link" href="../taller.html">Taller 3D</a></li>
+            <li class="nav-item">
+              <a class="nav-link" href="../taller.html">Taller 3D</a>
+            </li>
             <li class="nav-item">
               <a class="nav-link" href="admin.html">Admin</a>
             </li>
@@ -160,22 +164,24 @@
                 multiple
                 class="form-select select-categoria"
               >
-                <option>Negro</option>
-                <option>Blanco</option>
-                <option>Naranja</option>
-                <option>Gris</option>
-                <option>Azul</option>
-                <option>Verde</option>
-                <option>Rojo</option>
-                <option>Café</option>
+                <option value="blanco">Blanco</option>
+                <option value="naranja">Naranja</option>
+                <option value="gris">Gris</option>
+                <option value="azul">Azul</option>
+                <option value="verde">Verde</option>
+                <option value="rojo">Rojo</option>
+                <option value="café">Café</option>
               </select>
             </div>
             <div class="col-12">
               <label class="form-label">Stock por Variante</label>
               <div
                 id="contenedor-variantes"
-                class="d-flex flex-column gap-2 p-3 border rounded bg-dark text-light">
-                <span class="text-muted small">Selecciona tallas y colores para asignar el stock.</span>
+                class="d-flex flex-column gap-2 p-3 border rounded bg-dark text-light"
+              >
+                <span class="text-muted small"
+                  >Selecciona tallas y colores para asignar el stock.</span
+                >
               </div>
             </div>
             <div class="col-12">
@@ -257,6 +263,106 @@
           </table>
         </div>
       </section>
+
+      <!-- modal -->
+      <div
+        class="modal fade"
+        id="modalEditarProducto"
+        tabindex="-1"
+        aria-hidden="true"
+      >
+        <div class="modal-dialog modal-lg">
+          <!-- modal-lg para que las variantes quepan bien -->
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title">Editar Producto</h5>
+              <button
+                type="button"
+                class="btn-close"
+                data-bs-dismiss="modal"
+                aria-label="Close"
+              ></button>
+            </div>
+            <div class="modal-body">
+              <form id="formEditarProducto">
+                <input type="hidden" id="edit-id" />
+
+                <div class="row mb-3">
+                  <div class="col-md-6">
+                    <label for="edit-nombre" class="form-label"
+                      >Nombre del Producto</label
+                    >
+                    <input
+                      type="text"
+                      class="form-control"
+                      id="edit-nombre"
+                      required
+                    />
+                  </div>
+                  <div class="col-md-6">
+                    <label for="edit-precio" class="form-label">Precio</label>
+                    <input
+                      type="number"
+                      class="form-control"
+                      id="edit-precio"
+                      required
+                    />
+                  </div>
+                </div>
+
+                <!-- Selects para Tallas y Colores del Modal -->
+                <div class="row mb-3">
+                  <div class="col-md-6">
+                    <label for="edit-tallas" class="form-label">Tallas</label>
+                    <select class="form-select" id="edit-tallas" multiple>
+                      <option value="S">S</option>
+                      <option value="M">M</option>
+                      <option value="L">L</option>
+                      <option value="XL">XL</option>
+                    </select>
+                  </div>
+                  <div class="col-md-6">
+                    <label for="edit-colores" class="form-label">Colores</label>
+                    <select class="form-select" id="edit-colores" multiple>
+                      <option value="negro">Negro</option>
+                      <option value="blanco">Blanco</option>
+                      <option value="naranja">Naranja</option>
+                      <option value="azul">Azul</option>
+                      <option value="rojo">Rojo</option>
+                    </select>
+                  </div>
+                </div>
+
+                <div class="mb-3">
+                  <label class="form-label">Stock por Variantes</label>
+                  <!-- Contenedor donde se generarán los inputs dinámicos de edición -->
+                  <div
+                    id="edit-contenedor-variantes"
+                    class="bg-dark p-3 rounded"
+                    style="max-height: 250px; overflow-y: auto"
+                  ></div>
+                </div>
+              </form>
+            </div>
+            <div class="modal-footer">
+              <button
+                type="button"
+                class="btn btn-secondary"
+                data-bs-dismiss="modal"
+              >
+                Cancelar
+              </button>
+              <button
+                type="button"
+                class="btn btn-primary"
+                onclick="guardarEdicion()"
+              >
+                Guardar Cambios
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
     </main>
 
     <footer class="footer">

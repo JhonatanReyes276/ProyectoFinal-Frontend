@@ -10,9 +10,6 @@ const productosPorDefecto = [
     tallas: ["S", "M", "L", "XL"],
     colores: ["blanco", "naranja"],
     variantesStock: [
-      { color: "negro", talla: "M", cantidad: 5 },
-      { color: "negro", talla: "L", cantidad: 2 },
-      { color: "negro", talla: "XL", cantidad: 2 },
       { color: "blanco", talla: "S", cantidad: 4 },
       { color: "blanco", talla: "M", cantidad: 4 },
       { color: "blanco", talla: "L", cantidad: 3 },
@@ -32,6 +29,7 @@ const productosPorDefecto = [
     tallas: ["M", "L", "XL"],
     colores: ["gris", "azul", "verde", "rojo"],
     variantesStock: [
+      { color: "negro", talla: "XL", cantidad: 3 },
       { color: "gris", talla: "M", cantidad: 3 },
       { color: "gris", talla: "L", cantidad: 3 },
       { color: "gris", talla: "XL", cantidad: 3 },
