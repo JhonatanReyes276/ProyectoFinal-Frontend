@@ -116,7 +116,7 @@ const quitarTildes = (str) => {
 let datosTabla = [];
 let fuse = null;
 
-// Construye el índice con las filas que YA están pintadas en la tabla
+// construye el índice con las filas que YA están pintadas en la tabla
 function prepararFiltros() {
   const filas = document.querySelectorAll("#cuerpo-tabla tr");
 
@@ -378,8 +378,6 @@ async function guardarProducto(e) {
       variantesStock: variantesStockSeleccionadas,
     };
 
-    productos[index].categoria = categoria.value;
-
     // agregar al array
     productos.push(nuevoProducto);
 
@@ -480,7 +478,7 @@ function editarProducto(id) {
   document.getElementById("nombre").value = producto.nombre;
   document.getElementById("precio").value = producto.precio;
 
-  // minúscula para que coincida con el value del select (cubre productos guardados como "Negro")
+  // minúscula para que coincida con el value del select
   const colores = (producto.colores || []).map((c) => c.toLowerCase());
 
   if (colorOpciones) {
