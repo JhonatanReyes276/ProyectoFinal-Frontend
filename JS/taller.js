@@ -11,7 +11,6 @@ document.addEventListener("DOMContentLoaded", function () {
   const DISENO_INICIAL = { cx: 0.5, cy: 0.42, ancho: 0.3, rot: 0, espejo: false };
 
   const COLORES = {
-    negro: "#22252a",
     blanco: "#ffffff",
     naranja: "#ff6b4a",
     azul: "#7284a8",
