@@ -170,6 +170,18 @@
                                 <input type="range" id="rotacionDiseno" class="form-range" min="-180" max="180"
                                     value="0">
 
+                                <div class="mb-2">
+                                    <label for="desplazarX" class="form-label small mb-0">Horizontal (izquierda ↔
+                                        derecha)</label>
+                                    <input type="range" class="form-range" id="desplazarX" min="0" max="100" value="50">
+                                </div>
+
+                                <div class="mb-2">
+                                    <label for="desplazarY" class="form-label small mb-0">Vertical (arriba ↕
+                                        abajo)</label>
+                                    <input type="range" class="form-range" id="desplazarY" min="0" max="100" value="42">
+                                </div>
+
                                 <div class="d-flex flex-wrap gap-2 mt-2">
                                     <button type="button" id="restablecerDiseno"
                                         class="btn btn-sm btn-outline-light">Restablecer</button>
@@ -179,6 +191,25 @@
                                         class="btn btn-sm btn-outline-light">Ocultar guías</button>
                                     <button type="button" id="quitarDiseno" class="btn btn-sm btn-outline-light">Quitar
                                         diseño</button>
+
+                                    <div class="panel-estilo">
+                                        <h3 class="titulo-filtro"><i class="bi bi-brush me-2"></i>Estilo del diseño</h3>
+
+                                        <div class="opciones">
+                                            <button type="button" class="chip-estilo activo"
+                                                data-estilo="estampado">Estampado</button>
+                                            <button type="button" class="chip-estilo"
+                                                data-estilo="bordado">Bordado</button>
+                                        </div>
+
+                                        <!-- Solo se ve cuando el estilo es bordado -->
+                                        <div id="controlBordado" class="d-none mt-3">
+                                            <label for="relieveBordado" class="form-label small fw-semibold">Relieve de
+                                                las puntadas</label>
+                                            <input type="range" class="form-range" id="relieveBordado" min="0.5" max="4"
+                                                step="0.1" value="1.5">
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -197,6 +228,11 @@
                     <div class="acciones-producto">
                         <button type="button" id="btn-guardar">
                             Guardar producto
+                        </button>
+                        <p id="mensajeEstado" class="small mt-2 mb-0" role="status"></p>
+
+                        <button type="button" id="btn-ir-carrito" class="btn btn-outline-light" disabled>
+                            Confirmar pedido
                         </button>
                         <p id="mensajeEstado" class="small mt-2 mb-0" role="status"></p>
                     </div>

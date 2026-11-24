@@ -55,9 +55,9 @@ if (registroForm) {
             password: contraseña
         };
 
-        let usuariosGuardados = JSON.parse(localStorage.getItem('usuarioProyecto')) || [];
+        let usuariosGuardados = JSON.parse(localStorage.getItem('usuariosProyecto')) || [];
 
-        const existe = usuarioGuardados.some(user => user.correo === correo);
+        const existe = usuariosGuardados.some(user => user.correo === correo);
         if (existe) {
             alert('Este correo ya existe, intenta iniciar sesion');
             return;
@@ -101,38 +101,6 @@ if (loginForm) {
         }
     });
 }
-
-const forms = document.querySelectorAll('form');
-
-forms.forEach(form => {
-    form.addEventListener('submit', (event) => {
-
-        event.preventDefault();
-
-        const submitButton = form.querySelector('button[type="submit"]');
-
-        const originalText = submitButton.innerHTML;
-
-        //  aqui Cambie el texto del botón por un Spinner circular de Bootstrap
-        submitButton.innerHTML = `
-            <div class="spinner-border spinner-border-sm text-light" role="status"></div> 
-            Procesando...
-        `;
-        submitButton.disabled = true; // Desactivamos el botón para evitar múltiples clics
-
-
-        setTimeout(() => {
-            alert('¡Acción simulada con éxito! Aquí conectarías con tu Base de Datos.');
-
-            submitButton.innerHTML = originalText;
-            submitButton.disabled = false;
-            form.reset();
-
-            inputs.forEach(input => input.classList.remove('is-valid'));
-        }, 2000);
-    });
-});
-
 
 // Validación de los requisitos de la contraseña en registro
 
@@ -218,4 +186,5 @@ if (registroForm) {
             }
         });
     }
+
 }
