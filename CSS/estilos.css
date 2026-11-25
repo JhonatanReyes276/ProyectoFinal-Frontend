@@ -967,7 +967,7 @@ p {
   background-color: var(--tomato);
 }
 
-.btn-guardar {
+.btn-guardar{
   width: 100%;
   padding: 10px;
   background-color: #FFFFFF;
@@ -976,6 +976,21 @@ p {
   border-radius: 8px;
   font-size: 14px;
   font-weight: 600;
+}
+.btn-confirmar-pedido {
+  display: block;
+  width: 100%;
+  box-sizing: border-box;
+  padding: 0.55rem 1rem;
+  border-radius: 999px;
+  border: 1.5px solid var(--tomato);
+  background-color: var(--tomato);
+  color: #ffffff;
+  font-size: 14px;
+  font-weight: 600;
+  line-height: 1.25;
+  text-align: center;
+  transition: background-color 0.2s ease, border-color 0.2s ease, opacity 0.2s ease;
 }
 
 .btn-guardar:hover,
