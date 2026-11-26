@@ -1247,7 +1247,7 @@ p {
 
 /* Panel lateral */
 .panel-lista {
-  background-color: #1e1e1e;
+  background-color: var(--shadow-gray);
   color: white;
 }
 

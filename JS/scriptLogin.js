@@ -35,6 +35,19 @@ inputs.forEach(input => {
     });
 });
 
+function alIniciarSesionCorrectamente (datosUsuario){
+
+    localStorage.setItem('usuarioActivo', JSON.stringify(datosUsuario));
+    const destino = localStorage.getItem('redirigirDespuesDeLogin');
+
+    if(destino){
+        localStorage.removeItem('redirigirDespuesDeLogin');
+        window.location.href = destino;
+    }else{
+        window.location.href = '../index.html';
+    }
+}
+
 // registro de usuario localstoarge
 //------------------------------------
 
@@ -65,9 +78,9 @@ if (registroForm) {
         usuariosGuardados.push(nuevoUsuario);
         localStorage.setItem('usuariosProyecto', JSON.stringify(usuariosGuardados));
 
-        alert(` ¡Cuenta creada con éxito, ${nombre}! Ahora puedes iniciar sesión.`);
+        alert(`¡Cuenta creada con éxito, ${nombre}!`);
         registroForm.reset(); // Limpiamos los campos
-        movingPage.classList.remove('flipped');
+        alIniciarSesionCorrectamente(nuevoUsuario);
     });
 }
 
@@ -186,4 +199,5 @@ if (registroForm) {
             }
         });
     }
+
 }
