@@ -6,6 +6,8 @@
   --charcoal-blue: #474954;
   --white: #ffffff;
   --black: #000000;
+  --fondo-imagen: #111214;
+  
 
 
   .color-verde {
@@ -881,8 +883,10 @@ p {
   border: 2px dashed var(--charcoal-blue);
   border-radius: 20px;
 }
+
 .contenedor-panel {
   align-self: flex-start;
+  margin-top: 4rem; /* ajusta hasta que quede alineado con el carrusel */
 }
 
 /* Solo en pantallas grandes (en el celular el panel va debajo y no hace falta) */
@@ -892,17 +896,18 @@ p {
   .panel-personalizacion {
     display: flex;
     flex-direction: column;
-    max-height: calc(100vh - 220px); /* ajusta este numero si lo quieres mas alto o mas bajo */
+    max-height: calc(100vh - 220px);
+    /* ajusta este numero si lo quieres mas alto o mas bajo */
   }
 
   #opciones-producto {
     flex: 1 1 auto;
-    min-height: 0;         
+    min-height: 0;
     overflow-y: auto;
-    padding-right: 0.5rem;  
+    padding-right: 0.5rem;
   }
 
-  .panel-personalizacion > h2,
+  .panel-personalizacion>h2,
   .acciones-producto {
     flex: 0 0 auto;
   }
@@ -916,12 +921,15 @@ p {
   #opciones-producto::-webkit-scrollbar {
     width: 6px;
   }
+
   #opciones-producto::-webkit-scrollbar-thumb {
     background: rgba(255, 255, 255, 0.35);
     border-radius: 3px;
   }
+
   #opciones-producto {
-    scrollbar-width: thin;  /* para Firefox */
+    scrollbar-width: thin;
+    /* para Firefox */
     scrollbar-color: rgba(255, 255, 255, 0.35) transparent;
   }
 }
@@ -1467,34 +1475,81 @@ p {
   cursor: not-allowed;
 }
 
-.fondo-carrusel-personalizado {
-  background-color: var(--shadow-gray);
-}
-
-.canvas-prenda {
-  background-color: var(--soft-linen);
+.btn-confirmar-pedido {
+  display: block;
+  width: 100%;
+  box-sizing: border-box;
+  padding: 8px 12px;
+  background-color: var(--tomato);
+  color: var(--shadow-gray);
+  border: 1px solid var(--tomato);
   border-radius: 12px;
-  max-width: 100%;
-  height: auto;
-  display: block;
-  margin: 0 auto;
+  font-size: 13px;
+  font-weight: 600;
+  line-height: 1.25;
+  text-align: center;
+  cursor: pointer;
+  outline: none;
+  transition: background-color 0.25s ease, color 0.25s ease, border-color 0.25s ease, opacity 0.25s ease;
 }
 
-.canvas-prenda {
-  background-color: var(--soft-linen);
-  border-radius: 8px;
-  max-width: 100%;
-  height: auto;
-  display: block;
-  margin: 0 auto;
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+.btn-confirmar-pedido:hover:not(:disabled) {
+  background-color: #4f5462;
+  border-color: var(--tomato);
+  color: var(--soft-linen);
+}
+
+.btn-confirmar-pedido:active:not(:disabled),
+.btn-confirmar-pedido:focus-visible:not(:disabled) {
+  background-color: #3f434e;
+  border-color: #3f434e;
+  color: var(--soft-linen);
+  outline: none;
+  box-shadow: none;
+}
+
+.btn-confirmar-pedido:disabled {
+  background-color: var(--shadow-gray);
+  border-color: var(--shadow-gray);
+  color: var(--soft-linen);
+  opacity: 0.45;
+  cursor: not-allowed;
 }
 
 .fondo-carrusel-personalizado {
-  background-color: var(--black) !important;
-  color: var(--soft-linen) !important;
+  max-width: 600px;
+  margin: 0 auto;
+  position: relative;          
+  overflow: hidden;
+  border-radius: 8px;
+  background-color: #111214 !important;
+  padding: 0 !important;
+  box-shadow: none !important;
 }
 
+.fondo-carrusel-personalizado .carousel-inner,
+.fondo-carrusel-personalizado .carousel-item {
+  background-color: #111214 !important;
+  aspect-ratio: 1 / 1;        
+}
+
+.fondo-carrusel-personalizado .canvas-prenda,
+.fondo-carrusel-personalizado .carousel-item img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  max-width: 100%;
+  max-height: none;
+  object-fit: cover;          
+  border-radius: 0;
+  box-shadow: none;
+}
+
+.fondo-carrusel-personalizado .carousel-control-prev,
+.fondo-carrusel-personalizado .carousel-control-next {
+  z-index: 5;
+  opacity: 0.9;
+}
 .zona-carrusel h2 {
   font-family: 'Space Grotesk', sans-serif;
   font-weight: 700;
@@ -1520,6 +1575,7 @@ p {
 .panel-estilo {
   margin-top: 1.25rem;
 }
+
 
 .chip-estilo {
   border: 2px solid #fff;

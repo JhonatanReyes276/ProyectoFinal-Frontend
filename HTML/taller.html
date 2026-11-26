@@ -71,16 +71,6 @@
             </p>
         </section>
 
-        <!-- TOTAL (el JS lo calcula: precio base + recargo del diseno, por la cantidad) -->
-        <div class="d-flex justify-content-end mb-2">
-            <div class="d-inline-flex align-items-center gap-3 px-3 py-2 rounded-3 shadow-sm"
-                style="background-color: #2f333d; border: 1px solid rgba(36, 39, 46, 0.25); border-left: 3px solid var(--tomato);">
-                <span class="fw-semibold" style="color: var(--soft-linen);">Total:</span>
-                <span id="totalLista" class="fw-bold fs-5"
-                    style="color: var(--tomato); font-variant-numeric: tabular-nums;">$67.000</span>
-            </div>
-        </div>
-
         <!-- AREA DE PERSONALIZACION -->
         <section class="row g-4">
 
@@ -107,12 +97,12 @@
 
                         <button class="carousel-control-prev" type="button" data-bs-target="#carruselProductos"
                             data-bs-slide="prev" style="width: 8%;">
-                            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                           <span class="carousel-control-prev-icon" aria-hidden="true" style="filter: brightness(0);"></span>
                             <span class="visually-hidden">Anterior</span>
                         </button>
                         <button class="carousel-control-next" type="button" data-bs-target="#carruselProductos"
                             data-bs-slide="next" style="width: 8%;">
-                            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                            <span class="carousel-control-next-icon" aria-hidden="true" style="filter: brightness(0);"></span>
                             <span class="visually-hidden">Siguiente</span>
                         </button>
                     </div>
@@ -130,7 +120,7 @@
 
                         <div class="informacion-producto mb-4">
                             <h3 id="nombre-producto"></h3>
-                            <!-- El JS muestra aca el precio y, si hay diseno, el desglose del recargo -->
+                            <!-- El JS muestra aca el precio y, si hay diseño, el desglose del recargo -->
                             <p id="precio-producto"></p>
                         </div>
 
@@ -146,7 +136,7 @@
                             <div id="opcionesColores" class="d-flex flex-wrap gap-2"></div>
                         </div>
 
-                        <!-- SUBIR DISENO -->
+                        <!-- SUBIR DISEñO -->
                         <div class="grupo-opcion mb-4">
                             <label for="archivo-logo" class="form-label fw-bold small text-uppercase">
                                 DISEÑO:
@@ -244,6 +234,14 @@
                     </div>
 
                 </div>
+                 <div class="d-flex justify-content-end mb-2">
+            <div class="d-inline-flex align-items-center gap-3 px-3 py-2 rounded-3 shadow-sm"
+                style="background-color: #2f333d; border: 1px solid rgba(36, 39, 46, 0.25); border-left: 3px solid var(--tomato);">
+                <span class="fw-semibold" style="color: var(--soft-linen);">Total:</span>
+                <span id="totalLista" class="fw-bold fs-5"
+                    style="color: var(--tomato); font-variant-numeric: tabular-nums;">$67.000</span>
+            </div>
+        </div>
             </div>
 
         </section>
