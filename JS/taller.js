@@ -1,13 +1,17 @@
 document.addEventListener("DOMContentLoaded", function () {
 
   const STORAGE_KEY = "misProductos_v4";
-  const TAMANO_CANVAS = 500;     // tamano de la zona donde se ve la prenda
-  const ANCHO_MIN = 0.05;        // el diseno puede ser tan pequeno como el 5 % de la prenda
-  const ANCHO_MAX = 1.5;         // y tan grande como el 150 %
-  const RADIO_ASA = 16;          // que tan grande es la zona para agarrar cada circulo
-  const DISTANCIA_ROTAR = 34;    // que tan arriba queda el circulo naranja de girar
-  const DISENO_INICIAL = { cx: 0.5, cy: 0.42, ancho: 0.3, rot: 0, espejo: false }; // posicion al subir la imagen
-  const LADO_BORDADO = 480;      // tamano al que se achica la imagen para hacer el bordado
+  const TAMANO_CANVAS = 500;     
+  const ANCHO_MIN = 0.05;        
+  const ANCHO_MAX = 1.5;        
+  const RADIO_ASA = 16;          
+  const DISTANCIA_ROTAR = 34;    
+  const DISENO_INICIAL = { cx: 0.5, cy: 0.42, ancho: 0.3, rot: 0, espejo: false }; 
+  const LADO_BORDADO = 480;      
+
+
+  const RECARGO_ESTAMPADO = 10000;  
+  const RECARGO_BORDADO = 25000;    
 
   const COLORES = {
     blanco: "#ffffff",
@@ -31,13 +35,13 @@ document.addEventListener("DOMContentLoaded", function () {
   const controlesDiseno = document.getElementById("controlesDiseno");
   const tamanoDiseno = document.getElementById("tamanoDiseno");
   const rotacionDiseno = document.getElementById("rotacionDiseno");
-  const desplazarX = document.getElementById("desplazarX");  
-  const desplazarY = document.getElementById("desplazarY");  
+  const desplazarX = document.getElementById("desplazarX");
+  const desplazarY = document.getElementById("desplazarY");
   const restablecerDiseno = document.getElementById("restablecerDiseno");
   const voltearDiseno = document.getElementById("voltearDiseno");
   const alternarGuias = document.getElementById("alternarGuias");
-  const alternarBordado = document.getElementById("alternarBordado");  
-  const chipsEstilo = document.querySelectorAll(".chip-estilo");      
+  const alternarBordado = document.getElementById("alternarBordado");
+  const chipsEstilo = document.querySelectorAll(".chip-estilo");
   const quitarDiseno = document.getElementById("quitarDiseno");
   const totalPedido = document.getElementById("totalLista");
   const cantidadProducto = document.getElementById("inputCantidadPrenda");
@@ -50,7 +54,7 @@ document.addEventListener("DOMContentLoaded", function () {
   });
 
   if (!desplazarX || !desplazarY) {
-    console.warn("No se encontró #desplazarX o #desplazarY en el HTML: revisa los id de los deslizadores.");
+    console.warn("No se encontro #desplazarX o #desplazarY en el HTML: revisa los id de los deslizadores.");
   }
 
   let productosGuardados = [];
@@ -91,7 +95,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
   // Quita las tildes de una palabra para armar nombres de clases
   function sinTildes(texto) {
-    return texto.toLowerCase().normalize("NFD").replace(/[̀-ͯ]/g, "");
+    return texto.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "");
   }
 
   // Evita que un numero se pase del minimo o del maximo
@@ -144,6 +148,24 @@ document.addEventListener("DOMContentLoaded", function () {
     return { x: (e.clientX - r.left) * k, y: (e.clientY - r.top) * k };
   }
 
+  //  PRECIOS
+
+  // Convierte un numero en texto de precio, por ejemplo $35.000
+  function formatearPrecio(valor) {
+    return "$" + Number(valor).toLocaleString("es-CO");
+  }
+
+  // Recargo que se cobra por el diseno de una prenda (0 si no tiene diseno)
+  function recargoDiseno(p) {
+    if (!p.diseno) return 0;
+    return p.diseno.estilo === "bordado" ? RECARGO_BORDADO : RECARGO_ESTAMPADO;
+  }
+
+  // Precio de UNA prenda: precio base + recargo del diseno
+  function precioUnitario(p) {
+    return Number(p.precio) + recargoDiseno(p);
+  }
+
   // ============================================================
   //  EFECTO BORDADO
   //  Toma la imagen del usuario y le da aspecto de hilo:
@@ -162,7 +184,7 @@ document.addEventListener("DOMContentLoaded", function () {
     const c = base.getContext("2d");
     c.drawImage(img, 0, 0, w, h);
 
-    //  reducir los colores (como si fueran hilos) y dejar los bordes bien definidos
+    // Reducir los colores (como si fueran hilos) y dejar los bordes bien definidos
     const datos = c.getImageData(0, 0, w, h);
     const px = datos.data;
     const paso = 255 / 3; // 4 tonos por cada color
@@ -171,14 +193,14 @@ document.addEventListener("DOMContentLoaded", function () {
         px[i + 3] = 0;
         continue;
       }
-      px[i]     = Math.round(px[i]     / paso) * paso;
+      px[i] = Math.round(px[i] / paso) * paso;
       px[i + 1] = Math.round(px[i + 1] / paso) * paso;
       px[i + 2] = Math.round(px[i + 2] / paso) * paso;
       px[i + 3] = 255;
     }
     c.putImageData(datos, 0, 0);
 
-    // dibujar las puntadas (rayitas en diagonal, unas oscuras y otras claras).
+    // Dibujar las puntadas (rayitas en diagonal, unas oscuras y otras claras).
     // "source-atop" hace que solo se pinten sobre la imagen y no sobre el fondo transparente.
     const separacion = Math.max(3, Math.round(Math.max(w, h) / 70));
     c.globalCompositeOperation = "source-atop";
@@ -203,7 +225,7 @@ document.addEventListener("DOMContentLoaded", function () {
     }
     c.globalCompositeOperation = "source-over";
 
-    // Paso 3: una sombra pegada al borde, para que parezca que el hilo esta levantado
+    // Una sombra pegada al borde, para que parezca que el hilo esta levantado
     const sombra = document.createElement("canvas");
     sombra.width = w;
     sombra.height = h;
@@ -389,12 +411,12 @@ document.addEventListener("DOMContentLoaded", function () {
     const zona = zonaEn(p, punto, escalaPantalla(canvas));
     canvas.style.cursor =
       zona === "rotar" ? "crosshair" :
-      zona === "escalar" ? "nwse-resize" :
-      zona === "mover" ? "move" : "pointer";
+        zona === "escalar" ? "nwse-resize" :
+          zona === "mover" ? "move" : "pointer";
   }
 
   function activarGestos(canvas, p) {
-    const punteros = new Map();   // los dedos  que estan tocando la pantalla
+    const punteros = new Map();   // los dedos que estan tocando la pantalla
     let modo = null;              // que se esta haciendo: "mover", "escalar", "rotar" o "pellizco"
     let inicio = {};              // datos del momento en que empezo el movimiento
 
@@ -576,7 +598,7 @@ document.addEventListener("DOMContentLoaded", function () {
     if (desplazarY) desplazarY.value = Math.round(p.diseno.cy * 100);
   }
 
-  // Marca como activo el boton del estilo que se esta usando 
+  // Marca como activo el boton del estilo que se esta usando
   function actualizarBotonBordado(p) {
     const estilo = p.diseno ? p.diseno.estilo : "estampado";
 
@@ -593,6 +615,23 @@ document.addEventListener("DOMContentLoaded", function () {
     });
   }
 
+  // Muestra el precio de la prenda que se esta viendo.
+  // Si tiene diseno, muestra el desglose: base + recargo.
+  function actualizarPrecioProducto(p) {
+    const base = Number(p.precio);
+    const recargo = recargoDiseno(p);
+
+    if (recargo === 0) {
+      precioProducto.textContent = formatearPrecio(base);
+      return;
+    }
+
+    const tipo = p.diseno.estilo === "bordado" ? "bordado" : "estampado";
+    precioProducto.textContent =
+      formatearPrecio(base + recargo) +
+      " (" + formatearPrecio(base) + " + " + formatearPrecio(recargo) + " de " + tipo + ")";
+  }
+
   // Cambia el estilo del diseno (estampado o bordado) y vuelve a dibujar
   function cambiarEstilo(estilo) {
     const p = productosTaller[indiceActual];
@@ -605,6 +644,8 @@ document.addEventListener("DOMContentLoaded", function () {
 
     p.diseno.estilo = estilo;
     actualizarBotonBordado(p);
+    actualizarPrecioProducto(p); // el recargo cambia segun el estilo
+    actualizarTotal();           // y el total de arriba tambien
     dibujar(p);
   }
 
@@ -619,7 +660,7 @@ document.addEventListener("DOMContentLoaded", function () {
   // Muestra el nombre, precio y opciones del producto que se esta viendo
   function mostrarProducto(p) {
     nombreProducto.textContent = p.nombre;
-    precioProducto.textContent = "$" + Number(p.precio).toLocaleString("es-CO");
+    actualizarPrecioProducto(p);
     cantidadProducto.value = p.cantidad;
     cantidadProducto.max = p.stock || "";
 
@@ -631,13 +672,13 @@ document.addEventListener("DOMContentLoaded", function () {
     actualizarControlesDiseno(p);
   }
 
-  // Suma el precio de todas las prendas
+  // Suma el precio de todas las prendas (precio base + recargo del diseno) por su cantidad
   function actualizarTotal() {
     const total = productosTaller.reduce(function (acumulado, producto) {
-      return acumulado + Number(producto.precio) * producto.cantidad;
+      return acumulado + precioUnitario(producto) * producto.cantidad;
     }, 0);
 
-    totalPedido.textContent = "$" + total.toLocaleString("es-CO");
+    totalPedido.textContent = formatearPrecio(total);
   }
 
   //  CARRUSEL (las flechas para cambiar de prenda)
@@ -759,8 +800,12 @@ document.addEventListener("DOMContentLoaded", function () {
         );
         dibujar(p);
 
+        // El total siempre se recalcula, aunque el usuario haya cambiado de prenda
+        actualizarTotal();
+
         // Si el usuario ya cambio de prenda mientras cargaba, no tocamos el panel
         if (productosTaller[indiceActual] === p) {
+          actualizarPrecioProducto(p);
           actualizarControlesDiseno(p);
           avisar("", false);
         }
@@ -770,7 +815,7 @@ document.addEventListener("DOMContentLoaded", function () {
     lector.readAsDataURL(archivo);
   });
 
-  // Deslizador de tamaño
+  // Deslizador de tamano
   tamanoDiseno.addEventListener("input", function () {
     const p = productosTaller[indiceActual];
     if (!p || !p.diseno) return;
@@ -810,7 +855,7 @@ document.addEventListener("DOMContentLoaded", function () {
     });
   }
 
-  // Boton restablecer el diseno vuelve a su posicion y tamano de inicio
+  // Boton restablecer: el diseno vuelve a su posicion y tamano de inicio
   restablecerDiseno.addEventListener("click", function () {
     const p = productosTaller[indiceActual];
     if (!p || !p.diseno) return;
@@ -820,7 +865,7 @@ document.addEventListener("DOMContentLoaded", function () {
     sincronizarControles(p);
   });
 
-  // Boton voltear el diseño se ve como en un espejo
+  // Boton voltear: el diseno se ve como en un espejo
   voltearDiseno.addEventListener("click", function () {
     const p = productosTaller[indiceActual];
     if (!p || !p.diseno) return;
@@ -849,14 +894,14 @@ document.addEventListener("DOMContentLoaded", function () {
     });
   }
 
-  // ...o, si usas dos botones, cada uno elige su estilo (data-estilo="estampado" o "bordado")
+  // o si usas dos botones, cada uno elige su estilo (data-estilo="estampado" o "bordado")
   chipsEstilo.forEach(function (chip) {
     chip.addEventListener("click", function () {
       cambiarEstilo(chip.dataset.estilo);
     });
   });
 
-  // Boton quitar: borra el diseno de la prenda
+  // Boton quitar: borra el diseno de la prenda y le quita el recargo
   quitarDiseno.addEventListener("click", function () {
     const p = productosTaller[indiceActual];
     if (!p) return;
@@ -864,6 +909,8 @@ document.addEventListener("DOMContentLoaded", function () {
     p.diseno = null;
     archivoLogo.value = "";
     actualizarControlesDiseno(p);
+    actualizarPrecioProducto(p);
+    actualizarTotal();
     dibujar(p);
   });
 
@@ -882,7 +929,7 @@ document.addEventListener("DOMContentLoaded", function () {
     actualizarTotal();
   });
 
- 
+
   //  GUARDAR EL PRODUCTO PERSONALIZADO
 
   // Crea una foto pequena de la prenda para mostrarla despues en el pedido
@@ -933,7 +980,9 @@ document.addEventListener("DOMContentLoaded", function () {
     const registro = {
       id: p.id,
       nombre: p.nombre,
-      precio: p.precio,
+      precio: precioUnitario(p),      // precio final por unidad (base + diseno)
+      precioBase: Number(p.precio),   // precio de la prenda sin diseno
+      recargoDiseno: recargoDiseno(p), // lo que se cobra extra por el diseno
       cantidad: p.cantidad,
       talla: p.talla,
       color: p.color,
@@ -941,12 +990,12 @@ document.addEventListener("DOMContentLoaded", function () {
       estiloDiseno: p.diseno ? p.diseno.estilo : null, // estampado o bordado
       ajustesDiseno: p.diseno
         ? {
-            cx: p.diseno.cx,
-            cy: p.diseno.cy,
-            ancho: p.diseno.ancho,
-            rot: p.diseno.rot,
-            espejo: p.diseno.espejo
-          }
+          cx: p.diseno.cx,
+          cy: p.diseno.cy,
+          ancho: p.diseno.ancho,
+          rot: p.diseno.rot,
+          espejo: p.diseno.espejo
+        }
         : null,
       vistaPrevia: vistaPrevia
     };
