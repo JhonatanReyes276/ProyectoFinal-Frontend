@@ -68,13 +68,7 @@ function renderizarTabla(lista) {
       <td class="align-middle fw-semibold">${producto.nombre}</td>
       <td class="align-middle fw-bold" style="color: var(--tomato);">$${producto.precio.toLocaleString("es-CO")}</td>
       <td class="align-middle">
-        <span class="badge bg-secondary p-2" 
-              style="cursor: pointer;"
-              data-bs-toggle="tooltip" 
-              data-bs-html="true" 
-              data-bs-title="${generarHTMLTooltip(producto.variantesStock)}">
-          ${producto.stock} <i class="bi bi-info-circle ms-1"></i>
-        </span>
+        <span class="badge bg-secondary p-2">${producto.stock}</span>
       </td>
       <td class="align-middle">
         <div class="d-flex flex-column gap-1">
