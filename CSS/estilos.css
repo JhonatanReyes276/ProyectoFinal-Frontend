@@ -6,6 +6,8 @@
   --charcoal-blue: #474954;
   --white: #ffffff;
   --black: #000000;
+  --fondo-imagen: #111214;
+  
 
 
   .color-verde {
@@ -882,6 +884,56 @@ p {
   border-radius: 20px;
 }
 
+.contenedor-panel {
+  align-self: flex-start;
+  margin-top: 4rem; /* ajusta hasta que quede alineado con el carrusel */
+}
+
+/* Solo en pantallas grandes (en el celular el panel va debajo y no hace falta) */
+@media (min-width: 992px) {
+
+  /* El panel se vuelve una columna con altura maxima */
+  .panel-personalizacion {
+    display: flex;
+    flex-direction: column;
+    max-height: calc(100vh - 220px);
+    /* ajusta este numero si lo quieres mas alto o mas bajo */
+  }
+
+  #opciones-producto {
+    flex: 1 1 auto;
+    min-height: 0;
+    overflow-y: auto;
+    padding-right: 0.5rem;
+  }
+
+  .panel-personalizacion>h2,
+  .acciones-producto {
+    flex: 0 0 auto;
+  }
+
+  .acciones-producto {
+    padding-top: 1rem;
+    margin-top: 0.5rem;
+    border-top: 1px solid rgba(255, 255, 255, 0.15);
+  }
+
+  #opciones-producto::-webkit-scrollbar {
+    width: 6px;
+  }
+
+  #opciones-producto::-webkit-scrollbar-thumb {
+    background: rgba(255, 255, 255, 0.35);
+    border-radius: 3px;
+  }
+
+  #opciones-producto {
+    scrollbar-width: thin;
+    /* para Firefox */
+    scrollbar-color: rgba(255, 255, 255, 0.35) transparent;
+  }
+}
+
 /* COMENTARIOS  */
 .panel-titulo-comentarios {
   background-color: var(--shadow-gray);
@@ -1131,26 +1183,32 @@ p {
   border-color: var(--tomato);
   box-shadow: 0 0 0 3px var(--tomato-20);
 }
+
 .btn-agregar {
   width: 100%;
   padding: 8px 12px;
-  background: transparent;
-  color: var(--soft-linen);
+  background: var(--tomato);
+  color: black;
   border: 1px solid var(--tomato);
   border-radius: 12px;
   font-size: 13px;
   font-weight: 600;
   transition: all 0.3s ease;
 }
+
 .btn-agregar:hover {
-  background-color: var(--tomato);
-  color: var(--shadow-gray);
+  background: transparent;
+  border: 1px solid black;
+  background-color: var(--charcoal-blue);
+  color: black;
 }
+
 .btn-agregar.en-lista {
-  background-color: var(--soft-linen);
-  border-color: var(--soft-linen);
-  color: var(--shadow-gray);
+  background-color: grey;
+  border-color: black;
+  color: black;
 }
+
 .btn-agregar.en-lista:hover {
   background-color: var(--tomato);
   border-color: var(--tomato);
@@ -1170,10 +1228,12 @@ p {
   font-weight: 600;
   transition: all 0.3s ease;
 }
+
 .boton-lista:hover {
   background-color: var(--tomato);
   color: var(--shadow-gray);
 }
+
 .badge-lista {
   display: inline-flex;
   align-items: center;
@@ -1187,6 +1247,7 @@ p {
   font-size: 11px;
   font-weight: 700;
 }
+
 .boton-lista:hover .badge-lista {
   background-color: var(--shadow-gray);
   color: white;
@@ -1197,13 +1258,16 @@ p {
   background-color: var(--shadow-gray);
   color: white;
 }
+
 .panel-lista .offcanvas-title {
   font-size: 18px;
 }
+
 .lista-vacia {
   color: var(--glaucous);
   font-size: 14px;
 }
+
 .items-lista {
   list-style: none;
   margin: 0;
@@ -1212,6 +1276,7 @@ p {
   flex-direction: column;
   gap: 14px;
 }
+
 .item-lista {
   display: flex;
   align-items: center;
@@ -1220,32 +1285,38 @@ p {
   background-color: var(--charcoal-blue);
   border-radius: 14px;
 }
+
 .item-lista img {
   width: 64px;
   height: 64px;
   object-fit: cover;
   border-radius: 10px;
 }
+
 .item-datos {
   flex-grow: 1;
 }
+
 .item-nombre {
   margin: 0;
   font-size: 14px;
   font-weight: 600;
 }
+
 .item-precio {
   margin: 2px 0 6px;
   font-size: 14px;
   font-weight: 700;
   color: var(--tomato);
 }
+
 .item-cantidad {
   display: inline-flex;
   align-items: center;
   gap: 10px;
   font-size: 13px;
 }
+
 .btn-cantidad {
   width: 26px;
   height: 26px;
@@ -1256,13 +1327,16 @@ p {
   line-height: 1;
   transition: all 0.3s ease;
 }
+
 .btn-cantidad:hover:not(:disabled) {
   background-color: var(--tomato);
   color: var(--shadow-gray);
 }
+
 .btn-cantidad:disabled {
   opacity: 0.4;
 }
+
 .btn-quitar {
   background: none;
   border: 0;
@@ -1270,6 +1344,7 @@ p {
   font-size: 18px;
   transition: color 0.3s ease;
 }
+
 .btn-quitar:hover {
   color: var(--tomato);
 }
@@ -1279,45 +1354,76 @@ p {
   padding: 16px;
   border-top: 1px solid var(--charcoal-blue);
 }
+
 .total-lista {
   display: flex;
   justify-content: space-between;
   margin-bottom: 12px;
   font-size: 16px;
 }
+
 .total-lista strong {
   color: var(--tomato);
 }
+
 .boton-vaciar {
   width: 100%;
   padding: 10px;
-  background: none;
-  color: var(--soft-linen);
-  border: 1px solid var(--charcoal-blue);
+  background: var(--tomato);
+  color: var(--shadow-gray);
+  border: 1px solid var(--tomato);
   border-radius: 12px;
   font-weight: 600;
-  transition: all 0.3s ease;
+  cursor: pointer;
+  transition: background 0.3s ease, color 0.3s ease, border-color 0.3s ease, opacity 0.3s ease;
 }
+
 .boton-vaciar:hover:not(:disabled) {
+  background: var(--shadow-gray);
   border-color: var(--tomato);
   color: var(--tomato);
 }
-.boton-vaciar:disabled {
-  opacity: 0.4;
+
+.boton-vaciar:active:not(:disabled) {
+  background: var(--shadow-gray);
+  border-color: var(--shadow-gray);
+  color: var(--tomato);
+  opacity: 0.9;
 }
 
-/* Botón taller */
+.boton-vaciar:disabled {
+  background: #3a3d45;
+  border-color: #3a3d45;
+  color: #9ca3af;
+  opacity: 0.7;
+  cursor: not-allowed;
+}
+
 .boton-taller {
   background-color: var(--tomato);
   color: var(--shadow-gray);
-  border: 0;
+  border: 1px solid var(--tomato);
   border-radius: 12px;
   font-weight: 600;
-  transition: all 0.3s ease;
+  cursor: pointer;
+  outline: none;
+  transition: background-color 0.25s ease, color 0.25s ease, border-color 0.25s ease, opacity 0.25s ease;
 }
+
 .boton-taller:hover {
-  opacity: 0.9;
-  color: var(--shadow-gray);
+  background-color: var(--shadow-gray);
+  border-color: var(--tomato);
+  color: var(--tomato);
+}
+
+.boton-taller:active,
+.boton-taller:focus,
+.boton-taller:focus-visible {
+  background-color: var(--shadow-gray);
+  border-color: var(--shadow-gray);
+  color: var(--tomato);
+  outline: none;
+  box-shadow: none;
 }
 
 .contenedor-panel {
@@ -1327,49 +1433,125 @@ p {
 #btn-guardar {
   width: 100%;
   padding: 8px 12px;
-  background: transparent;
-  color: var(--soft-linen);
+  background-color: var(--tomato);
+  color: var(--shadow-gray);
   border: 1px solid var(--tomato);
   border-radius: 12px;
   font-size: 13px;
   font-weight: 600;
-  transition: all 0.3s ease;
+  cursor: pointer;
+  outline: none;
+  transition: background-color 0.25s ease, color 0.25s ease, border-color 0.25s ease, opacity 0.25s ease;
 }
 
-#btn-guardar:hover {
+#btn-guardar:hover:not(:disabled) {
+  background-color: #4f5462;
+  border-color: var(--tomato);
+  color: var(--soft-linen);
+}
+
+#btn-guardar:active:not(:disabled),
+#btn-guardar:focus-visible:not(:disabled) {
+  background-color: #3f434e;
+  border-color: #3f434e;
+  color: var(--soft-linen);
+  outline: none;
+  box-shadow: none;
+}
+
+#btn-guardar:disabled {
+  background-color: #3f434e;
+  border-color: #3f434e;
+  color: #a8b0be;
+  opacity: 0.65;
+  cursor: not-allowed;
+}
+
+#btn-guardar:disabled {
+  background-color: var(--shadow-gray);
+  border-color: var(--shadow-gray);
+  color: var(--soft-linen);
+  opacity: 0.45;
+  cursor: not-allowed;
+}
+
+.btn-confirmar-pedido {
+  display: block;
+  width: 100%;
+  box-sizing: border-box;
+  padding: 8px 12px;
   background-color: var(--tomato);
   color: var(--shadow-gray);
-}
-
-.fondo-carrusel-personalizado {
-  background-color: var(--shadow-gray);
-}
-.canvas-prenda {
-  background-color:  var(--soft-linen);
+  border: 1px solid var(--tomato);
   border-radius: 12px;
-  max-width: 100%;
-  height: auto;
-  display: block;
-  margin: 0 auto;
+  font-size: 13px;
+  font-weight: 600;
+  line-height: 1.25;
+  text-align: center;
+  cursor: pointer;
+  outline: none;
+  transition: background-color 0.25s ease, color 0.25s ease, border-color 0.25s ease, opacity 0.25s ease;
 }
 
-.canvas-prenda {
-  background-color: var(--soft-linen);
-  border-radius: 8px;
-  max-width: 100%;
-  height: auto;
-  display: block;
-  margin: 0 auto;
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3); 
+.btn-confirmar-pedido:hover:not(:disabled) {
+  background-color: #4f5462;
+  border-color: var(--tomato);
+  color: var(--soft-linen);
+}
+
+.btn-confirmar-pedido:active:not(:disabled),
+.btn-confirmar-pedido:focus-visible:not(:disabled) {
+  background-color: #3f434e;
+  border-color: #3f434e;
+  color: var(--soft-linen);
+  outline: none;
+  box-shadow: none;
+}
+
+.btn-confirmar-pedido:disabled {
+  background-color: var(--shadow-gray);
+  border-color: var(--shadow-gray);
+  color: var(--soft-linen);
+  opacity: 0.45;
+  cursor: not-allowed;
 }
 
 .fondo-carrusel-personalizado {
-  background-color: var(--black)!important; 
-  color: var(--soft-linen) !important;            
+  max-width: 600px;
+  margin: 0 auto;
+  position: relative;          
+  overflow: hidden;
+  border-radius: 8px;
+  background-color: #111214 !important;
+  padding: 0 !important;
+  box-shadow: none !important;
 }
 
+.fondo-carrusel-personalizado .carousel-inner,
+.fondo-carrusel-personalizado .carousel-item {
+  background-color: #111214 !important;
+  aspect-ratio: 1 / 1;        
+}
+
+.fondo-carrusel-personalizado .canvas-prenda,
+.fondo-carrusel-personalizado .carousel-item img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  max-width: 100%;
+  max-height: none;
+  object-fit: cover;          
+  border-radius: 0;
+  box-shadow: none;
+}
+
+.fondo-carrusel-personalizado .carousel-control-prev,
+.fondo-carrusel-personalizado .carousel-control-next {
+  z-index: 5;
+  opacity: 0.9;
+}
 .zona-carrusel h2 {
-  font-family: 'Space Grotesk', sans-serif; 
+  font-family: 'Space Grotesk', sans-serif;
   font-weight: 700;
   font-size: 1.8rem;
   text-transform: uppercase;
@@ -1378,7 +1560,7 @@ p {
   display: flex;
   align-items: center;
   gap: 12px;
-  margin: 0; 
+  margin: 0;
 }
 
 .zona-carrusel h2::before {
@@ -1389,17 +1571,26 @@ p {
   background-color: var(--tomato);
   border-radius: 4px;
 }
-.panel-estilo { margin-top: 1.25rem; }
+
+.panel-estilo {
+  margin-top: 1.25rem;
+}
+
 
 .chip-estilo {
-  border: 2px solid #dee2e6;
+  border: 2px solid #fff;
   background: #fff;
   border-radius: 50rem;
   padding: .4rem 1.1rem;
   font-weight: 600;
   transition: all .2s ease;
 }
-.chip-estilo:hover { border-color: var(--acento); color: var(--acento); }
+
+.chip-estilo:hover {
+  border-color: var(--acento);
+  color: var(--acento);
+}
+
 .chip-estilo.activo {
   background: var(--acento);
   border-color: var(--acento);
@@ -1407,5 +1598,6 @@ p {
   box-shadow: 0 4px 10px var(--soft-linen);
 }
 
-#relieveBordado { accent-color: var(--acento); }
-
+#relieveBordado {
+  accent-color: var(--acento);
+}

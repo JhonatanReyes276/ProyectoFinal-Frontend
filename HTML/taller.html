@@ -71,13 +71,7 @@
             </p>
         </section>
 
-        <!-- TOTAL -->
-        <div class="d-flex justify-content-end align-items-center gap-3 mt-4">
-            <span>Total:</span>
-            <span id="totalLista" class="text-dark">$0</span>
-        </div>
-
-        <!-- AREA DE PERSONALIZACIÓN -->
+        <!-- AREA DE PERSONALIZACION -->
         <section class="row g-4">
 
             <!-- COLUMNA IZQUIERDA: CARRUSEL -->
@@ -94,21 +88,21 @@
                         <a href="catalogo.html" class="btn btn-outline-dark btn-sm mt-2">Ir al catálogo</a>
                     </div>
 
-                    <!-- en el celular, arrastrar mueve el diseño y no cambia de producto -->
+                    <!-- En el celular arrastrar mueve el diseno y no cambia de producto -->
                     <div id="carruselProductos" class="carousel slide d-none" data-bs-touch="false">
                         <div class="carousel-inner fondo-carrusel-personalizado p-4 rounded text-white shadow"
                             id="contenedor-productos">
-                            <!-- JavaScript dibuja aca un canvas por cada prenda -->
+                            <!-- El JS dibuja aca un canvas por cada prenda -->
                         </div>
 
                         <button class="carousel-control-prev" type="button" data-bs-target="#carruselProductos"
                             data-bs-slide="prev" style="width: 8%;">
-                            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                           <span class="carousel-control-prev-icon" aria-hidden="true" style="filter: brightness(0);"></span>
                             <span class="visually-hidden">Anterior</span>
                         </button>
                         <button class="carousel-control-next" type="button" data-bs-target="#carruselProductos"
                             data-bs-slide="next" style="width: 8%;">
-                            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                            <span class="carousel-control-next-icon" aria-hidden="true" style="filter: brightness(0);"></span>
                             <span class="visually-hidden">Siguiente</span>
                         </button>
                     </div>
@@ -126,6 +120,7 @@
 
                         <div class="informacion-producto mb-4">
                             <h3 id="nombre-producto"></h3>
+                            <!-- El JS muestra aca el precio y, si hay diseño, el desglose del recargo -->
                             <p id="precio-producto"></p>
                         </div>
 
@@ -141,7 +136,7 @@
                             <div id="opcionesColores" class="d-flex flex-wrap gap-2"></div>
                         </div>
 
-                        <!-- SUBIR DISEÑO -->
+                        <!-- SUBIR DISEñO -->
                         <div class="grupo-opcion mb-4">
                             <label for="archivo-logo" class="form-label fw-bold small text-uppercase">
                                 DISEÑO:
@@ -154,7 +149,7 @@
                                 Sube tu archivo en formato PNG, JPG o WEBP (máximo 2 MB).
                             </small>
 
-                            <!-- Controles que aparecen cuando ya hay un diseño subido -->
+                            <!-- Controles que aparecen cuando ya hay un diseno subido -->
                             <div id="controlesDiseno" class="d-none mt-3">
                                 <p class="small mb-3">
                                     Arrastra el diseño para moverlo, las esquinas para cambiar su tamaño y el círculo
@@ -195,11 +190,12 @@
                                     <div class="panel-estilo">
                                         <h3 class="titulo-filtro"><i class="bi bi-brush me-2"></i>Estilo del diseño</h3>
 
+                                        <!-- Los precios que se ven aqui deben coincidir con RECARGO_ESTAMPADO y RECARGO_BORDADO del JS -->
                                         <div class="opciones">
                                             <button type="button" class="chip-estilo activo"
-                                                data-estilo="estampado">Estampado</button>
+                                                data-estilo="estampado">Estampado (+$10.000)</button>
                                             <button type="button" class="chip-estilo"
-                                                data-estilo="bordado">Bordado</button>
+                                                data-estilo="bordado">Bordado (+$25.000)</button>
                                         </div>
 
                                         <!-- Solo se ve cuando el estilo es bordado -->
@@ -224,20 +220,28 @@
 
                     </div>
 
-                    <!-- BOTÓN GUARDAR -->
+                    <!-- BOTON GUARDAR -->
                     <div class="acciones-producto">
                         <button type="button" id="btn-guardar">
                             Guardar producto
                         </button>
                         <p id="mensajeEstado" class="small mt-2 mb-0" role="status"></p>
 
-                        <button type="button" id="btn-ir-carrito" class="btn btn-outline-light" disabled>
+                        <button type="button" id="btn-ir-carrito" class="btn-confirmar-pedido" disabled>
                             Confirmar pedido
                         </button>
                         <p id="mensajeEstado" class="small mt-2 mb-0" role="status"></p>
                     </div>
 
                 </div>
+                 <div class="d-flex justify-content-end mb-2">
+            <div class="d-inline-flex align-items-center gap-3 px-3 py-2 rounded-3 shadow-sm"
+                style="background-color: #2f333d; border: 1px solid rgba(36, 39, 46, 0.25); border-left: 3px solid var(--tomato);">
+                <span class="fw-semibold" style="color: var(--soft-linen);">Total:</span>
+                <span id="totalLista" class="fw-bold fs-5"
+                    style="color: var(--tomato); font-variant-numeric: tabular-nums;">$67.000</span>
+            </div>
+        </div>
             </div>
 
         </section>
