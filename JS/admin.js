@@ -1,12 +1,15 @@
 const mapaColores = {
-  blanco: { bg: "#f8f9fa", text: "#212529" },
-  naranja: { bg: "#fd7e14", text: "#ffffff" },
-  gris: { bg: "#6c757d", text: "#ffffff" },
-  azul: { bg: "#0d6efd", text: "#ffffff" },
-  verde: { bg: "#198754", text: "#ffffff" },
-  rojo: { bg: "#dc3545", text: "#ffffff" },
-  café: { bg: "#795548", text: "#ffffff" },
+  blanco: "#f8f9fa",
+  naranja: "#fd7e14",
+  gris: "#6c757d",
+  azul: "#0d6efd",
+  verde: "#198754",
+  rojo: "#dc3545",
+  café: "#795548",
 };
+
+const IMAGEN_GENERICA =
+  "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='100' height='100' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' fill='%23dee2e6'/%3E%3Cpath d='M30 68l14-18 10 12 8-10 14 16H30z' fill='%23adb5bd'/%3E%3Ccircle cx='38' cy='38' r='6' fill='%23adb5bd'/%3E%3C/svg%3E";
 
 const tablaBody = document.getElementById("cuerpo-tabla");
 
@@ -38,21 +41,23 @@ function renderizarTabla(lista) {
       .map((talla) => `<span class="badge bg-secondary me-1">${talla}</span>`)
       .join("");
 
-    const htmlColores = producto.colores
-      .map((color) => {
-        const colorKey = color.toLowerCase();
-        const estilo = mapaColores[colorKey] || {
-          bg: "#adb5bd",
-          text: "#000000",
-        };
+const htmlColores = producto.colores
+  .map((color) => {
+    const bg = mapaColores[color.toLowerCase()] || "#adb5bd";
 
-        return `<span class="badge me-1 border" style="background-color: ${estilo.bg}; color: ${estilo.text};">${color}</span>`;
-      })
-      .join("");
+    return `<span class="d-inline-block rounded-circle border text-capitalize" 
+                  style="width: 20px; height: 20px; background-color: ${bg}; cursor: pointer;"
+                  data-color="${color}"
+                  data-bs-toggle="tooltip" 
+                  data-bs-title="${color}"></span>`;
+  })
+  .join("");
 
-    const rutaImg = producto.imagen.startsWith("data:")
-      ? producto.imagen
-      : `../../${producto.imagen}`;
+    const rutaImg = !producto.imagen
+      ? IMAGEN_GENERICA
+      : producto.imagen.startsWith("data:")
+        ? producto.imagen
+        : `../../${producto.imagen}`;
 
     fila.innerHTML = `
       <th class="text-center align-middle">${index + 1}</th>
@@ -128,7 +133,16 @@ function prepararFiltros() {
       (span) => span.textContent.trim().toLowerCase(),
     );
     const arrayColores = Array.from(celdas[5].querySelectorAll("span")).map(
-      (span) => quitarTildes(span.textContent.trim().toLowerCase()),
+      (span) =>
+        quitarTildes(
+          (
+            span.dataset.color ||
+            span.getAttribute("data-bs-title") ||
+            span.textContent
+          )
+            .trim()
+            .toLowerCase(),
+        ),
     );
 
     return {
@@ -216,6 +230,11 @@ if (document.querySelector("#talla") && typeof Choices !== "undefined") {
 function mostrarTallas() {
   if (!categoria || !tallaOpciones) return;
 
+  const tallasPrevias = tallaOpciones.getValue(true) || [];
+  const tallasPreviasArray = Array.isArray(tallasPrevias)
+    ? tallasPrevias
+    : [tallasPrevias];
+
   //tallaOpciones.removeActiveItems(); //borra las etiquetas previamente seleccionadas
   //talla.innerHTML = "";
   //tallaOpciones.clearChoices(); //borra la lista de opciones del menu desplegable
@@ -245,7 +264,15 @@ function mostrarTallas() {
   if (opciones.length > 0) {
     // Si no esta el seleccionar por defecto y el array se lleno con una de las opciones
     tallaOpciones.setChoices(opciones, "value", "label", true);
+    const valoresValidos = opciones.map((o) => o.value);
+    const tallasConservadas = tallasPreviasArray.filter((t) =>
+      valoresValidos.includes(t),
+    );
+    if (tallasConservadas.length > 0) {
+      tallaOpciones.setChoiceByValue(tallasConservadas);
+    }
   }
+  actualizarInputsDeStock();
 }
 
 if (categoria) {
@@ -332,6 +359,9 @@ async function guardarProducto(e) {
     if (index !== -1) {
       // Actualizamos los datos del producto
       productos[index].nombre = nombre;
+      if (categoria && tallas[categoria.value]) {
+        productos[index].categoria = categoria.value;
+      }
       productos[index].precio = precio;
       productos[index].stock = stockTotalCalculado;
       productos[index].tallas = tallasSeleccionadas;
@@ -341,6 +371,8 @@ async function guardarProducto(e) {
       // Solo actualizamos la imagen si el usuario seleccionó una nueva
       if (rutaImagen) {
         productos[index].imagen = rutaImagen;
+      } else if (!productos[index].imagen) {
+        productos[index].imagen = IMAGEN_GENERICA;
       }
     }
 
@@ -357,7 +389,6 @@ async function guardarProducto(e) {
     if (colorOpciones) colorOpciones.removeActiveItems();
     if (tallaOpciones) tallaOpciones.clearStore();
     actualizarInputsDeStock();
-
   } else {
     //CREAR
 
@@ -371,7 +402,7 @@ async function guardarProducto(e) {
       nombre: nombre,
       categoria: categoria.value,
       precio: precio,
-      imagen: rutaImagen,
+      imagen: rutaImagen || IMAGEN_GENERICA,
       stock: stockTotalCalculado,
       tallas: tallasSeleccionadas,
       colores: coloresSeleccionados,
@@ -388,6 +419,7 @@ async function guardarProducto(e) {
     formularioProducto.reset();
     if (colorOpciones) colorOpciones.removeActiveItems();
     if (tallaOpciones) tallaOpciones.clearStore();
+    actualizarInputsDeStock();
 
     alert("Producto agregado y guardado correctamente");
   }
@@ -428,23 +460,38 @@ function actualizarInputsDeStock() {
     return;
   }
 
+  const valoresPrevios = {};
+  contenedorVariantes
+    .querySelectorAll(".input-stock-variante")
+    .forEach((input) => {
+      const clave = `${normalizar(input.dataset.color)}__${normalizar(input.dataset.talla)}`;
+      valoresPrevios[clave] = input.value;
+    });
+
   contenedorVariantes.innerHTML = "";
+
+  let htmlVariantes = "";
 
   // generar los inputs por cada combinacion de talla y color
   coloresArray.forEach((color) => {
     tallasArray.forEach((talla) => {
-      contenedorVariantes.innerHTML += `
+      const clave = `${normalizar(color)}__${normalizar(talla)}`;
+      const valorActual =
+        valoresPrevios[clave] !== undefined ? valoresPrevios[clave] : "0";
+      htmlVariantes += `
         <div class="d-flex justify-content-between align-items-center bg-secondary p-2 rounded mb-2">
           <label class="mb-0 text-white text-capitalize" style="color: #ffffff !important;">${color} - Talla ${talla}</label>
           <input type="number" min="0" class="form-control form-control-sm input-stock-variante"
                  style="width: 100px;"
                  data-color="${color}"
                  data-talla="${talla}"
-                 value="0" required>
+                 value="${valorActual}" required>
         </div>
       `;
     });
   });
+
+  contenedorVariantes.innerHTML = htmlVariantes;
 }
 
 // choices.js dispara eventos 'addItem' y 'removeItem' cuando el usuario interactúa
@@ -466,6 +513,30 @@ let productoIdEnEdicion = null;
 
 const normalizar = (texto) => quitarTildes(String(texto).trim().toLowerCase());
 
+function obtenerCategoriaProducto(producto) {
+  if (producto.categoria && tallas[producto.categoria]) {
+    return producto.categoria;
+  }
+  const nombreNorm = normalizar(producto.nombre || "");
+  if (nombreNorm.includes("camiseta") || nombreNorm.includes("camisa")) {
+    return "camiseta";
+  }
+  if (nombreNorm.includes("gorra")) {
+    return "gorra";
+  }
+  if (nombreNorm.includes("media")) {
+    return "medias";
+  }
+  const tallasProducto = producto.tallas || [];
+  if (tallasProducto.some((t) => tallas.medias.includes(t))) {
+    return "medias";
+  }
+  if (tallasProducto.some((t) => tallas.camiseta.includes(t))) {
+    return "camiseta";
+  }
+  return "";
+}
+
 function editarProducto(id) {
   // buscamos el producto en el array
   const producto = productos.find((p) => p.id === id);
@@ -474,9 +545,22 @@ function editarProducto(id) {
   // bandera: estamos editando
   productoIdEnEdicion = id;
 
+  if (contenedorVariantes) {
+    contenedorVariantes.innerHTML = "";
+  }
+
   // datos básicos
   document.getElementById("nombre").value = producto.nombre;
   document.getElementById("precio").value = producto.precio;
+
+  const categoriaProducto = obtenerCategoriaProducto(producto);
+  if (categoria) {
+    if (categoriaProducto && tallas[categoriaProducto]) {
+      categoria.value = categoriaProducto;
+    } else {
+      categoria.selectedIndex = 0;
+    }
+  }
 
   // minúscula para que coincida con el value del select
   const colores = (producto.colores || []).map((c) => c.toLowerCase());
@@ -488,7 +572,13 @@ function editarProducto(id) {
 
   if (tallaOpciones) {
     tallaOpciones.clearStore();
-    const opcionesTalla = (producto.tallas || []).map((t) => ({
+    const tallasDisponibles = [
+      ...new Set([
+        ...(tallas[categoriaProducto] || []),
+        ...(producto.tallas || []),
+      ]),
+    ];
+    const opcionesTalla = tallasDisponibles.map((t) => ({
       value: t,
       label: t,
     }));
@@ -507,7 +597,7 @@ function editarProducto(id) {
         normalizar(v.color) === normalizar(input.dataset.color) &&
         normalizar(v.talla) === normalizar(input.dataset.talla),
     );
-    if (variante) input.value = variante.cantidad;
+    input.value = variante ? variante.cantidad : 0;
   });
 
   // el submit es un <input>, así que se cambia su value
