@@ -1,12 +1,15 @@
 const mapaColores = {
-  blanco: { bg: "#f8f9fa", text: "#212529" },
-  naranja: { bg: "#fd7e14", text: "#ffffff" },
-  gris: { bg: "#6c757d", text: "#ffffff" },
-  azul: { bg: "#0d6efd", text: "#ffffff" },
-  verde: { bg: "#198754", text: "#ffffff" },
-  rojo: { bg: "#dc3545", text: "#ffffff" },
-  café: { bg: "#795548", text: "#ffffff" },
+  blanco: "#f8f9fa",
+  naranja: "#fd7e14",
+  gris: "#6c757d",
+  azul: "#0d6efd",
+  verde: "#198754",
+  rojo: "#dc3545",
+  café: "#795548",
 };
+
+const IMAGEN_GENERICA =
+  "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='100' height='100' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' fill='%23dee2e6'/%3E%3Cpath d='M30 68l14-18 10 12 8-10 14 16H30z' fill='%23adb5bd'/%3E%3Ccircle cx='38' cy='38' r='6' fill='%23adb5bd'/%3E%3C/svg%3E";
 
 const tablaBody = document.getElementById("cuerpo-tabla");
 
@@ -33,26 +36,29 @@ function renderizarTabla(lista) {
 
   lista.forEach((producto, index) => {
     const fila = document.createElement("tr");
+    fila.dataset.tallas = (producto.tallas || []).join(",");
+    fila.dataset.colores = (producto.colores || []).join(",");
 
-    const htmlTallas = producto.tallas
-      .map((talla) => `<span class="badge bg-secondary me-1">${talla}</span>`)
-      .join("");
-
-    const htmlColores = producto.colores
+    const coloresProd = producto.colores || [];
+    const tallasProd = producto.tallas || [];
+    const htmlPuntosColor = coloresProd
+      .slice(0, 4)
       .map((color) => {
-        const colorKey = color.toLowerCase();
-        const estilo = mapaColores[colorKey] || {
-          bg: "#adb5bd",
-          text: "#000000",
-        };
-
-        return `<span class="badge me-1 border" style="background-color: ${estilo.bg}; color: ${estilo.text};">${color}</span>`;
+        const bg = mapaColores[color.toLowerCase()] || "#adb5bd";
+        return `<span class="resumen-color-dot" style="background-color: ${bg};" title="${color}"></span>`;
       })
       .join("");
+    const htmlExtraColor =
+      coloresProd.length > 4
+        ? `<span class="resumen-color-extra">+${coloresProd.length - 4}</span>`
+        : "";
+    const textoResumen = `${tallasProd.length} ${tallasProd.length === 1 ? "talla" : "tallas"} · ${coloresProd.length} ${coloresProd.length === 1 ? "color" : "colores"}`;
 
-    const rutaImg = producto.imagen.startsWith("data:")
-      ? producto.imagen
-      : `../../${producto.imagen}`;
+    const rutaImg = !producto.imagen
+      ? IMAGEN_GENERICA
+      : producto.imagen.startsWith("data:")
+        ? producto.imagen
+        : `../../${producto.imagen}`;
 
     fila.innerHTML = `
       <th class="text-center align-middle">${index + 1}</th>
@@ -71,15 +77,25 @@ function renderizarTabla(lista) {
         </span>
       </td>
       <td class="align-middle">
-        <div class="d-flex flex-wrap gap-1">${htmlTallas}</div>
-      </td>
-      <td class="align-middle">
-        <div class="d-flex flex-wrap gap-1">${htmlColores}</div>
+        <div class="d-flex flex-column gap-1">
+          <div class="d-flex align-items-center gap-1">${htmlPuntosColor}${htmlExtraColor}</div>
+          <span class="resumen-conteo">${textoResumen}</span>
+        </div>
       </td>
       <td class="align-middle text-center">
-      <button class="btn btn-sm btn-outline-tomato" onclick="editarProducto(${producto.id})">
-        Editar / Actualizar
-      </button>
+        <button type="button" class="btn btn-sm btn-glaucous" onclick="verVariantes(${producto.id})">
+          <i class="bi bi-grid"></i>Detalle
+        </button>
+      </td>
+      <td class="align-middle text-center">
+        <div class="d-inline-flex gap-1">
+          <button type="button" class="btn btn-sm btn-accion-tomato" onclick="editarProducto(${producto.id})" title="Editar">
+            <i class="bi bi-pencil"></i>
+          </button>
+          <button type="button" class="btn btn-sm btn-accion-tomato btn-accion-eliminar" onclick="abrirModalEliminar(${producto.id})" title="Eliminar">
+            <i class="bi bi-trash"></i>
+          </button>
+        </div>
       </td>
     `;
 
@@ -123,13 +139,15 @@ function prepararFiltros() {
   datosTabla = Array.from(filas).map((fila, index) => {
     const celdas = fila.querySelectorAll("td");
 
-    // celdas: [0] miniatura, [1] nombre, [2] precio, [3] stock, [4] tallas, [5] colores
-    const arrayTallas = Array.from(celdas[4].querySelectorAll("span")).map(
-      (span) => span.textContent.trim().toLowerCase(),
-    );
-    const arrayColores = Array.from(celdas[5].querySelectorAll("span")).map(
-      (span) => quitarTildes(span.textContent.trim().toLowerCase()),
-    );
+    // celdas: [0] miniatura, [1] nombre, [2] precio, [3] stock, [4] variantes, [5] acciones
+    const arrayTallas = (fila.dataset.tallas || "")
+      .split(",")
+      .filter(Boolean)
+      .map((t) => t.trim().toLowerCase());
+    const arrayColores = (fila.dataset.colores || "")
+      .split(",")
+      .filter(Boolean)
+      .map((c) => quitarTildes(c.trim().toLowerCase()));
 
     return {
       indice: index,
@@ -182,6 +200,16 @@ if (buscador) buscador.addEventListener("input", filtrarAdmin);
 if (selectTalla) selectTalla.addEventListener("change", filtrarAdmin);
 if (selectColor) selectColor.addEventListener("change", filtrarAdmin);
 
+const btnLimpiarFiltros = document.querySelector("#btn-limpiar-filtros");
+if (btnLimpiarFiltros) {
+  btnLimpiarFiltros.addEventListener("click", () => {
+    if (buscador) buscador.value = "";
+    if (selectTalla) selectTalla.value = "";
+    if (selectColor) selectColor.value = "";
+    filtrarAdmin();
+  });
+}
+
 const tallas = {
   camiseta: ["S", "M", "L", "XL"],
   medias: ["23-26", "27-30", "31-34", "35-37", "38-40", "41-43", "44-46"],
@@ -190,66 +218,128 @@ const tallas = {
 
 const categoria = document.querySelector("#categoria");
 const talla = document.querySelector("#talla");
+const colorContenedor = document.querySelector("#color");
 
-let colorOpciones = null;
-let tallaOpciones = null;
-
-if (document.querySelector("#color") && typeof Choices !== "undefined") {
-  colorOpciones = new Choices("#color", {
-    removeItemButton: true, // Agrega una 'x' para que el usuario pueda borrar su elección
-    searchEnabled: false, // Oculta la barra de búsqueda si no la necesitas
-    position: "bottom", // fuerza el menú hacia abajo
-    noChoicesText: "No hay más opciones", // Reemplaza "No choices to choose from" por la indicacion en español
-    itemSelectText: "Presiona para seleccionar", // Reemplaza "Press to select" por la indicacion en español
-  });
+function obtenerTallasSeleccionadas() {
+  return Array.from(document.querySelectorAll("#talla .chip-talla.activo")).map(
+    (btn) => btn.dataset.talla,
+  );
 }
 
-if (document.querySelector("#talla") && typeof Choices !== "undefined") {
-  tallaOpciones = new Choices("#talla", {
-    removeItemButton: true,
-    searchEnabled: false,
-    noChoicesText: "No hay más opciones",
-    itemSelectText: "Presiona para seleccionar",
-  });
+function obtenerColoresSeleccionados() {
+  return Array.from(
+    document.querySelectorAll("#color .color-swatch.activo"),
+  ).map((btn) => btn.dataset.color);
 }
 
-function mostrarTallas() {
-  if (!categoria || !tallaOpciones) return;
+function limpiarSeleccionColores() {
+  document
+    .querySelectorAll("#color .color-swatch.activo")
+    .forEach((btn) => btn.classList.remove("activo"));
+}
 
-  //tallaOpciones.removeActiveItems(); //borra las etiquetas previamente seleccionadas
-  //talla.innerHTML = "";
-  //tallaOpciones.clearChoices(); //borra la lista de opciones del menu desplegable
+function mostrarPreviewImagen(src) {
+  const preview = document.getElementById("preview-imagen");
+  const placeholder = document.getElementById("dropzone-placeholder");
+  if (!preview || !placeholder) return;
 
-  tallaOpciones.clearStore(); // borra la lista y etiquetas al mismo tiempo
-
-  const tipoCategoria = categoria.value;
-
-  let opciones = [];
-
-  if (tipoCategoria == "medias") {
-    for (let tallaMedias of tallas.medias) {
-      //talla.innerHTML += `<option value="${tallaMedias}">${tallaMedias}</option>`;
-      opciones.push({ value: tallaMedias, label: tallaMedias });
-    }
-  } else if (tipoCategoria == "camiseta") {
-    for (let tallaCamiseta of tallas.camiseta) {
-      //talla.innerHTML += `<option value="${tallaCamiseta}">${tallaCamiseta}</option>`;
-      opciones.push({ value: tallaCamiseta, label: tallaCamiseta });
-    }
-  } else if (tipoCategoria == "gorra") {
-    for (let tallaGorra of tallas.gorra) {
-      //talla.innerHTML += `<option value="${tallaGorra}">${tallaGorra}</option>`;
-      opciones.push({ value: tallaGorra, label: tallaGorra });
-    }
+  if (src) {
+    preview.src = src;
+    preview.classList.remove("d-none");
+    placeholder.classList.add("d-none");
+  } else {
+    preview.removeAttribute("src");
+    preview.classList.add("d-none");
+    placeholder.classList.remove("d-none");
   }
-  if (opciones.length > 0) {
-    // Si no esta el seleccionar por defecto y el array se lleno con una de las opciones
-    tallaOpciones.setChoices(opciones, "value", "label", true);
+}
+
+function mostrarTallas(tallasSeleccionar = null) {
+  if (!categoria || !talla) return;
+
+  const tallasPrevias = Array.isArray(tallasSeleccionar)
+    ? tallasSeleccionar
+    : obtenerTallasSeleccionadas();
+
+  const opcionesBase = tallas[categoria.value] || [];
+  const opciones = Array.isArray(tallasSeleccionar)
+    ? [...new Set([...opcionesBase, ...tallasSeleccionar])]
+    : opcionesBase;
+
+  if (opciones.length === 0) {
+    talla.innerHTML =
+      '<span class="small text-secondary">Selecciona un tipo de prenda para ver las tallas.</span>';
+    actualizarInputsDeStock();
+    return;
   }
+
+  talla.innerHTML = opciones
+    .map(
+      (valor) =>
+        `<button type="button" class="chip-talla${tallasPrevias.includes(valor) ? " activo" : ""}" data-talla="${valor}">${valor}</button>`,
+    )
+    .join("");
+
+  actualizarInputsDeStock();
 }
 
 if (categoria) {
-  categoria.addEventListener("change", mostrarTallas); // cuando haya cambios en la categoria, se ejecuta mostrarTallas
+  categoria.addEventListener("change", () => mostrarTallas());
+}
+
+if (talla) {
+  talla.addEventListener("click", (e) => {
+    const chip = e.target.closest(".chip-talla");
+    if (!chip) return;
+    chip.classList.toggle("activo");
+    actualizarInputsDeStock();
+  });
+}
+
+if (colorContenedor) {
+  colorContenedor.addEventListener("click", (e) => {
+    const swatch = e.target.closest(".color-swatch");
+    if (!swatch) return;
+    swatch.classList.toggle("activo");
+    actualizarInputsDeStock();
+  });
+}
+
+const inputImagenEl = document.getElementById("imagen");
+const dropzoneImagenEl = document.getElementById("dropzone-imagen");
+
+if (inputImagenEl) {
+  inputImagenEl.addEventListener("change", async () => {
+    if (inputImagenEl.files && inputImagenEl.files.length > 0) {
+      const base64 = await convertirImagenABase64(inputImagenEl.files[0]);
+      mostrarPreviewImagen(base64);
+    }
+  });
+}
+
+if (dropzoneImagenEl && inputImagenEl) {
+  dropzoneImagenEl.addEventListener("dragover", (e) => {
+    e.preventDefault();
+    dropzoneImagenEl.classList.add("dragover");
+  });
+
+  dropzoneImagenEl.addEventListener("dragleave", () => {
+    dropzoneImagenEl.classList.remove("dragover");
+  });
+
+  dropzoneImagenEl.addEventListener("drop", async (e) => {
+    e.preventDefault();
+    dropzoneImagenEl.classList.remove("dragover");
+    const archivo = e.dataTransfer?.files?.[0];
+    if (!archivo || !archivo.type.startsWith("image/")) return;
+
+    const dt = new DataTransfer();
+    dt.items.add(archivo);
+    inputImagenEl.files = dt.files;
+
+    const base64 = await convertirImagenABase64(archivo);
+    mostrarPreviewImagen(base64);
+  });
 }
 
 const convertirImagenABase64 = (archivo) => {
@@ -269,11 +359,8 @@ async function guardarProducto(e) {
   const nombre = document.getElementById("nombre").value.trim();
   const precio = parseFloat(document.getElementById("precio").value);
 
-  // extraer valores de choices js
-  const coloresSeleccionados = colorOpciones
-    ? colorOpciones.getValue(true)
-    : [];
-  const tallasSeleccionadas = tallaOpciones ? tallaOpciones.getValue(true) : [];
+  const coloresSeleccionados = obtenerColoresSeleccionados();
+  const tallasSeleccionadas = obtenerTallasSeleccionadas();
 
   //inicializar el array de variantes que guardara un objeto para las diferentes variantes ej: {color: azul talla: XL cantidad: 20}
   let variantesStockSeleccionadas = [];
@@ -332,6 +419,9 @@ async function guardarProducto(e) {
     if (index !== -1) {
       // Actualizamos los datos del producto
       productos[index].nombre = nombre;
+      if (categoria && tallas[categoria.value]) {
+        productos[index].categoria = categoria.value;
+      }
       productos[index].precio = precio;
       productos[index].stock = stockTotalCalculado;
       productos[index].tallas = tallasSeleccionadas;
@@ -341,6 +431,8 @@ async function guardarProducto(e) {
       // Solo actualizamos la imagen si el usuario seleccionó una nueva
       if (rutaImagen) {
         productos[index].imagen = rutaImagen;
+      } else if (!productos[index].imagen) {
+        productos[index].imagen = IMAGEN_GENERICA;
       }
     }
 
@@ -354,10 +446,9 @@ async function guardarProducto(e) {
     if (btnSubmit) btnSubmit.value = "Guardar producto";
 
     formularioProducto.reset();
-    if (colorOpciones) colorOpciones.removeActiveItems();
-    if (tallaOpciones) tallaOpciones.clearStore();
-    actualizarInputsDeStock();
-
+    limpiarSeleccionColores();
+    mostrarTallas([]);
+    mostrarPreviewImagen(null);
   } else {
     //CREAR
 
@@ -371,7 +462,7 @@ async function guardarProducto(e) {
       nombre: nombre,
       categoria: categoria.value,
       precio: precio,
-      imagen: rutaImagen,
+      imagen: rutaImagen || IMAGEN_GENERICA,
       stock: stockTotalCalculado,
       tallas: tallasSeleccionadas,
       colores: coloresSeleccionados,
@@ -384,12 +475,17 @@ async function guardarProducto(e) {
     // actualizar el local storage
     localStorage.setItem("misProductos_v4", JSON.stringify(productos));
 
-    // limpiar form y choice js
     formularioProducto.reset();
-    if (colorOpciones) colorOpciones.removeActiveItems();
-    if (tallaOpciones) tallaOpciones.clearStore();
+    limpiarSeleccionColores();
+    mostrarTallas([]);
+    mostrarPreviewImagen(null);
 
     alert("Producto agregado y guardado correctamente");
+  }
+
+  const modalProductoEl = document.getElementById("modalProducto");
+  if (modalProductoEl && typeof bootstrap !== "undefined") {
+    bootstrap.Modal.getOrCreateInstance(modalProductoEl).hide();
   }
 
   // actualizar el "canva" dom
@@ -410,16 +506,8 @@ function actualizarInputsDeStock() {
     return;
   }
 
-  // Extracción segura que evita que el código se rompa si Choices.js devuelve undefined o un string
-  const obtenerValores = (instancia) => {
-    if (!instancia) return [];
-    const valor = instancia.getValue(true);
-    if (!valor) return [];
-    return Array.isArray(valor) ? valor : [valor];
-  };
-
-  const coloresArray = obtenerValores(colorOpciones);
-  const tallasArray = obtenerValores(tallaOpciones);
+  const coloresArray = obtenerColoresSeleccionados();
+  const tallasArray = obtenerTallasSeleccionadas();
 
   // Si falta alguno, mostrar el mensaje de ayuda con color blanco forzado (!important)
   if (coloresArray.length === 0 || tallasArray.length === 0) {
@@ -428,43 +516,68 @@ function actualizarInputsDeStock() {
     return;
   }
 
+  const valoresPrevios = {};
+  contenedorVariantes
+    .querySelectorAll(".input-stock-variante")
+    .forEach((input) => {
+      const clave = `${normalizar(input.dataset.color)}__${normalizar(input.dataset.talla)}`;
+      valoresPrevios[clave] = input.value;
+    });
+
   contenedorVariantes.innerHTML = "";
+
+  let htmlVariantes = "";
 
   // generar los inputs por cada combinacion de talla y color
   coloresArray.forEach((color) => {
     tallasArray.forEach((talla) => {
-      contenedorVariantes.innerHTML += `
+      const clave = `${normalizar(color)}__${normalizar(talla)}`;
+      const valorActual =
+        valoresPrevios[clave] !== undefined ? valoresPrevios[clave] : "0";
+      htmlVariantes += `
         <div class="d-flex justify-content-between align-items-center bg-secondary p-2 rounded mb-2">
           <label class="mb-0 text-white text-capitalize" style="color: #ffffff !important;">${color} - Talla ${talla}</label>
           <input type="number" min="0" class="form-control form-control-sm input-stock-variante"
                  style="width: 100px;"
                  data-color="${color}"
                  data-talla="${talla}"
-                 value="0" required>
+                 value="${valorActual}" required>
         </div>
       `;
     });
   });
-}
 
-// choices.js dispara eventos 'addItem' y 'removeItem' cuando el usuario interactúa
-const selectTallaEl = document.getElementById("talla");
-const selectColorEl = document.getElementById("color");
-
-if (selectTallaEl) {
-  selectTallaEl.addEventListener("addItem", actualizarInputsDeStock);
-  selectTallaEl.addEventListener("removeItem", actualizarInputsDeStock);
-}
-
-if (selectColorEl) {
-  selectColorEl.addEventListener("addItem", actualizarInputsDeStock);
-  selectColorEl.addEventListener("removeItem", actualizarInputsDeStock);
+  contenedorVariantes.innerHTML = htmlVariantes;
 }
 
 // variable "bandera" para saber si se esta creando o actualizando
 let productoIdEnEdicion = null;
 
 const normalizar = (texto) => quitarTildes(String(texto).trim().toLowerCase());
+
+function obtenerCategoriaProducto(producto) {
+  if (producto.categoria && tallas[producto.categoria]) {
+    return producto.categoria;
+  }
+  const nombreNorm = normalizar(producto.nombre || "");
+  if (nombreNorm.includes("camiseta") || nombreNorm.includes("camisa")) {
+    return "camiseta";
+  }
+  if (nombreNorm.includes("gorra")) {
+    return "gorra";
+  }
+  if (nombreNorm.includes("media")) {
+    return "medias";
+  }
+  const tallasProducto = producto.tallas || [];
+  if (tallasProducto.some((t) => tallas.medias.includes(t))) {
+    return "medias";
+  }
+  if (tallasProducto.some((t) => tallas.camiseta.includes(t))) {
+    return "camiseta";
+  }
+  return "";
+}
 
 function editarProducto(id) {
   // buscamos el producto en el array
@@ -474,30 +587,34 @@ function editarProducto(id) {
   // bandera: estamos editando
   productoIdEnEdicion = id;
 
+  if (contenedorVariantes) {
+    contenedorVariantes.innerHTML = "";
+  }
+
   // datos básicos
   document.getElementById("nombre").value = producto.nombre;
   document.getElementById("precio").value = producto.precio;
 
+  const categoriaProducto = obtenerCategoriaProducto(producto);
+  if (categoria) {
+    if (categoriaProducto && tallas[categoriaProducto]) {
+      categoria.value = categoriaProducto;
+    } else {
+      categoria.selectedIndex = 0;
+    }
+  }
+
   // minúscula para que coincida con el value del select
   const colores = (producto.colores || []).map((c) => c.toLowerCase());
 
-  if (colorOpciones) {
-    colorOpciones.removeActiveItems();
-    colorOpciones.setChoiceByValue(colores);
-  }
+  limpiarSeleccionColores();
+  document.querySelectorAll("#color .color-swatch").forEach((btn) => {
+    if (colores.includes(btn.dataset.color.toLowerCase())) {
+      btn.classList.add("activo");
+    }
+  });
 
-  if (tallaOpciones) {
-    tallaOpciones.clearStore();
-    const opcionesTalla = (producto.tallas || []).map((t) => ({
-      value: t,
-      label: t,
-    }));
-    tallaOpciones.setChoices(opcionesTalla, "value", "label", true);
-    tallaOpciones.setChoiceByValue(producto.tallas || []);
-  }
-
-  // creamos los inputs de stock dinámicamente
-  actualizarInputsDeStock();
+  mostrarTallas(producto.tallas || []);
 
   // llenamos el stock guardado (sin setTimeout: los inputs ya existen)
   const variantes = producto.variantesStock || [];
@@ -507,8 +624,15 @@ function editarProducto(id) {
         normalizar(v.color) === normalizar(input.dataset.color) &&
         normalizar(v.talla) === normalizar(input.dataset.talla),
     );
-    if (variante) input.value = variante.cantidad;
+    input.value = variante ? variante.cantidad : 0;
   });
+
+  const rutaImg = !producto.imagen
+    ? null
+    : producto.imagen.startsWith("data:")
+      ? producto.imagen
+      : `../../${producto.imagen}`;
+  mostrarPreviewImagen(rutaImg);
 
   // el submit es un <input>, así que se cambia su value
   const btnSubmit = document.querySelector(
@@ -516,8 +640,135 @@ function editarProducto(id) {
   );
   if (btnSubmit) btnSubmit.value = "Actualizar Producto";
 
-  // llevamos al usuario al formulario
-  document
-    .getElementById("formulario-producto")
-    .scrollIntoView({ behavior: "smooth" });
+  const tituloModal = document.getElementById("modalProductoTitulo");
+  if (tituloModal) tituloModal.textContent = "Editar producto";
+
+  const modalProductoEl = document.getElementById("modalProducto");
+  if (modalProductoEl && typeof bootstrap !== "undefined") {
+    bootstrap.Modal.getOrCreateInstance(modalProductoEl).show();
+  }
+}
+
+function abrirModalCrear() {
+  productoIdEnEdicion = null;
+
+  if (formularioProducto) formularioProducto.reset();
+  if (categoria) categoria.selectedIndex = 0;
+  limpiarSeleccionColores();
+  if (contenedorVariantes) contenedorVariantes.innerHTML = "";
+  mostrarTallas([]);
+  mostrarPreviewImagen(null);
+
+  const btnSubmit = document.querySelector(
+    "#formulario-producto input[type='submit']",
+  );
+  if (btnSubmit) btnSubmit.value = "Guardar producto";
+
+  const tituloModal = document.getElementById("modalProductoTitulo");
+  if (tituloModal) tituloModal.textContent = "Nuevo producto";
+
+  const modalProductoEl = document.getElementById("modalProducto");
+  if (modalProductoEl && typeof bootstrap !== "undefined") {
+    bootstrap.Modal.getOrCreateInstance(modalProductoEl).show();
+  }
+}
+
+function verVariantes(id) {
+  const producto = productos.find((p) => p.id === id);
+  if (!producto) return;
+
+  const titulo = document.getElementById("modalVariantesTitulo");
+  const contenido = document.getElementById("contenido-variantes");
+  if (!contenido) return;
+
+  if (titulo) titulo.textContent = `Variantes — ${producto.nombre}`;
+
+  const htmlTallas = (producto.tallas || [])
+    .map((t) => `<span class="badge bg-secondary me-1">${t}</span>`)
+    .join("");
+
+  const htmlColores = (producto.colores || [])
+    .map((c) => {
+      const bg = mapaColores[c.toLowerCase()] || "#adb5bd";
+      return `<span class="badge bg-dark text-light border border-secondary me-1 mb-1 text-capitalize d-inline-flex align-items-center gap-1">
+        <span class="d-inline-block rounded-circle border" style="width: 12px; height: 12px; background-color: ${bg};"></span>
+        ${c}
+      </span>`;
+    })
+    .join("");
+
+  const variantes = producto.variantesStock || [];
+  let htmlStock = "";
+  if (variantes.length > 0) {
+    const filas = variantes
+      .map(
+        (v) => `
+          <tr>
+            <td class="text-capitalize">${v.color}</td>
+            <td>${v.talla}</td>
+            <td class="fw-semibold">${v.cantidad}</td>
+          </tr>
+        `,
+      )
+      .join("");
+    htmlStock = `
+      <h6 class="mt-3 mb-2">Stock por variante</h6>
+      <table class="table table-dark table-sm table-bordered mb-0">
+        <thead>
+          <tr>
+            <th>Color</th>
+            <th>Talla</th>
+            <th>Cantidad</th>
+          </tr>
+        </thead>
+        <tbody>${filas}</tbody>
+      </table>
+    `;
+  }
+
+  contenido.innerHTML = `
+    <div class="mb-2"><strong>Tallas:</strong> ${htmlTallas || "Sin tallas"}</div>
+    <div class="mb-2"><strong>Colores:</strong> ${htmlColores || "Sin colores"}</div>
+    ${htmlStock}
+  `;
+
+  const modalVariantesEl = document.getElementById("modalVariantes");
+  if (modalVariantesEl && typeof bootstrap !== "undefined") {
+    bootstrap.Modal.getOrCreateInstance(modalVariantesEl).show();
+  }
+}
+
+let productoIdAEliminar = null;
+
+function abrirModalEliminar(id) {
+  const producto = productos.find((p) => p.id === id);
+  if (!producto) return;
+
+  productoIdAEliminar = id;
+
+  const nombreEl = document.getElementById("eliminar-nombre");
+  if (nombreEl) nombreEl.textContent = producto.nombre;
+
+  const modalEliminarEl = document.getElementById("modalEliminar");
+  if (modalEliminarEl && typeof bootstrap !== "undefined") {
+    bootstrap.Modal.getOrCreateInstance(modalEliminarEl).show();
+  }
+}
+
+function confirmarEliminar() {
+  if (productoIdAEliminar === null) return;
+
+  const index = productos.findIndex((p) => p.id === productoIdAEliminar);
+  if (index !== -1) {
+    productos.splice(index, 1);
+    localStorage.setItem("misProductos_v4", JSON.stringify(productos));
+    renderizarTabla(productos);
+  }
+
+  productoIdAEliminar = null;
+
+  const modalEliminarEl = document.getElementById("modalEliminar");
+  if (modalEliminarEl && typeof bootstrap !== "undefined") {
+    bootstrap.Modal.getOrCreateInstance(modalEliminarEl).hide();
+  }
 }
